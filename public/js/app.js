@@ -6,7 +6,6 @@ function goToQuestion(element) {
 }
 
 $(function () {
-    var foundQuestion = false;
     $('.q-1of3:first-child').addClass('active');
 
     $('.q-1of3 input[type=\'radio\']').click(function () {

@@ -381,7 +381,6 @@ return [
                 "depressie",
                 "verbinding",
                 "authenticiteit",
-                "sensitief",
             ],
         ],
         [

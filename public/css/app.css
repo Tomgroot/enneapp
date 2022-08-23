@@ -35,6 +35,7 @@
     height: 2rem;
     width: 2rem;
     margin-bottom: 0.5rem;
+    caret-color: transparent;
     border: 3px solid rgb(176, 198, 206);
 }
 
@@ -95,7 +96,13 @@
     align-items: center;
 }
 
+.card-body:not(.keywords) {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
 label.container {
+    caret-color: transparent;
     cursor: pointer;
 }
 
