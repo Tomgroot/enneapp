@@ -216,7 +216,7 @@ return [
         ],
         [
             'type' => 6,
-            'title' => 'Ik weet vaak wel een uitweg (...) (ik ben een vat vol tegenstrijdigheden.) Ik ben een goede \'scenarioplanner\'.',
+            'title' => 'Ik weet vaak wel een uitweg (al ben ik een vat vol tegenstrijdigheden). Ik ben een goede \'scenarioplanner\'.',
         ],
         [
             'type' => 6,
@@ -224,7 +224,7 @@ return [
         ],
         [
             'type' => 7,
-            'title' => 'Ik* loop het liefst meteen grote boog om pijnen verdriet heen. *zet graag mijn roze bril op.',
+            'title' => 'Ik zet graag mijn roze bril op en loop het liefst meteen grote boog om pijn en verdriet heen.',
         ],
         [
             'type' => 7,
@@ -382,7 +382,6 @@ return [
                 "verbinding",
                 "authenticiteit",
                 "sensitief",
-                "uniek",
             ],
         ],
         [

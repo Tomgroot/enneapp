@@ -1,0 +1,110 @@
+
+.q-1of3 {
+    text-align: center;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    opacity: 0.5;
+}
+
+.q-1of3.active {
+    opacity: 1;
+}
+
+.q-1of3 .title {
+    font-size: 1.3rem;
+    margin: 0 0.75rem;
+}
+
+.q-1of3 .container {
+    display: flex;
+    justify-content: center;
+}
+
+.q-1of3 .container label {
+    align-items: center;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.q-1of3 .checkmark {
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    margin-bottom: 0.5rem;
+    border: 3px solid rgb(176, 198, 206);
+}
+
+.q-1of3 .container .checkmark-title {
+    color: rgb(176, 198, 206);
+}
+
+.q-1of3 .container label:first-child input:checked ~ .checkmark {
+    background-color: #329F5B;
+}
+
+.q-1of3 .container label:first-child .checkmark {
+    border-color: #329F5B;
+}
+
+.q-1of3 .container label:first-child .checkmark-title {
+    color: #329F5B;
+}
+
+.q-1of3 .container label:last-child input:checked ~ .checkmark {
+    background-color: #C42021;
+}
+
+.q-1of3 .container label:last-child .checkmark {
+    border-color: #C42021;
+}
+
+.q-1of3 .container label:last-child .checkmark-title {
+    color: #C42021;
+}
+
+.q-1of3 .title {
+    margin-bottom: 0.5rem;
+}
+
+.q-1of3 input[type='radio'] {
+    visibility: hidden;
+    position: absolute;
+}
+
+.q-1of3 input[type='radio']:checked ~ .checkmark {
+    background-color: rgb(176, 198, 206);
+}
+
+.q-1of9 input[type='radio'] {
+    position: absolute;
+    /*visibility: hidden;*/
+}
+
+.card ul {
+    margin-bottom: 0px;
+}
+
+.card-body.keywords {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label.container {
+    cursor: pointer;
+}
+
+.container .card {
+    transition: background-color 200ms ease, color 200ms ease;
+}
+
+.container input[type='radio']:checked ~ .card {
+    background-color: #329F5B;
+    color: white;
+}
+

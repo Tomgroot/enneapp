@@ -16,11 +16,14 @@ class TestController extends Controller
     public function show()
     {
         shuffle($this->questions['1of3']);
+        shuffle($this->questions['keywords']);
+        shuffle($this->questions['summaries']);
         return view('test', [
-            'questions' => $this->questions['1of3']
+            'q_1of3'      => $this->questions['1of3'] ?? [],
+            'q_keywords'  => $this->questions['keywords'] ?? [],
+            'q_summaries' => $this->questions['summaries'] ?? [],
         ]);
     }
-
 
 }
 
