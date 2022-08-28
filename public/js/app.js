@@ -14,7 +14,11 @@ $(function () {
         goToQuestion(c.next());
     })
 
-    // $('.q-1of3').each(function () {
+    $('.test-section input[type=\'radio\']').click(function () {
+        $('.test-section:not(.active)').addClass('active');
+    });
+
+        // $('.q-1of3').each(function () {
     //     if ($(this).find("input[type='radio']:checked").length > 0) {
     //         return;
     //     }

@@ -224,7 +224,7 @@ return [
         ],
         [
             'type' => 7,
-            'title' => 'Ik zet graag mijn roze bril op en loop het liefst meteen grote boog om pijn en verdriet heen.',
+            'title' => 'Ik zet graag mijn roze bril op en loop het liefst met een grote boog om pijn en verdriet heen.',
         ],
         [
             'type' => 7,
@@ -236,7 +236,7 @@ return [
         ],
         [
             'type' => 7,
-            'title' => 'Ik heb de neigingproblemen op te lossen met een lach.',
+            'title' => 'Ik heb de neiging problemen op te lossen met een lach.',
         ],
         [
             'type' => 7,
@@ -297,7 +297,7 @@ return [
         ],
         [
             'type' => 9,
-            'title' => 'Ik vindharmonie belangrijk.',
+            'title' => 'Ik vind harmonie belangrijk.',
         ],
         [
             'type' => 9,
@@ -479,7 +479,7 @@ return [
         ],
         [
             'type' => 5,
-            'summary' => 'Ik wil weten, de dingen om heen begrijpen. Kennis is macht. Ik denk voordat ik doe.
+            'summary' => 'Ik wil weten, de dingen om me heen begrijpen. Kennis is macht. Ik denk voordat ik doe.
                 Ik vind het lastig emoties direct te uiten, soms beleef ik mijn gevoelens achteraf. Ik houd niet
                 van verrassingen of emotionele uitbarstingen. Geef mij de feiten, dat maakt het voor mij begrijpelijk.
                 Privé en zaken houd ik het liefst gescheiden. Ik vind het niet fijn dingen over mezelf te vertellen,
@@ -526,6 +526,18 @@ return [
                 goed wat ik wil. Door in een ander op te gaan, vorm ik mijn mening. Maar eigenlijk mis ik daardoor
                 (het contact met wie ik werkelijk ben en) wat ik zelf wil.'
         ],
+    ],
+    'type_encoding' => [
+        '1400',
+        'd4c1',
+        'd581',
+        '1540',
+        'd701',
+        '17c0',
+        '1680',
+        'd641',
+        'd201',
+        '12c0'
     ],
 ];
 

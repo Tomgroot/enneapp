@@ -3,7 +3,9 @@
     text-align: center;
     margin-top: 5rem;
     margin-bottom: 5rem;
+    padding-bottom: 5rem;
     opacity: 0.5;
+    border-bottom: 1px solid #dddfe2;
 }
 
 .q-1of3.active {
@@ -115,3 +117,50 @@ label.container {
     color: white;
 }
 
+.summaries {
+    font-size: 0.8rem;
+}
+
+.test-section {
+    opacity: 0.5;
+}
+
+.test-section.active {
+    opacity: 1;
+}
+
+.btn-send {
+    background-color: #329F5B;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    margin: 40px auto;
+    display: block;
+}
+
+.questions-container {
+    padding-bottom: 6rem;
+}
+
+.description {
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+}
+
+.test-header {
+    background-color: #329F5B;
+    color: white;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+.test-header .container {
+    max-width: 600px;
+}
+
+.test-header a {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    color: #1a6437;
+    text-decoration: none;
+}

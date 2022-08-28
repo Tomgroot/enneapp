@@ -15,3 +15,5 @@ use \App\Http\Controllers\TestController;
 */
 
 Route::get('/', [TestController::class, 'show']);
+
+Route::post('/result', [TestController::class, 'result'])->name('result');

@@ -6,7 +6,7 @@
                name="summaries"
            @endif value="{{$key}}">
     <div class="card flex-grow-1">
-        <div class="card-body @if (isset($keywords) && $keywords == true) keywords @endif ">
+        <div class="card-body @if (isset($keywords) && $keywords == true) keywords @else summaries @endif ">
             {{$slot}}
         </div>
     </div>
