@@ -527,17 +527,5 @@ return [
                 (het contact met wie ik werkelijk ben en) wat ik zelf wil.'
         ],
     ],
-    'type_encoding' => [
-        '1400',
-        'd4c1',
-        'd581',
-        '1540',
-        'd701',
-        '17c0',
-        '1680',
-        'd641',
-        'd201',
-        '12c0'
-    ],
 ];
 
