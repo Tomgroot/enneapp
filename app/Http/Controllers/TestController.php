@@ -126,8 +126,9 @@ class TestController extends Controller
             echo "Resultaat ". $answer_1of3;
         }
         if ($answer_keywords == $answer_summaries) {
-            echo "Resultaat: ". $answer_keywords;
+            echo "Resultaat: ". $answer_keywords . " (" . $answer_1of3 .")";
         }
+        var_dump($type_counter);
     }
 
     /**
