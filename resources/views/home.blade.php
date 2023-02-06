@@ -7,7 +7,7 @@
 <body>
 
 
-<x-1of3>Testing</x-1of3>
+<x-scale>Testing</x-scale>
 
 </body>
 </html>

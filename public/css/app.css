@@ -1,5 +1,5 @@
 
-.q-1of3 {
+.q-scale {
     text-align: center;
     margin-top: 5rem;
     margin-bottom: 5rem;
@@ -8,21 +8,21 @@
     border-bottom: 1px solid #dddfe2;
 }
 
-.q-1of3.active {
+.q-scale.active {
     opacity: 1;
 }
 
-.q-1of3 .title {
+.q-scale .title {
     font-size: 1.3rem;
     margin: 0 0.75rem;
 }
 
-.q-1of3 .container {
+.q-scale .container {
     display: flex;
     justify-content: center;
 }
 
-.q-1of3 .container label {
+.q-scale .container label {
     align-items: center;
     display: flex;
     align-self: center;
@@ -32,7 +32,7 @@
     cursor: pointer;
 }
 
-.q-1of3 .checkmark {
+.q-scale .checkmark {
     border-radius: 50%;
     height: 2rem;
     width: 2rem;
@@ -41,44 +41,44 @@
     border: 3px solid rgb(176, 198, 206);
 }
 
-.q-1of3 .container .checkmark-title {
+.q-scale .container .checkmark-title {
     color: rgb(176, 198, 206);
 }
 
-.q-1of3 .container label:first-child input:checked ~ .checkmark {
+.q-scale .container label:first-child input:checked ~ .checkmark {
     background-color: #329F5B;
 }
 
-.q-1of3 .container label:first-child .checkmark {
+.q-scale .container label:first-child .checkmark {
     border-color: #329F5B;
 }
 
-.q-1of3 .container label:first-child .checkmark-title {
+.q-scale .container label:first-child .checkmark-title {
     color: #329F5B;
 }
 
-.q-1of3 .container label:last-child input:checked ~ .checkmark {
+.q-scale .container label:last-child input:checked ~ .checkmark {
     background-color: #C42021;
 }
 
-.q-1of3 .container label:last-child .checkmark {
+.q-scale .container label:last-child .checkmark {
     border-color: #C42021;
 }
 
-.q-1of3 .container label:last-child .checkmark-title {
+.q-scale .container label:last-child .checkmark-title {
     color: #C42021;
 }
 
-.q-1of3 .title {
+.q-scale .title {
     margin-bottom: 0.5rem;
 }
 
-.q-1of3 input[type='radio'] {
+.q-scale input[type='radio'] {
     visibility: hidden;
     position: absolute;
 }
 
-.q-1of3 input[type='radio']:checked ~ .checkmark {
+.q-scale input[type='radio']:checked ~ .checkmark {
     background-color: rgb(176, 198, 206);
 }
 

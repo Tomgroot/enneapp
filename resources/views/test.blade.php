@@ -25,8 +25,8 @@
 <div class="container questions-container">
     <form action="{{ route('result') }}" method="POST">
         <div>
-            @foreach ($q_1of3 as $key => $question)
-                <x-1of3 key="{{ $key }}">{{ $question['title'] }}</x-1of3>
+            @foreach ($q_scale as $key => $question)
+                <x-scale key="{{ $key }}">{{ $question['title'] }}</x-scale>
             @endforeach
             <div class="test-section">
                 <h2 class="mb-3 mt-5 fw-bold">Kernwoorden (deel 2/3)</h2>

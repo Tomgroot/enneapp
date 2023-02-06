@@ -6,10 +6,10 @@ function goToQuestion(element) {
 }
 
 $(function () {
-    $('.q-1of3:first-child').addClass('active');
+    $('.q-scale:first-child').addClass('active');
 
-    $('.q-1of3 input[type=\'radio\']').click(function () {
-        var c = $(this).closest('.q-1of3');
+    $('.q-scale input[type=\'radio\']').click(function () {
+        var c = $(this).closest('.q-scale');
         c.removeClass('active');
         goToQuestion(c.next());
     })
