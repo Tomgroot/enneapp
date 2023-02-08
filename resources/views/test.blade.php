@@ -25,9 +25,20 @@
 <div class="container questions-container">
     <form action="{{ route('result') }}" method="POST">
         <div>
+            @php($i = 0)
+            <div class="test-section">
             @foreach ($q_scale as $key => $question)
+                @php($i ++)
                 <x-scale key="{{ $key }}">{{ $question['title'] }}</x-scale>
+                @if ($i % 5 == 0 && $i != 0)
+                    <button class="btn btn-success btn-send">Volgende</button>
+                    </div>
+                    <div class="test-section">
+                @endif
             @endforeach
+            @if ($i % 5 != 0)
+                </div>
+            @endif
             <div class="test-section">
                 <h2 class="mb-3 mt-5 fw-bold">Kernwoorden (deel 2/3)</h2>
                 <p class="description">
@@ -51,9 +62,6 @@
                     met jouw persoonlijkheid overeenkomen.
                 </p>
                 <div class="row">
-                    @foreach ($q_summaries as $key => $question)
-                        <x-1of9 key="{{ $key }}">{{ $question['summary'] }}</x-1of9>
-                    @endforeach
                 </div>
                 <input type="hidden" value="{{$keys}}" name="keys">
             </div>

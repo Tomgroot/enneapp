@@ -24,15 +24,19 @@ class TestController extends Controller
         $q_keywords = $this->shuffleQuestions($this->questions['keywords']);
         $q_summaries = $this->shuffleQuestions($this->questions['summaries']);
 
-        return view('test', [
-            'q_scale'      => $q_scale,
-            'q_keywords'  => $q_keywords,
-            'q_summaries' => $q_summaries,
-            'keys'        => base64_encode(json_encode([
+        $raw_question_data = json_encode([
+            'keys' => [
                 'scale' => array_keys($q_scale),
                 'keywords' => array_keys($q_keywords),
                 'summaries' => array_keys($q_summaries)
-            ]))
+            ],
+            'scale' => $q_scale,
+            'keywords' => $q_keywords,
+            'summaries' => $q_summaries,
+        ]);
+
+        return view('welcome', [
+            'raw_question_data' => $raw_question_data,
         ]);
     }
 

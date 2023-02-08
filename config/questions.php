@@ -444,7 +444,7 @@ return [
         [
             'type' => 1,
             'summary' => [
-                'Ik ben veeleisend en kritisch. Naar anderen, maar vooral naar mezelf. Ik maak niet graag fouten.  Ik heb een kritische stem in mij die ervoor zorgt dat ik geen fouten maak of verkeerde dingen zeg.'
+                'Ik ben veeleisend en kritisch. Naar anderen, maar vooral naar mezelf. Ik maak niet graag fouten.  Ik heb een kritische stem in mij die ervoor zorgt dat ik geen fouten maak of verkeerde dingen zeg.',
                 'Ik doe dingen vooral omdat ik vind dat ik ze moet doen. Ik doe de dingen het liefst zelf, dan weet ik dat het goed gebeurt.',
                 'Ik ben iemand die het liefst alles in het gareel houdt. Ik vind het prettig om alles ordentelijk en efficiënt te laten verlopen.'
             ]
