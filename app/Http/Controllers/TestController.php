@@ -20,19 +20,22 @@ class TestController extends Controller
      */
     public function show()
     {
-        $q_scale = $this->shuffleQuestions($this->questions['scale']);
-        $q_keywords = $this->shuffleQuestions($this->questions['keywords']);
-        $q_summaries = $this->shuffleQuestions($this->questions['summaries']);
+        $random_scale = $this->shuffleQuestions($this->questions['scale']);
+        $random_keywords = array_chunk($this->shuffleQuestions($this->questions['keywords']),3);
+
+        $random_summaries = $this->shuffleQuestions($this->questions['summaries']);
+        $random_summaries = array_chunk($random_summaries,3);
+        $random_summaries = $this->fillWithOtherCombinations($random_summaries);
 
         $raw_question_data = json_encode([
-            'keys' => [
-                'scale' => array_keys($q_scale),
-                'keywords' => array_keys($q_keywords),
-                'summaries' => array_keys($q_summaries)
+            'random' => [
+                'scale' => $random_scale,
+                'keywords' => $random_keywords,
+                'summaries' => $random_summaries
             ],
-            'scale' => $q_scale,
-            'keywords' => $q_keywords,
-            'summaries' => $q_summaries,
+            'scale' => $this->questions['scale'],
+            'keywords' => $this->questions['keywords'],
+            'summaries' => $this->questions['summaries'],
         ]);
 
         return view('welcome', [
@@ -49,11 +52,27 @@ class TestController extends Controller
     {
         $keys = array_keys($questions);
         shuffle($keys);
-        $shuffledArray = [];
-        foreach($keys as $key) {
-            $shuffledArray[$key] = $questions[$key];
+        return $keys;
+    }
+
+    /**
+     * With an array of numbers, create an array with all combinations
+     */
+    private function fillWithOtherCombinations($multi_dim_array) {
+        $new_array = $multi_dim_array;
+        foreach ($multi_dim_array as $key => $array) {
+            $new_deep_array = [];
+            $another_new_deep_array = [];
+            $increasing_key = $key;
+            foreach ($multi_dim_array as $deep_key => $deep_array) {
+                $new_deep_array[] = $deep_array[$key];
+                $another_new_deep_array[] = $deep_array[$increasing_key];
+                $increasing_key = ($increasing_key + 1) % 3;
+            }
+            $new_array[] = $new_deep_array;
+            $new_array[] = $another_new_deep_array;
         }
-        return $shuffledArray;
+        return $new_array;
     }
 
     /**

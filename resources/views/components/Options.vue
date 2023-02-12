@@ -7,7 +7,6 @@
 </template>
 <style lang="scss" scoped>
 .q-options {
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,6 +15,7 @@
         background-color: #fff;
         border-radius: 1.1rem;
         padding: 1.5rem;
+        cursor: pointer;
         margin-bottom: 0.75rem;
         box-shadow: 0px 3px 3px rgba(236, 137, 69, 0.2);
         transition: all 200ms ease;
@@ -47,6 +47,7 @@ export default {
     methods: {
         select: function (i) {
             this.selected = i;
+            setTimeout(() => this.$emit('select', this.selected), 200);
         }
     }
 }

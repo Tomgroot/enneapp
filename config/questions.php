@@ -443,7 +443,7 @@ return [
     'summaries' => [
         [
             'type' => 1,
-            'summary' => [
+            'summaries' => [
                 'Ik ben veeleisend en kritisch. Naar anderen, maar vooral naar mezelf. Ik maak niet graag fouten.  Ik heb een kritische stem in mij die ervoor zorgt dat ik geen fouten maak of verkeerde dingen zeg.',
                 'Ik doe dingen vooral omdat ik vind dat ik ze moet doen. Ik doe de dingen het liefst zelf, dan weet ik dat het goed gebeurt.',
                 'Ik ben iemand die het liefst alles in het gareel houdt. Ik vind het prettig om alles ordentelijk en efficiënt te laten verlopen.'
@@ -451,7 +451,7 @@ return [
         ],
         [
             'type' => 2,
-            'summary' => [
+            'summaries' => [
                 'Ik ben een echt \'mensen\'-mens. Ik vind het fijn wanneer anderen me nodig hebben. Ik weet wat anderen nodig hebben en het voelt goed wanneer anderen belangrijke dingen met me delen.',
                 'Mensen nemen me gemakkelijk in vertrouwen. Ik  stop veel energie in anderen. Ik claim te weinig tijd voor mezelf. Het gaat mij om het emotionele contact dat ik met iemand heb.',
                 'Ik geniet van aandacht, maar er zelf om vragen, doe ik niet. Ik val anderen niet graag lastig met mijn problemen. Om een ander niet te kwetsen slik ik veel in. Nee zeggen en duidelijk zijn vind ik dan ook erg lastig.'
@@ -459,7 +459,7 @@ return [
         ],
         [
             'type' => 3,
-            'summary' => [
+            'summaries' => [
                 'Ik vind het leuk als mensen zien of horen wat ik allemaal bereikt, gedaan of gemaakt heb. Op subtiele wijze laat ik mijn successen doorschemeren en vind het prettig als mensen dit opmerken en hierover complimenten maken.',
                 'Ik ben resultaatgericht en doe er alles aan om mijn doel te bereiken. Zeg me wat ik moet doen, ik zorg dat het voor elkaar komt. Ik ben altijd bezig, ik ga altijd door. Niets doen is verloren tijd.',
                 'Ik kan mensen motiveren om het beste uit zichzelf te halen. Ik zie snel waar anderen in uitblinken en weet hen ervan te overtuigen meer met hun talenten te doen.'
@@ -467,7 +467,7 @@ return [
         ],
         [
             'type' => 4,
-            'summary' => [
+            'summaries' => [
                 'Ik ben een oprecht, gevoelig en emotioneel intens mens. Leven doe ik zoals ik dat wil en ik uit me op een manier die mijn persoonlijkheid tot leven brengt. Het is belangrijk voor mij dat ik een betekenis en doel vind in mijn leven.',
                 'Ik houd ervan creatief te zijn en me op mijn eigen unieke manier uit te drukken. Ieder mens is uniek en ik vind dat ieder mens mag zijn zoals die is. Authenticiteit vind ik erg belangrijk.',
                 'Ik wil begrepen worden en mezelf en mijn gevoelens begrijpen. Ik ben en voel me soms een beetje een buitenstaander. Dat komt omdat ik anders ben en anderen mij vaak niet begrijpen.'
@@ -475,7 +475,7 @@ return [
         ],
         [
             'type' => 5,
-            'summary' => [
+            'summaries' => [
                 'Ik wil weten, de dingen om me heen begrijpen. Kennis is macht. Ik denk voordat ik doe. Ik reageer zelden ad rem. Dat komt omdat ik eerst, de dingen op een rijtje wil hebben.',
                 'Achter  de feiten zitten misschien emoties, maar die uit ik zelden. Geef mij de feiten, dat maakt het voor mij begrijpelijk. Emoties vertroebelen alleen maar.',
                 'Privé en zaken houd ik het liefst gescheiden. Ik vind het niet fijn dingen over mezelf te vertellen, dat gaat een ander niets aan. Ik kan niks met prietpraat, gesprekken moeten wel ergens over gaan.'
@@ -483,7 +483,7 @@ return [
         ],
         [
             'type' => 6,
-            'summary' => [
+            'summaries' => [
                 'Ik weet graag wat de regels zijn, dan kan ik daar op vertrouwen. Ik kan overigens ook kritisch zijn op diezelfde regels en ze ter discussie stellen. Vertrouwen is belangrijk  alvorens ik met anderen in zee ga. Ik heb snel door of anderen een verborgen agenda hebben.',
                 'Ik kan soms wat weinig vertrouwen hebben in mezelf. Als anderen positief over mij zijn, kan ik me afvragen wat de reden daarvoor is. Als ze negatief over me zijn maakt me dat onrustig. Als het er op aankomt, dan spring ik er overigens middenin en doe ik wat ik moet doen.',
                 'Ik kan goed anticiperen op onvoorziene omstandigheden. Op vakantie gaat dat bijvoorbeeld over weersomstandigheden, gezondheid, begaanbare routes, eten, drinken of overnachtingsmogelijkheden. Op mijn werk overzie ik snel waar dingen fout kunnen gaan.'
@@ -491,7 +491,7 @@ return [
         ],
         [
             'type' => 7,
-            'summary' => [
+            'summaries' => [
                 'Ik vind dat je van het leven moet genieten. Het is leuk lol te maken en met veel verschillende dingen bezig te zijn. Ik houd van die dynamiek. Ik ben overigens ook weer een keer uitgekeken op een activiteit als het te lang duurt. Ik weet het meestal wel zo te plannen dat ik geen leuke activiteiten misloop.',
                 'Ik bedenk waanzinnig veel leuke en mooie plannen. Hoe meer adrenaline het oplevert, hoe beter. Soms is het wel een beetje druk in mijn hoofd, dan heb ik veel ideeën. Ik weet het meestal ook zo te brengen dat anderen er enthousiast van worden.',
                 'Ik wil anderen graag een plezier doen. In gezelschap ben ik vaak ad rem en ik vind het leuk om gevatte opmerkingen te maken en het middelpunt te zijn van de gezelligheid.'
@@ -499,7 +499,7 @@ return [
         ],
         [
             'type' => 8,
-            'summary' => [
+            'summaries' => [
                 'Ik ben een doordouwer. Ik houd van leven in de brouwerij en ik ben daar vaak zelf het middelpunt van. Als ik het niet organiseer, komt er niks van de grond. Ik ben een soort stalen spin in het web en geef graag mijn mening.',
                 'Ik hak makkelijk knopen door. Ik ben duidelijk en communiceer graag met mensen die zelfvertrouwen hebben. Bij mij weet je waar je aan toe bent. Ik heb een hekel aan gedraai en houd niet van uitvluchten.',
                 'Ik weet wanneer iemand onecht is. Ik voel de dingen instinctmatig aan. Het is een gevoel waar ik dan nog geen woorden bij heb. Maar dat gevoel bedriegt me nooit.'
@@ -507,7 +507,7 @@ return [
         ],
         [
             'type' => 9,
-            'summary' => [
+            'summaries' => [
                 'Ik heb de neiging belangrijke taken uit te stellen. Als er morgen nog een dag is, waarom zou je het vandaag dan doen. Vlak voor een deadline heb ik genoeg energie om alles toch op tijd klaar te hebben.',
                 'Ik vind het fijn wanneer er een goede sfeer is en het kalm en rustig is. Ik strijk problemen makkelijk glad zodat iedereen het weer naar zijn zin heeft. Als anderen zich ergens druk om maken, dan stel ik ze gerust. Och, alles komt immers goed uiteindelijk.',
                 'Ik ben niet zo moeilijk. Wat ik zelf wil is niet zo belangrijk. Al kan ik soms voor de lol iemand voor schut zetten die zich arrogant opstelt, ik ben nooit echt iemand tot last.'
