@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+}
+
+html {
+    background-color: $bg-color;
+    color: $text-color;
+    font-family: $font-family-sans-serif;
+}
+
+html, #app {
+    min-height: 100vh;
+}
+
+.container {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1;
+    max-width: 560px;
+    margin: 0 auto;
+    min-height: calc(100vh - 2rem);
+}
+
