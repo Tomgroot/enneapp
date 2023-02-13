@@ -20,19 +20,7 @@ class TestController extends Controller
      */
     public function show()
     {
-        $random_scale = $this->shuffleQuestions($this->questions['scale']);
-        $random_keywords = array_chunk($this->shuffleQuestions($this->questions['keywords']),3);
-
-        $random_summaries = $this->shuffleQuestions($this->questions['summaries']);
-        $random_summaries = array_chunk($random_summaries,3);
-        $random_summaries = $this->fillWithOtherCombinations($random_summaries);
-
         $raw_question_data = json_encode([
-            'random' => [
-                'scale' => $random_scale,
-                'keywords' => $random_keywords,
-                'summaries' => $random_summaries
-            ],
             'scale' => $this->questions['scale'],
             'keywords' => $this->questions['keywords'],
             'summaries' => $this->questions['summaries'],
@@ -41,38 +29,6 @@ class TestController extends Controller
         return view('welcome', [
             'raw_question_data' => $raw_question_data,
         ]);
-    }
-
-    /**
-     * Shuffle the questions but keep the keys
-     * @param $questions
-     * @return array
-     */
-    private function shuffleQuestions($questions)
-    {
-        $keys = array_keys($questions);
-        shuffle($keys);
-        return $keys;
-    }
-
-    /**
-     * With an array of numbers, create an array with all combinations
-     */
-    private function fillWithOtherCombinations($multi_dim_array) {
-        $new_array = $multi_dim_array;
-        foreach ($multi_dim_array as $key => $array) {
-            $new_deep_array = [];
-            $another_new_deep_array = [];
-            $increasing_key = $key;
-            foreach ($multi_dim_array as $deep_key => $deep_array) {
-                $new_deep_array[] = $deep_array[$key];
-                $another_new_deep_array[] = $deep_array[$increasing_key];
-                $increasing_key = ($increasing_key + 1) % 3;
-            }
-            $new_array[] = $new_deep_array;
-            $new_array[] = $another_new_deep_array;
-        }
-        return $new_array;
     }
 
     /**

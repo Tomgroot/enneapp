@@ -47,6 +47,7 @@ import Scale from './components/Scale.vue';
 import Options from './components/Options.vue';
 import Header from "./components/Header.vue";
 import ProgressBar from "./components/ProgressBar.vue";
+
 export default {
     components: {
         ProgressBar,
@@ -73,9 +74,8 @@ export default {
     },
     created() {
         this.questionData = JSON.parse(this.questionDataRaw);
-
         for (const summaries in this.questionData.summaries) {
-            //TODO
+            this.options.push(summaries.summaries);
         }
         console.log(this.questionData);
     },
