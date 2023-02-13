@@ -1,7 +1,9 @@
 <template>
     <div class="q-options">
         <div class="q-options__btn" v-for="(option, i) in options"
-             :class="{selected: selected === i}" @click="select(i)">{{ option.title }}
+             :class="{selected: isSelected(i)}"
+             @click="select(i)">
+            {{ option.content }}
         </div>
     </div>
 </template>
@@ -10,6 +12,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
 
     &__btn {
         background-color: #fff;
@@ -28,27 +31,27 @@
     }
 }
 </style>
-<script>
-export default {
-    constructor() {
-        this.selected = 0
-    },
-    data() {
-        return {
-            selected: this.selected
-        }
-    },
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
     props: {
         options: {
             type: Array,
             default: []
         },
+        selected: {
+            type: Number,
+            required: false,
+        }
     },
     methods: {
-        select: function (i) {
-            this.selected = i;
-            setTimeout(() => this.$emit('select', this.selected), 200);
+        select: function (i: number) {
+            this.$emit('select', i)
+        },
+        isSelected: function(i: number) {
+            return this.selected === i;
         }
     }
-}
+});
 </script>

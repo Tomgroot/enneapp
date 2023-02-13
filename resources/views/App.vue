@@ -4,10 +4,20 @@
         <Header />
         <div class="content">
             <transition name="fade-swipe">
-                <Options :options="options" @select="toggleOptions" v-if="showOptions"/>
+                <Options
+                    :options="getOptions()"
+                    @select="(i) => selectOption(i)"
+                    v-if="showOptions"
+                    :selected="getSelected()"
+                />
             </transition>
         </div>
-        <ProgressBar @prev="toggleOptions" :progress="50" />
+        <ProgressBar
+            @prev="prevOption"
+            @next="nextOption"
+            :has-prev="this.option_nr > 0"
+            :has-next="hasNext()"
+            :progress="getProgress()" />
     </div>
 </template>
 <style lang="scss" scoped>
@@ -42,13 +52,15 @@
     }
 }
 </style>
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import Scale from './components/Scale.vue';
 import Options from './components/Options.vue';
 import Header from "./components/Header.vue";
 import ProgressBar from "./components/ProgressBar.vue";
+import type {IOption, IQuestionData } from "./types";
 
-export default {
+export default defineComponent({
     components: {
         ProgressBar,
         Header,
@@ -59,28 +71,77 @@ export default {
         questionDataRaw: {
             type: String,
             default: ''
-        },
+        }
     },
     data() {
         return {
-            options: [],
+            options: [] as IOption[][],
+            option_nr: 0,
             showOptions: true,
+            selected: [] as number[],
         }
     },
     methods: {
+        selectOption(selected: number) {
+            this.selected[this.option_nr] = selected;
+            setTimeout(() => {
+                this.nextOption(true);
+            }, 200);
+        },
+        nextOption(animation = false) {
+            if (animation) {
+                this.toggleOptions();
+                this.option_nr++;
+                setTimeout(() => {
+                    this.toggleOptions();
+                }, 500);
+            } else {
+                this.option_nr++;
+            }
+        },
+        prevOption() {
+            if (this.option_nr > 0) {
+                this.option_nr--;
+            }
+        },
         toggleOptions() {
             this.showOptions = !this.showOptions;
         },
+        getOptions(): IOption[] {
+            if (this.options[this.option_nr]) {
+                return this.options[this.option_nr];
+            }
+            return [];
+        },
+        getSelected(): number | undefined {
+            if (this.selected[this.option_nr] != undefined) {
+                return this.selected[this.option_nr];
+            }
+            return undefined;
+        },
+        getProgress(): number {
+            return (this.option_nr / this.options.length) * 100
+        },
+        hasNext(): boolean {
+            return this.selected.length > this.option_nr;
+        }
     },
     created() {
-        this.questionData = JSON.parse(this.questionDataRaw);
-        for (const summaries in this.questionData.summaries) {
-            this.options.push(summaries.summaries);
-        }
-        console.log(this.questionData);
+        const questionData: IQuestionData = JSON.parse(this.questionDataRaw);
+
+        questionData.random.summaries.forEach((types: number[]) => {
+            let optionData: IOption[] = [];
+            types.forEach((type: number) => {
+                const data = questionData.summaries_per_type[type].pop();
+                optionData.push({
+                    content: data ? data.content : '',
+                });
+            })
+            this.options.push(optionData);
+        })
     },
     setup() {
 
     }
-}
+});
 </script>
