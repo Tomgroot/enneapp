@@ -6,7 +6,7 @@
         <div class="q-progress-bar__bar">
             <div class="q-progress-bar__bar__progress" :style="{width: getProgressPercentage()}"></div>
         </div>
-        <div class="q-progress-bar__btn" @click="$emit('next')" :class="{disabled: !hasNext}">
+        <div class="q-progress-bar__btn next" @click="$emit('next')" :class="{disabled: !hasNext}">
             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><title/><g data-name="Layer 2" id="Layer_2"><path d="M22,9a1,1,0,0,0,0,1.42l4.6,4.6H3.06a1,1,0,1,0,0,2H26.58L22,21.59A1,1,0,0,0,22,23a1,1,0,0,0,1.41,0l6.36-6.36a.88.88,0,0,0,0-1.27L23.42,9A1,1,0,0,0,22,9Z"/></g></svg>
         </div>
     </div>
@@ -32,12 +32,17 @@
             box-shadow: none;
             cursor: auto;
             background-color: #f9e5cd;
+            pointer-events: none;
         }
 
         & svg {
             max-width: 100%;
             max-height: 100%;
             fill: #563118;
+        }
+
+        &.next {
+            transition-delay: 200ms;
         }
     }
 

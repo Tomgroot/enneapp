@@ -1,10 +1,10 @@
 <template>
     <div class="q-heading">
         <div class="q-heading__title">
-            Kies er ééntje
+            {{ title }}
         </div>
         <div class="q-heading__subtitle">
-            Klik op de optie die het beste bij jou past
+            {{ subtitle }}
         </div>
     </div>
 </template>
@@ -27,5 +27,15 @@
 </style>
 <script>
 export default {
+    props: {
+        title: {
+            type: String,
+            default: "Kies er ééntje"
+        },
+        subtitle: {
+            type: String,
+            default: "Klik op de optie die het beste bij jou past"
+        }
+    },
 }
 </script>

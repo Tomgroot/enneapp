@@ -1,16 +1,16 @@
 <template>
     <div class="container">
-<!--    <Scale></Scale>-->
         <Header />
         <div class="content">
             <transition name="fade-swipe">
                 <Options
                     :options="getOptions()"
                     @select="(i) => selectOption(i)"
-                    v-if="showOptions"
+                    v-if="showOptions && 1 === 2"
                     :selected="getSelected()"
                 />
             </transition>
+            <Scale />
         </div>
         <ProgressBar
             @prev="prevOption"
