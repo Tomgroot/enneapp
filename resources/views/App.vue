@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Header title="Past het bij jou?" subtitle="Kies of je het eens bent met de stelling."/>
+        <Header :title="getTitle()" :subtitle="getSubtitle()"/>
         <div class="content">
             <Scale
                 :title="getScaleTitle()"
@@ -86,6 +86,7 @@ export default defineComponent({
             nr: 79,
             showOptions: true,
             selected: [] as number[],
+            nrKeywordsOptions: 0,
         }
     },
     methods: {
@@ -135,7 +136,22 @@ export default defineComponent({
         finishedScales(): boolean {
             return this.scales.length <= this.nr;
         },
+        finishedKeywords(): boolean {
+            return this.scales.length + this.nrKeywordsOptions <= this.nr;
+        },
         generateOptions(questionData: IQuestionData): void {
+            questionData.random.keywords.forEach((types: number[]) => {
+                let optionData: IOption[] = [];
+                types.forEach((type: number) => {
+                    const data = questionData.keywords[type];
+                    optionData.push({
+                        content: data ? data.content : '',
+                    });
+                });
+                this.nrKeywordsOptions++;
+                this.options.push(optionData);
+            })
+
             questionData.random.summaries.forEach((types: number[]) => {
                 let optionData: IOption[] = [];
                 types.forEach((type: number) => {
@@ -164,6 +180,24 @@ export default defineComponent({
                 return 'fade-swipe'
             }
             return '';
+        },
+        getTitle(): string {
+            if (!this.finishedScales()) {
+                return 'Past het bij jou?';
+            } else if (!this.finishedKeywords()) {
+                return 'Welke woorden passen?';
+            } else {
+                return 'Kies er ééntje';
+            }
+        },
+        getSubtitle(): string {
+            if (!this.finishedScales()) {
+                return 'Kies of je het eens bent met de stelling.';
+            } else if (!this.finishedKeywords()) {
+                return 'Kies welke woorden het best bij jou persoonlijkheid passen.';
+            } else {
+                return 'Klik op de optie die het beste bij jou past.';
+            }
         }
     },
     created() {

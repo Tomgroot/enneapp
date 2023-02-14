@@ -5,7 +5,7 @@ export interface IQuestionData {
     summaries_per_type: {[x: number]: ITypeData[]}
     random: {
         summaries: number[][],
-        keywords: number[],
+        keywords: number[][],
         scale: number[],
     }
 }

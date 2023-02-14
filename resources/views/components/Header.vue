@@ -31,11 +31,11 @@ export default {
     props: {
         title: {
             type: String,
-            default: "Kies er ééntje"
+            default: ""
         },
         subtitle: {
             type: String,
-            default: "Klik op de optie die het beste bij jou past"
+            default: ""
         }
     },
 }
