@@ -2,20 +2,26 @@
     <div class="container">
         <Header title="Past het bij jou?" subtitle="Kies of je het eens bent met de stelling."/>
         <div class="content">
-            <transition name="fade-swipe">
+            <Scale
+                :title="getScaleTitle()"
+                @select="(i) => select(i)"
+                :selected="getSelected()"
+                v-if="!finishedScales()"
+            />
+            <transition :name="transition()"
+                        v-else-if="finishedScales()">
                 <Options
                     :options="getOptions()"
-                    @select="(i) => selectOption(i)"
-                    v-if="showOptions && 1 === 2"
+                    @select="(i) => select(i)"
                     :selected="getSelected()"
+                    v-if="showOptions"
                 />
             </transition>
-            <Scale />
         </div>
         <ProgressBar
-            @prev="prevOption"
-            @next="nextOption"
-            :has-prev="this.option_nr > 0"
+            @prev="prev"
+            @next="next"
+            :has-prev="this.nr > 0"
             :has-next="hasNext()"
             :progress="getProgress()" />
     </div>
@@ -58,7 +64,7 @@ import Scale from './components/Scale.vue';
 import Options from './components/Options.vue';
 import Header from "./components/Header.vue";
 import ProgressBar from "./components/ProgressBar.vue";
-import type {IOption, IQuestionData } from "./types";
+import type {IOption, IQuestionData, IScale} from "./types";
 
 export default defineComponent({
     components: {
@@ -76,54 +82,58 @@ export default defineComponent({
     data() {
         return {
             options: [] as IOption[][],
-            option_nr: 0,
+            scales: [] as IScale[],
+            nr: 79,
             showOptions: true,
             selected: [] as number[],
         }
     },
     methods: {
-        selectOption(selected: number) {
-            this.selected[this.option_nr] = selected;
+        select(selected: number) {
+            this.selected[this.nr] = selected;
             setTimeout(() => {
-                this.nextOption(true);
+                this.next(this.finishedScales() ? 500 : 100);
             }, 200);
         },
-        nextOption(animation = false) {
-            if (animation) {
+        next(animationDuration = 0) {
+            if (animationDuration > 0) {
                 this.toggleOptions();
-                this.option_nr++;
+                this.nr++;
                 setTimeout(() => {
                     this.toggleOptions();
-                }, 500);
+                }, animationDuration);
             } else {
-                this.option_nr++;
+                this.nr++;
             }
         },
-        prevOption() {
-            if (this.option_nr > 0) {
-                this.option_nr--;
+        prev() {
+            if (this.nr > 0) {
+                this.nr--;
             }
         },
         toggleOptions() {
             this.showOptions = !this.showOptions;
         },
         getOptions(): IOption[] {
-            if (this.options[this.option_nr]) {
-                return this.options[this.option_nr];
+            if (this.options[this.nr - this.scales.length]) {
+                return this.options[this.nr - this.scales.length];
             }
             return [];
         },
         getSelected(): number | undefined {
-            if (this.selected[this.option_nr] != undefined) {
-                return this.selected[this.option_nr];
+            if (this.selected[this.nr] != undefined) {
+                return this.selected[this.nr];
             }
             return undefined;
         },
         getProgress(): number {
-            return (this.option_nr / this.options.length) * 100
+            return (this.nr / (this.options.length + this.scales.length)) * 100
         },
         hasNext(): boolean {
-            return this.selected.length > this.option_nr;
+            return this.selected.length > this.nr;
+        },
+        finishedScales(): boolean {
+            return this.scales.length <= this.nr;
         },
         generateOptions(questionData: IQuestionData): void {
             questionData.random.summaries.forEach((types: number[]) => {
@@ -138,12 +148,28 @@ export default defineComponent({
             })
         },
         generateScales(questionData: IQuestionData): void {
-
+            questionData.random.scale.forEach((i) => {
+                this.scales.push(questionData.scale[i]);
+            });
+        },
+        getScaleTitle(): string {
+            if (this.scales[this.nr]) {
+                return this.scales[this.nr].content;
+            } else {
+                return '';
+            }
+        },
+        transition(): string {
+            if (this.finishedScales()) {
+                return 'fade-swipe'
+            }
+            return '';
         }
     },
     created() {
         const questionData: IQuestionData = JSON.parse(this.questionDataRaw);
         this.generateOptions(questionData);
+        this.generateScales(questionData);
     },
     setup() {
 

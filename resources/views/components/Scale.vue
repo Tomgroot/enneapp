@@ -45,7 +45,6 @@
         margin-right: 1rem;
         cursor: pointer;
         font-weight: 600;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
         -webkit-tap-highlight-color: transparent;
 
         &.selected {
@@ -104,30 +103,27 @@
     }
 }
 </style>
-<script>
-export default {
-    constructor() {
-        this.selected = 0
-    },
-    data() {
-        return {
-            selected: this.selected
-        }
-    },
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
     props: {
         title: {
             type: String,
             default: 'Ik kan zo opgaan in mijn werk of mijn rol dat ik vergeet dat er nog meer is in het leven.'
         },
-        key: {
+        selected: {
             type: Number,
-            default: 0
+            required: false,
         }
     },
     methods: {
-        select: function (i) {
-            this.selected = i;
+        select: function (i: number) {
+            this.$emit('select', i);
+        },
+        isSelected: function(i: number) {
+            return this.selected === i;
         }
     }
-}
+});
 </script>

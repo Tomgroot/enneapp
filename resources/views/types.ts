@@ -18,3 +18,5 @@ export interface ITypeData {
 export interface IOption {
     content: string,
 }
+
+export interface IScale extends IOption {}
