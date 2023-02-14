@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Header />
+        <Header title="Past het bij jou?" subtitle="Kies of je het eens bent met de stelling."/>
         <div class="content">
             <transition name="fade-swipe">
                 <Options
@@ -124,21 +124,26 @@ export default defineComponent({
         },
         hasNext(): boolean {
             return this.selected.length > this.option_nr;
+        },
+        generateOptions(questionData: IQuestionData): void {
+            questionData.random.summaries.forEach((types: number[]) => {
+                let optionData: IOption[] = [];
+                types.forEach((type: number) => {
+                    const data = questionData.summaries_per_type[type].pop();
+                    optionData.push({
+                        content: data ? data.content : '',
+                    });
+                })
+                this.options.push(optionData);
+            })
+        },
+        generateScales(questionData: IQuestionData): void {
+
         }
     },
     created() {
         const questionData: IQuestionData = JSON.parse(this.questionDataRaw);
-
-        questionData.random.summaries.forEach((types: number[]) => {
-            let optionData: IOption[] = [];
-            types.forEach((type: number) => {
-                const data = questionData.summaries_per_type[type].pop();
-                optionData.push({
-                    content: data ? data.content : '',
-                });
-            })
-            this.options.push(optionData);
-        })
+        this.generateOptions(questionData);
     },
     setup() {
 
