@@ -11,12 +11,9 @@ export interface IQuestionData {
 }
 
 export interface ITypeData {
-    type: string,
+    type: number,
     content: string,
 }
 
-export interface IOption {
-    content: string,
-}
-
-export interface IScale extends IOption {}
+export interface IOption extends ITypeData {}
+export interface IScale extends ITypeData {}

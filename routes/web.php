@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\TestController;
+use \App\Http\Controllers\ResultController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,5 @@ use \App\Http\Controllers\TestController;
 
 Route::get('/', [TestController::class, 'show']);
 
-Route::post('/result', [TestController::class, 'result'])->name('result');
+Route::get('/result', [ResultController::class, 'show']);
+Route::post('/result', [ResultController::class, 'calculate']);

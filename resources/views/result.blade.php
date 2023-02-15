@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="app">
-    <app question-data-raw="{{$raw_question_data}}"></app>
+    <result></result>
 </div>
 @vite('resources/js/app.js')
 </body>

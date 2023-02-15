@@ -16,7 +16,9 @@ import { createApp } from 'vue';
 const app = createApp({});
 
 import App from '../views/App.vue';
+import Result from '../views/Result.vue';
 app.component('App', App);
+app.component('Result', Result);
 
 /**
  * The following block of code may be used to automatically register your
