@@ -15,8 +15,13 @@
 .q-progress-bar {
     display: flex;
     margin-top: 3rem;
+    position: fixed;
     align-items: center;
-    margin-bottom: 1rem;
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    background-color: #fcf5ed;
+    box-shadow: 0 20px 20px 35px #fcf5ed;
 
     &__btn {
         background-color: white;

@@ -10,7 +10,7 @@
 </template>
 <style lang="scss" scoped>
 .q-heading {
-    margin-top: 3rem;
+    margin-top: 2rem;
     margin-bottom: 2rem;
 
     &__title {

@@ -30,6 +30,7 @@
 .content {
     flex: 1;
     display: flex;
+    margin-bottom: 3rem;
 }
 .fade-swipe-enter-active {
     animation: fade-swipe-in .5s;
