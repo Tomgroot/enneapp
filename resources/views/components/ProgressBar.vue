@@ -20,6 +20,8 @@
     bottom: 1rem;
     right: 1rem;
     left: 1rem;
+    max-width: 560px;
+    margin: 0 auto;
     background-color: #fcf5ed;
     box-shadow: 0 20px 20px 35px #fcf5ed;
 

@@ -2,7 +2,7 @@
     <div class="q-options">
         <div class="q-options__btn" v-for="(option, i) in options"
              :class="{selected: isSelected(i)}"
-             @click="select(i)">
+             @click="select(i, option)">
             {{ option.content }}
         </div>
     </div>
@@ -32,6 +32,7 @@
 </style>
 <script lang="ts">
 import {defineComponent} from "vue";
+import type {IOption} from "../types";
 
 export default defineComponent({
     props: {
@@ -45,8 +46,8 @@ export default defineComponent({
         }
     },
     methods: {
-        select: function (i: number) {
-            this.$emit('select', i)
+        select: function (i: number, option: IOption) {
+            this.$emit('select', i, option)
         },
         isSelected: function(i: number) {
             return this.selected === i;

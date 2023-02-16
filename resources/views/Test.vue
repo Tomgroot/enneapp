@@ -12,7 +12,7 @@
                         v-else-if="finishedScales()">
                 <Options
                     :options="getOptions()"
-                    @select="(i) => select(i)"
+                    @select="(i, o) => select(i, o)"
                     :selected="getSelected()"
                     v-if="showOptions"
                 />
@@ -65,8 +65,7 @@ import Scale from './components/Scale.vue';
 import Options from './components/Options.vue';
 import Header from "./components/Header.vue";
 import ProgressBar from "./components/ProgressBar.vue";
-import type {IOption, IQuestionData, IScale} from "./types";
-import axios from "axios";
+import type {IOption, IQuestionData, IResult, IResults, IScale, ITypeData} from "./types";
 
 export default defineComponent({
     components: {
@@ -85,16 +84,20 @@ export default defineComponent({
         return {
             options: [] as IOption[][],
             scales: [] as IScale[],
-            nr: 0,
+            nr: 90,
             showOptions: true,
             selected: [] as number[],
             nrKeywordsOptions: 0,
+            keywordsExtraIndex: 0,
         }
     },
     methods: {
-        select(selected: number) {
+        select(selected: number, option: IOption | undefined = undefined) {
             this.selected[this.nr] = selected;
             this.finishIfDone();
+            if (option && this.finishedScales() && !this.finishedKeywords()) {
+                this.addKeywordOptionsIfKeywords(option);
+            }
             setTimeout(() => {
                 this.next(this.finishedScales() ? 500 : 100);
             }, 200);
@@ -139,7 +142,10 @@ export default defineComponent({
         finishedScales(): boolean {
             return this.scales.length <= this.nr;
         },
-        finishedKeywords(): boolean {
+        finishedKeywords(extraOption: boolean = false): boolean {
+            if (extraOption) {
+                return this.scales.length + this.nrKeywordsOptions < this.nr;
+            }
             return this.scales.length + this.nrKeywordsOptions <= this.nr;
         },
         generateOptions(questionData: IQuestionData): void {
@@ -152,6 +158,10 @@ export default defineComponent({
                 this.nrKeywordsOptions++;
                 this.options.push(optionData);
             })
+
+            //Add extra space for keywords that have been chosen
+            this.keywordsExtraIndex = this.options.length;
+            this.options.push([]);
 
             questionData.random.summaries.forEach((types: number[]) => {
                 let optionData: IOption[] = [];
@@ -184,9 +194,12 @@ export default defineComponent({
             return '';
         },
         getTitle(): string {
+            console.log(this.nr - this.scales.length, this.keywordsExtraIndex);
             if (!this.finishedScales()) {
                 return 'Past het bij jou?';
-            } else if (!this.finishedKeywords()) {
+            } else if (this.nr - this.scales.length == this.keywordsExtraIndex) {
+                return 'Vergeleken met de rest?'
+            } else if (!this.finishedKeywords(true)) {
                 return 'Welke woorden passen?';
             } else {
                 return 'Kies er ééntje';
@@ -195,7 +208,9 @@ export default defineComponent({
         getSubtitle(): string {
             if (!this.finishedScales()) {
                 return 'Kies of je het eens bent met de stelling.';
-            } else if (!this.finishedKeywords()) {
+            }  else if (this.nr - this.scales.length == this.keywordsExtraIndex) {
+                return 'Welke van je gekozen antwoorden past het beste bij je?';
+            } else if (!this.finishedKeywords(true)) {
                 return 'Kies welke woorden het best bij jou persoonlijkheid passen.';
             } else {
                 return 'Klik op de optie die het beste bij jou past.';
@@ -203,38 +218,50 @@ export default defineComponent({
         },
         finishIfDone(): void {
             if (this.nr + 1 >= this.options.length + this.scales.length) {
-
-                const results = {
-                    scales: {} as {[x: number]: number},
-                    keywords: {} as {[x: number]: number},
-                    summaries: {} as {[x: number]: number},
-                }
-
-                for (let i = 1; i <= 9; i ++) {
-                    results.scales[i] = 0;
-                    results.keywords[i] = 0;
-                    results.summaries[i] = 0;
-                }
-
-                this.selected.forEach((value, key) => {
-                    // Scales
-                    if (key < this.scales.length) {
-                        if (value === 1) {
-                            const type: number = this.scales[key].type
-                            results.scales[type]++;
-                        }
-                    } else {
-                        const type: number = this.options[key - this.scales.length][value].type
-                        if (key < this.scales.length + this.nrKeywordsOptions) {
-                            results.keywords[type]++;
-                        } else {
-                            results.summaries[type]++;
-                        }
-                    }
-                });
-                //TODO can we make top 3?!
+                const results: IResults = this.calculateResults();
                 this.$emit('finish', results);
             }
+        },
+        addKeywordOptionsIfKeywords(result: IOption): void {
+            if (this.options[this.keywordsExtraIndex].length < this.nrKeywordsOptions) {
+                this.options[this.keywordsExtraIndex].push(result);
+            } else {
+                const optionIndex = this.nr - this.scales.length;
+                this.options[this.keywordsExtraIndex][optionIndex] = result;
+            }
+            console.log(this.options[this.keywordsExtraIndex], this.keywordsExtraIndex);
+        },
+        calculateResults(): IResults {
+            const results = {
+                scales: {per_type: [] as number[]} as IResult,
+                keywords: {per_type: [] as number[]} as IResult,
+                summaries: {per_type: [] as number[]} as IResult,
+            }
+
+            for (let i = 1; i <= 9; i ++) {
+                results.scales.per_type[i] = 0;
+                results.keywords.per_type[i] = 0;
+                results.summaries.per_type[i] = 0;
+            }
+
+            this.selected.forEach((value, key) => {
+                // Scales
+                if (key < this.scales.length) {
+                    if (value === 1) {
+                        const type: number = this.scales[key].type
+                        results.scales.per_type[type]++;
+                    }
+                } else {
+                    const type: number = this.options[key - this.scales.length][value].type
+                    if (key < this.scales.length + this.nrKeywordsOptions + 1) {
+                        results.keywords.per_type[type]++;
+                    } else {
+                        results.summaries.per_type[type]++;
+                    }
+                }
+            });
+
+            return results;
         }
     },
     created() {

@@ -18,6 +18,7 @@
         font-size: 2.2rem;
         text-align: center;
         margin-bottom: 0.5rem;
+        line-height: 2.5rem;
     }
 
     &__subtitle {
