@@ -2,15 +2,27 @@
     <div class="q-scale">
         <div class="q-scale__title mb-4">{{ title }}</div>
         <div class="q-scale__container">
-            <div class="q-scale__label disagree" :class="{selected: selected === 3}" @click="select(3)">
+            <div
+                class="q-scale__label disagree"
+                :class="{ selected: selected === 3 }"
+                @click="select(3)"
+            >
                 <div class="q-scale__checkmark"></div>
                 <div class="q-scale__checkmark__title">Oneens</div>
             </div>
-            <div class="q-scale__label neutral" :class="{selected: selected === 2}" @click="select(2)">
+            <div
+                class="q-scale__label neutral"
+                :class="{ selected: selected === 2 }"
+                @click="select(2)"
+            >
                 <div class="q-scale__checkmark"></div>
                 <div class="q-scale__checkmark__title">Neutraal</div>
             </div>
-            <div class="q-scale__label agree" :class="{selected: selected === 1}" @click="select(1)">
+            <div
+                class="q-scale__label agree"
+                :class="{ selected: selected === 1 }"
+                @click="select(1)"
+            >
                 <div class="q-scale__checkmark"></div>
                 <div class="q-scale__checkmark__title">Eens</div>
             </div>
@@ -18,7 +30,6 @@
     </div>
 </template>
 <style lang="scss" scoped>
-
 .q-scale {
     text-align: center;
     margin-top: 2rem;
@@ -68,7 +79,8 @@
 
         &.agree {
             & .q-scale__checkmark {
-                box-shadow: 0 0 0 3px rgba(47, 154, 110, 0.3), 0 3px 6px rgba(47, 154, 110, 0.5);
+                box-shadow: 0 0 0 3px rgba(47, 154, 110, 0.3),
+                    0 3px 6px rgba(47, 154, 110, 0.5);
 
                 &__title {
                     color: #2f9a6e;
@@ -78,7 +90,8 @@
 
         &.disagree {
             & .q-scale__checkmark {
-                box-shadow: 0 0 0 3px rgba(218, 83, 63, 0.3), 0 3px 6px rgba(218, 83, 63, 0.5);
+                box-shadow: 0 0 0 3px rgba(218, 83, 63, 0.3),
+                    0 3px 6px rgba(218, 83, 63, 0.5);
 
                 &__title {
                     color: #da533f;
@@ -95,7 +108,8 @@
         caret-color: transparent;
         transition: all ease 200ms;
         background-color: white;
-        box-shadow: 0 0 0 3px rgba(236, 137, 69, 0.3), 0 3px 6px rgba(236, 137, 69, 0.5);
+        box-shadow: 0 0 0 3px rgba(236, 137, 69, 0.3),
+            0 3px 6px rgba(236, 137, 69, 0.5);
 
         &__title {
             color: #ec8945;
@@ -104,26 +118,27 @@
 }
 </style>
 <script lang="ts">
-import {defineComponent} from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
     props: {
         title: {
             type: String,
-            default: 'Ik kan zo opgaan in mijn werk of mijn rol dat ik vergeet dat er nog meer is in het leven.'
+            default:
+                'Ik kan zo opgaan in mijn werk of mijn rol dat ik vergeet dat er nog meer is in het leven.',
         },
         selected: {
             type: Number,
             required: false,
-        }
+        },
     },
     methods: {
         select: function (i: number) {
             this.$emit('select', i);
         },
-        isSelected: function(i: number) {
+        isSelected: function (i: number) {
             return this.selected === i;
-        }
-    }
+        },
+    },
 });
 </script>

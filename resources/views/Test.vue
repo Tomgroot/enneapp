@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Header :title="getTitle()" :subtitle="getSubtitle()"/>
+        <TestHeader :title="getTitle()" :subtitle="getSubtitle()" />
         <div class="content">
             <Scale
                 :title="getScaleTitle()"
@@ -8,8 +8,7 @@
                 :selected="getSelected()"
                 v-if="!finishedScales()"
             />
-            <transition :name="transition()"
-                        v-else-if="finishedScales()">
+            <transition :name="transition()" v-else-if="finishedScales()">
                 <Options
                     :options="getOptions()"
                     @select="(i, o) => select(i, o)"
@@ -23,7 +22,8 @@
             @next="next"
             :has-prev="this.nr > 0"
             :has-next="hasNext()"
-            :progress="getProgress()" />
+            :progress="getProgress()"
+        />
     </div>
 </template>
 <style lang="scss" scoped>
@@ -33,10 +33,10 @@
     margin-bottom: 3rem;
 }
 .fade-swipe-enter-active {
-    animation: fade-swipe-in .5s;
+    animation: fade-swipe-in 0.5s;
 }
 .fade-swipe-leave-active {
-    animation: fade-swipe-out .5s;
+    animation: fade-swipe-out 0.5s;
 }
 @keyframes fade-swipe-out {
     0% {
@@ -60,25 +60,26 @@
 }
 </style>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 import Scale from './components/Scale.vue';
 import Options from './components/Options.vue';
-import Header from "./components/Header.vue";
-import ProgressBar from "./components/ProgressBar.vue";
-import type {IOption, IQuestionData, IResult, IResults, IScale, ITypeData} from "./types";
+import TestHeader from './components/TestHeader.vue';
+import ProgressBar from './components/ProgressBar.vue';
+import { calculateResults } from './utils';
+import type { IOption, IQuestionData, IResults, IScale } from './types';
 
 export default defineComponent({
     components: {
         ProgressBar,
-        Header,
+        TestHeader,
         Scale,
-        Options
+        Options,
     },
     props: {
         questionDataRaw: {
             type: String,
-            default: ''
-        }
+            default: '',
+        },
     },
     data() {
         return {
@@ -89,7 +90,7 @@ export default defineComponent({
             selected: [] as number[],
             nrKeywordsOptions: 0,
             keywordsExtraIndex: 0,
-        }
+        };
     },
     methods: {
         select(selected: number, option: IOption | undefined = undefined) {
@@ -102,6 +103,7 @@ export default defineComponent({
                 this.next(this.finishedScales() ? 500 : 100);
             }, 200);
         },
+        test() {},
         next(animationDuration = 0) {
             if (animationDuration > 0) {
                 this.toggleOptions();
@@ -134,7 +136,7 @@ export default defineComponent({
             return undefined;
         },
         getProgress(): number {
-            return (this.nr / (this.options.length + this.scales.length)) * 100
+            return (this.nr / (this.options.length + this.scales.length)) * 100;
         },
         hasNext(): boolean {
             return this.selected.length > this.nr;
@@ -142,7 +144,7 @@ export default defineComponent({
         finishedScales(): boolean {
             return this.scales.length <= this.nr;
         },
-        finishedKeywords(extraOption: boolean = false): boolean {
+        finishedKeywords(extraOption = false): boolean {
             if (extraOption) {
                 return this.scales.length + this.nrKeywordsOptions < this.nr;
             }
@@ -150,30 +152,30 @@ export default defineComponent({
         },
         generateOptions(questionData: IQuestionData): void {
             questionData.random.keywords.forEach((types: number[]) => {
-                let optionData: IOption[] = [];
+                const optionData: IOption[] = [];
                 types.forEach((type: number) => {
                     const data = questionData.keywords[type];
                     optionData.push(data);
                 });
                 this.nrKeywordsOptions++;
                 this.options.push(optionData);
-            })
+            });
 
             //Add extra space for keywords that have been chosen
             this.keywordsExtraIndex = this.options.length;
             this.options.push([]);
 
             questionData.random.summaries.forEach((types: number[]) => {
-                let optionData: IOption[] = [];
+                const optionData: IOption[] = [];
                 types.forEach((type: number) => {
                     const data = questionData.summaries_per_type[type].pop();
                     optionData.push({
                         content: data ? data.content : '',
                         type: data ? data.type : 0,
                     });
-                })
+                });
                 this.options.push(optionData);
-            })
+            });
         },
         generateScales(questionData: IQuestionData): void {
             questionData.random.scale.forEach((i) => {
@@ -189,16 +191,18 @@ export default defineComponent({
         },
         transition(): string {
             if (this.finishedScales()) {
-                return 'fade-swipe'
+                return 'fade-swipe';
             }
             return '';
         },
         getTitle(): string {
-            console.log(this.nr - this.scales.length, this.keywordsExtraIndex);
             if (!this.finishedScales()) {
                 return 'Past het bij jou?';
-            } else if (this.nr - this.scales.length == this.keywordsExtraIndex) {
-                return 'Vergeleken met de rest?'
+            } else if (
+                this.nr - this.scales.length ==
+                this.keywordsExtraIndex
+            ) {
+                return 'Vergeleken met de rest?';
             } else if (!this.finishedKeywords(true)) {
                 return 'Welke woorden passen?';
             } else {
@@ -208,7 +212,10 @@ export default defineComponent({
         getSubtitle(): string {
             if (!this.finishedScales()) {
                 return 'Kies of je het eens bent met de stelling.';
-            }  else if (this.nr - this.scales.length == this.keywordsExtraIndex) {
+            } else if (
+                this.nr - this.scales.length ==
+                this.keywordsExtraIndex
+            ) {
                 return 'Welke van je gekozen antwoorden past het beste bij je?';
             } else if (!this.finishedKeywords(true)) {
                 return 'Kies welke woorden het best bij jou persoonlijkheid passen.';
@@ -218,59 +225,36 @@ export default defineComponent({
         },
         finishIfDone(): void {
             if (this.nr + 1 >= this.options.length + this.scales.length) {
-                const results: IResults = this.calculateResults();
+                const results: IResults = calculateResults(
+                    this.selected,
+                    this.options,
+                    this.scales,
+                    this.nrKeywordsOptions
+                );
                 this.$emit('finish', results);
             }
         },
         addKeywordOptionsIfKeywords(result: IOption): void {
-            if (this.options[this.keywordsExtraIndex].length < this.nrKeywordsOptions) {
+            if (
+                this.options[this.keywordsExtraIndex].length <
+                this.nrKeywordsOptions
+            ) {
                 this.options[this.keywordsExtraIndex].push(result);
             } else {
                 const optionIndex = this.nr - this.scales.length;
                 this.options[this.keywordsExtraIndex][optionIndex] = result;
             }
-            console.log(this.options[this.keywordsExtraIndex], this.keywordsExtraIndex);
+            console.log(
+                this.options[this.keywordsExtraIndex],
+                this.keywordsExtraIndex
+            );
         },
-        calculateResults(): IResults {
-            const results = {
-                scales: {per_type: [] as number[]} as IResult,
-                keywords: {per_type: [] as number[]} as IResult,
-                summaries: {per_type: [] as number[]} as IResult,
-            }
-
-            for (let i = 1; i <= 9; i ++) {
-                results.scales.per_type[i] = 0;
-                results.keywords.per_type[i] = 0;
-                results.summaries.per_type[i] = 0;
-            }
-
-            this.selected.forEach((value, key) => {
-                // Scales
-                if (key < this.scales.length) {
-                    if (value === 1) {
-                        const type: number = this.scales[key].type
-                        results.scales.per_type[type]++;
-                    }
-                } else {
-                    const type: number = this.options[key - this.scales.length][value].type
-                    if (key < this.scales.length + this.nrKeywordsOptions + 1) {
-                        results.keywords.per_type[type]++;
-                    } else {
-                        results.summaries.per_type[type]++;
-                    }
-                }
-            });
-
-            return results;
-        }
     },
     created() {
         const questionData: IQuestionData = JSON.parse(this.questionDataRaw);
         this.generateOptions(questionData);
         this.generateScales(questionData);
     },
-    setup() {
-
-    }
+    setup() {},
 });
 </script>
