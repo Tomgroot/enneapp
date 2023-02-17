@@ -16,7 +16,7 @@ import { createApp } from 'vue';
 const app = createApp({});
 
 import App from '../views/App.vue';
-import Result from '../views/Result.vue';
+import Result from '../views/pages/ResultPage.vue';
 app.component('App', App);
 app.component('Result', Result);
 

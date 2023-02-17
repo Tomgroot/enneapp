@@ -59,6 +59,7 @@
         cursor: pointer;
         box-shadow: 0px 3px 3px rgba(236, 137, 69, 0.2);
         transition: all ease 200ms;
+        -webkit-tap-highlight-color: transparent;
 
         &.disabled {
             box-shadow: none;

@@ -6,7 +6,7 @@
 <style lang="scss" scoped></style>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TestHeader from './components/TestHeader.vue';
+import TestHeader from '../components/test/TestHeader.vue';
 
 export default defineComponent({
     components: {

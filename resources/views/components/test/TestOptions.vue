@@ -5,7 +5,7 @@
             v-for="(option, i) in options"
             :key="i"
             :class="{ selected: isSelected(i) }"
-            @click="select(i, option)"
+            @click="select(i)"
         >
             {{ option.content }}
         </div>
@@ -25,6 +25,7 @@
         margin-bottom: 0.75rem;
         box-shadow: 0px 3px 3px rgba(236, 137, 69, 0.2);
         transition: all 200ms ease;
+        -webkit-tap-highlight-color: transparent;
 
         &.selected {
             background-color: rgba(236, 137, 69, 1);
@@ -36,7 +37,7 @@
 </style>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import type { IOption } from '../types';
+import type { IOption } from '../../types';
 
 export default defineComponent({
     props: {
