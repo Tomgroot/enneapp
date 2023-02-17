@@ -5,6 +5,7 @@
         </div>
         <div class="q-result-type__subtitle">
             {{ subtitle }}
+            <a :href="readMore">Lees meer</a>
         </div>
     </div>
 </template>
@@ -12,6 +13,13 @@
 .q-result-type {
     margin-top: 2rem;
     margin-bottom: 2rem;
+    background-color: #fff;
+    border-radius: 1.1rem;
+    padding: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0px 3px 3px rgb(236 137 69 / 20%);
+    transition: all 200ms ease;
+    -webkit-tap-highlight-color: transparent;
 
     &__title {
         font-weight: 700;
@@ -24,6 +32,9 @@
     &__subtitle {
         text-align: center;
         font-size: 1rem;
+        & a {
+            display: block;
+        }
     }
 }
 </style>
@@ -37,6 +48,10 @@ export default defineComponent({
             default: '',
         },
         subtitle: {
+            type: String,
+            default: '',
+        },
+        readMore: {
             type: String,
             default: '',
         },

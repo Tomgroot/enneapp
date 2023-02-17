@@ -7,12 +7,24 @@
         <ResultType
             :title="getTypeTitle(winner)"
             :subtitle="getTypeDescription(winner)"
+            read-more="https://www.identiteitsystemen.nl/enneagram/"
         />
         <ResultPossible
+            description="Het kan ook nog dat je één van deze enneagramtypes bent:"
             v-if="results && results.winners && results.winners.length > 1"
             :types="getPossibleTypes()"
             :get-type-title="getTypeTitle"
             :get-type-description="getTypeDescription"
+            :get-type-percentage="getTypePercentage"
+            read-more="https://www.identiteitsystemen.nl/enneagram/"
+        />
+        <ResultPossible
+            description="Waar je het minste voor hebt gescoord"
+            :types="getMostUnlikely()"
+            :get-type-title="getTypeTitle"
+            :get-type-percentage="getTypePercentage"
+            :get-type-description="getTypeDescription"
+            read-more="https://www.identiteitsystemen.nl/enneagram/"
         />
     </div>
 </template>
@@ -35,15 +47,68 @@ export default defineComponent({
         },
         winner: {
             type: String,
-            default: 0,
+            default: '0',
         },
     },
     data() {
-        return {};
+        return {
+            percentages: {
+                scales: [] as number[],
+                keywords: [] as number[],
+                summaries: [] as number[],
+                total: [] as number[],
+            },
+        };
+    },
+    created() {
+        console.log(this.results);
+        if (
+            this.results &&
+            this.results.scales &&
+            this.results.scales.per_type
+        ) {
+            this.percentages.scales = this.calculatePercentages(
+                this.results.scales.per_type
+            );
+        } else {
+            this.percentages.scales = [];
+        }
+        if (
+            this.results &&
+            this.results.keywords &&
+            this.results.keywords.per_type
+        ) {
+            this.percentages.keywords = this.calculatePercentages(
+                this.results.keywords.per_type
+            );
+        } else {
+            this.percentages.keywords = [];
+        }
+        if (
+            this.results &&
+            this.results.summaries &&
+            this.results.summaries.per_type
+        ) {
+            this.percentages.summaries = this.calculatePercentages(
+                this.results.summaries.per_type
+            );
+        } else {
+            this.percentages.summaries = [];
+        }
+        for (let i = 1; i <= 9; i++) {
+            this.percentages.total[i] =
+                this.percentages.summaries[i] / 3 +
+                this.percentages.keywords[i] / 3 +
+                this.percentages.scales[i] / 3;
+        }
+        console.log(this.percentages);
     },
     methods: {
         getTypeTitle(type: string) {
             return `Enneagramtype ${type}`;
+        },
+        getTypePercentage(type: string) {
+            return `(${Math.round(this.percentages.total[parseInt(type)])}%)`;
         },
         getTypeDescription(type: string) {
             if (type == '1') {
@@ -76,6 +141,32 @@ export default defineComponent({
                 });
             }
             return types;
+        },
+        calculatePercentages(perType: number[]): number[] {
+            const percentages = [] as number[];
+            let count = 0;
+            perType.forEach((value: number, i: number) => {
+                if (i > 0 && i <= 9) {
+                    count += value;
+                }
+            });
+            perType.forEach((value: number, i: number) => {
+                if (i > 0 && i <= 9) {
+                    percentages[i] = (value / count) * 100;
+                }
+            });
+            return percentages;
+        },
+        getMostUnlikely(): number[] {
+            let lowest = 0;
+            let type = 0;
+            this.percentages.total.forEach((value, i) => {
+                if (value <= lowest) {
+                    type = i;
+                    lowest = value;
+                }
+            });
+            return [type];
         },
     },
 });
