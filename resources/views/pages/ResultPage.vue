@@ -101,7 +101,6 @@ export default defineComponent({
                 this.percentages.keywords[i] / 3 +
                 this.percentages.scales[i] / 3;
         }
-        console.log(this.percentages);
     },
     methods: {
         getTypeTitle(type: string) {
@@ -158,7 +157,7 @@ export default defineComponent({
             return percentages;
         },
         getMostUnlikely(): number[] {
-            let lowest = 0;
+            let lowest = 1000;
             let type = 0;
             this.percentages.total.forEach((value, i) => {
                 if (value <= lowest) {
