@@ -10,12 +10,12 @@ html {
 
 html, #app {
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .container {
     padding: 1rem;
     display: flex;
-    overflow-x: hidden;
     justify-content: center;
     flex-direction: column;
     flex: 1;
@@ -50,4 +50,3 @@ html, #app {
         opacity: 1;
     }
 }
-

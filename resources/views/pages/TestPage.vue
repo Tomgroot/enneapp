@@ -12,12 +12,14 @@
                 :keywords="keywords"
                 :nr="nr - this.scales.length"
                 :current="getSection() === 'keywords'"
+                :transition="transition"
                 @next="(selection) => selectKeywords(selection)"
             />
             <SummarySection
                 :summaries="summaries"
                 :current="getSection() === 'summaries'"
-                :nr="nr - this.scales.length - this.keywords.length"
+                :transition="transition"
+                :nr="nr - this.scales.length - this.keywords.length - 1"
                 @next="(selection) => selectSummaries(selection)"
             />
         </div>
@@ -45,6 +47,7 @@ import type { IOption, IQuestionData, ISelected, IScale } from '../types';
 import ScaleSection from '../components/ScaleSection.vue';
 import KeywordSection from '../components/KeywordSection.vue';
 import SummarySection from '../components/SummarySection.vue';
+import { calculateResults } from '../utils';
 
 export default defineComponent({
     components: {
@@ -70,20 +73,24 @@ export default defineComponent({
             scales: [] as IScale[],
             keywords: [] as IOption[][],
             summaries: [] as IOption[][],
-            nr: 81,
+            nr: 80,
+            transition: 'fade-swipe',
         };
     },
     methods: {
         selectScale(selected: IScale[]): void {
             this.selected.scales = selected;
+            this.transition = 'fade-swipe';
             this.next();
         },
         selectKeywords(selected: IOption[]): void {
             this.selected.keywords = selected;
+            this.transition = 'fade-swipe';
             this.next();
         },
         selectSummaries(selected: IOption[]): void {
             this.selected.summaries = selected;
+            this.transition = 'fade-swipe';
             this.next();
         },
         getSection(): string {
@@ -100,8 +107,22 @@ export default defineComponent({
         },
         next() {
             this.nr++;
+            if (
+                this.nr >
+                this.scales.length +
+                    this.keywords.length +
+                    this.summaries.length
+            ) {
+                this.finish();
+            }
+        },
+        finish() {
+            const results = calculateResults(this.selected);
+            console.log('FINISH', this.selected, results);
+            this.$emit('finish', results);
         },
         prev() {
+            this.transition = 'gone';
             if (this.nr > 0) {
                 this.nr--;
             }

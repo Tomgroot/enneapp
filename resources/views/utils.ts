@@ -1,39 +1,67 @@
-import type { IOption, IResult, IResults, IScale } from './types';
+import type { IResult, IResults, ISelected, ITypeData } from './types';
 
-export function calculateResults(
-    selected: number[],
-    options: IOption[][],
-    scales: IScale[],
-    nrOfKeywords: number
-): IResults {
+export function calculateResults(selected: ISelected): IResults {
     const results = {
         scales: { per_type: [] as number[] } as IResult,
         keywords: { per_type: [] as number[] } as IResult,
         summaries: { per_type: [] as number[] } as IResult,
+        winners: [] as number[],
     };
 
-    for (let i = 1; i <= 9; i++) {
-        results.scales.per_type[i] = 0;
-        results.keywords.per_type[i] = 0;
-        results.summaries.per_type[i] = 0;
-    }
+    results.scales.per_type = accumulatePerType(selected.scales);
+    results.scales.winners = calculateWinners(results.scales.per_type);
 
-    selected.forEach((value, key) => {
-        // Scales
-        if (key < scales.length) {
-            if (value === 1) {
-                const type: number = scales[key].type;
-                results.scales.per_type[type]++;
-            }
-        } else {
-            const type: number = options[key - scales.length][value].type;
-            if (key < scales.length + nrOfKeywords + 1) {
-                results.keywords.per_type[type]++;
-            } else {
-                results.summaries.per_type[type]++;
-            }
-        }
-    });
+    results.keywords.per_type = accumulatePerType(selected.keywords);
+    results.keywords.winners = calculateWinners(results.keywords.per_type);
+
+    results.summaries.per_type = accumulatePerType(selected.summaries);
+    results.summaries.winners = calculateWinners(results.summaries.per_type);
+
+    results.winners = calculateOverallWinners(results);
 
     return results;
+}
+
+export function accumulatePerType(typeData: ITypeData[]): number[] {
+    const per_type = [] as number[];
+    for (let i = 1; i <= 9; i++) {
+        per_type[i] = 0;
+    }
+    typeData.forEach((value) => {
+        if (value.content != '') {
+            per_type[value.type]++;
+        }
+    });
+    return per_type;
+}
+
+export function calculateWinners(per_type: number[]): number[] {
+    let winners = [] as number[];
+    let highest = 0;
+    per_type.forEach((value, type) => {
+        if (value > highest) {
+            winners = [type];
+            highest = value;
+        } else if (value == highest) {
+            winners.push(type);
+        }
+    });
+    return winners;
+}
+
+function calculateOverallWinners(results: Partial<IResults>): number[] {
+    const count = [] as number[];
+    for (let i = 1; i <= 9; i++) {
+        count[i] = 0;
+    }
+    results.summaries?.winners.forEach((value) => {
+        count[value]++;
+    });
+    results.keywords?.winners.forEach((value) => {
+        count[value]++;
+    });
+    results.summaries?.winners.forEach((value) => {
+        count[value]++;
+    });
+    return calculateWinners(count);
 }

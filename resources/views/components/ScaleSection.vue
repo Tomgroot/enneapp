@@ -38,7 +38,10 @@ export default defineComponent({
     },
     methods: {
         getTitle(): string {
-            return (this.scales[this.nr] as IScale).content;
+            return (
+                (this.scales[this.nr] as IScale).content +
+                (this.scales[this.nr] as IScale).type
+            );
         },
         getSelected(): number | undefined {
             return this.selected_index[this.nr];

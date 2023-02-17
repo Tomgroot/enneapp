@@ -25,11 +25,12 @@ export interface IResults {
     keywords: IResult;
     summaries: IResult;
     scales: IResult;
+    winners: number[];
 }
 
 export interface IResult {
     per_type: number[];
-    winners: number;
+    winners: number[];
 }
 
 export type IOption = ITypeData;

@@ -1,14 +1,12 @@
 <template>
-    <div v-if="current">
-        <transition name="fade-swipe">
-            <TestOptions
-                v-if="animation"
-                :options="getOptions()"
-                @select="(i) => select(i)"
-                :selected="getSelected()"
-            />
-        </transition>
-    </div>
+    <transition :name="transition">
+        <TestOptions
+            v-if="current && animation"
+            :options="getOptions()"
+            @select="(i) => select(i)"
+            :selected="getSelected()"
+        />
+    </transition>
 </template>
 <style lang="scss" scoped></style>
 <script lang="ts">
@@ -30,6 +28,10 @@ export default defineComponent({
         current: {
             type: Boolean,
             default: false,
+        },
+        transition: {
+            type: String,
+            default: 'fade-swipe',
         },
     },
     data() {

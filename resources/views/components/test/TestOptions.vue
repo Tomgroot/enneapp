@@ -7,7 +7,7 @@
             :class="{ selected: isSelected(i) }"
             @click="select(i)"
         >
-            {{ option.content }}
+            {{ option.content }} {{ option.type }}
         </div>
     </div>
 </template>

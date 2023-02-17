@@ -75,7 +75,7 @@
         }
 
         &.next {
-            transition-delay: 200ms;
+            transition-delay: 400ms;
         }
     }
 

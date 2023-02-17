@@ -1,20 +1,19 @@
 <template>
-    <div v-if="current">
-        <transition name="fade-swipe">
-            <TestOptions
-                v-if="animation"
-                :options="getOptions()"
-                @select="(i) => select(i)"
-                :selected="getSelected()"
-            />
-        </transition>
-    </div>
+    <transition :name="transition">
+        <TestOptions
+            v-if="current && animation"
+            :options="getOptions()"
+            @select="(i) => select(i)"
+            :selected="getSelected()"
+        />
+    </transition>
 </template>
 <style lang="scss" scoped></style>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TestOptions from './test/TestOptions.vue';
 import type { IOption } from '../types';
+import { accumulatePerType, calculateWinners } from '../utils';
 
 export default defineComponent({
     components: { TestOptions },
@@ -31,20 +30,48 @@ export default defineComponent({
             type: Boolean,
             default: false,
         },
+        transition: {
+            type: String,
+            default: 'fade-swipe',
+        },
     },
     data() {
         return {
             selected_index: [] as number[],
             selected: [] as IOption[],
             animation: true,
+            winnerOptions: [] as IOption[],
         };
     },
     methods: {
         getOptions(): IOption[] {
             if (this.nr < this.summaries.length) {
                 return this.summaries[this.nr] as IOption[];
+            } else if (this.nr === this.summaries.length) {
+                this.winnerOptions = this.getOptionsOfWinners();
+                if (this.winnerOptions.length <= 1) {
+                    this.$emit('next', this.selected);
+                }
+                return this.winnerOptions;
             }
             return [];
+        },
+        getOptionsOfWinners(): IOption[] {
+            const per_type = accumulatePerType(this.selected);
+            const winners = calculateWinners(per_type);
+            const options: IOption[] = [];
+            winners.forEach((winner) => {
+                if (this.summaries.length > 0) {
+                    for (const i in this.selected) {
+                        const value: IOption = this.selected[i];
+                        if (value.type === winner) {
+                            options.push(value);
+                            break;
+                        }
+                    }
+                }
+            });
+            return options;
         },
         getSelected(): number | undefined {
             return this.selected_index[this.nr];
@@ -54,9 +81,14 @@ export default defineComponent({
         },
         select(selection: number): void {
             this.selected_index[this.nr] = selection;
-            this.selected[this.nr] = (this.summaries[this.nr] as IOption[])[
-                selection
-            ];
+            if (this.nr < this.summaries.length) {
+                this.selected[this.nr] = (this.summaries[this.nr] as IOption[])[
+                    selection
+                ];
+            } else if (this.winnerOptions.length > 1) {
+                this.selected[this.nr] = this.winnerOptions[selection];
+            }
+
             setTimeout(() => {
                 this.toggleAnimation();
                 setTimeout(() => {
