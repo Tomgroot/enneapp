@@ -20,7 +20,15 @@
                 :current="getSection() === 'summaries'"
                 :transition="transition"
                 :nr="nr - this.scales.length - this.keywords.length - 1"
-                @next="(selection) => selectSummaries(selection)"
+                @next="
+                    (selection, finish) => selectSummaries(selection, finish)
+                "
+            />
+            <WinnerSection
+                :winners="winners"
+                :current="getSection() === 'winners'"
+                :transition="transition"
+                @next="(selection) => selectWinner(selection)"
             />
         </div>
         <ProgressBar
@@ -47,6 +55,7 @@ import type { IOption, IQuestionData, ISelected, IScale } from '../types';
 import ScaleSection from '../components/ScaleSection.vue';
 import KeywordSection from '../components/KeywordSection.vue';
 import SummarySection from '../components/SummarySection.vue';
+import WinnerSection from '../components/WinnerSection.vue';
 import { calculateResults } from '../utils';
 
 export default defineComponent({
@@ -54,6 +63,7 @@ export default defineComponent({
         SummarySection,
         KeywordSection,
         ScaleSection,
+        WinnerSection,
         ProgressBar,
         TestHeader,
     },
@@ -73,7 +83,8 @@ export default defineComponent({
             scales: [] as IScale[],
             keywords: [] as IOption[][],
             summaries: [] as IOption[][],
-            nr: 80,
+            winners: [] as IOption[],
+            nr: 0,
             transition: 'fade-swipe',
         };
     },
@@ -88,10 +99,17 @@ export default defineComponent({
             this.transition = 'fade-swipe';
             this.next();
         },
-        selectSummaries(selected: IOption[]): void {
+        selectSummaries(selected: IOption[], finish = false): void {
             this.selected.summaries = selected;
             this.transition = 'fade-swipe';
-            this.next();
+            if (finish) {
+                this.finish();
+            } else {
+                this.next();
+            }
+        },
+        selectWinner(winner: IOption): void {
+            this.finish(winner);
         },
         getSection(): string {
             if (this.nr < this.scales.length) {
@@ -101,25 +119,25 @@ export default defineComponent({
                 this.scales.length + this.keywords.length + 1
             ) {
                 return 'keywords';
+            } else if (this.winners.length > 0) {
+                return 'winners';
             } else {
                 return 'summaries';
             }
         },
         next() {
             this.nr++;
-            if (
-                this.nr >
-                this.scales.length +
-                    this.keywords.length +
-                    this.summaries.length
-            ) {
-                this.finish();
-            }
         },
-        finish() {
+        finish(winner: IOption | undefined = undefined) {
             const results = calculateResults(this.selected);
-            console.log('FINISH', this.selected, results);
-            this.$emit('finish', results);
+            if (results.winners.length > 1 && !winner) {
+                this.generateWinners(results.winners);
+            } else {
+                this.nr = 999;
+                const win =
+                    winner && winner.type ? winner.type : results.winners[0];
+                this.$emit('results', results, win);
+            }
         },
         prev() {
             this.transition = 'gone';
@@ -128,11 +146,12 @@ export default defineComponent({
             }
         },
         getProgress(): number {
-            return (
+            return Math.min(
                 (this.nr /
                     (this.keywords.length +
                         this.summaries.length +
                         this.scales.length)) *
+                    100,
                 100
             );
         },
@@ -172,32 +191,66 @@ export default defineComponent({
                 this.scales.push(questionData.scale[i]);
             });
         },
+        generateWinners(typeWinners: number[]): void {
+            const winners: IOption[] = [];
+            typeWinners.forEach((winner) => {
+                for (const i in this.selected.scales) {
+                    const scale = this.selected.scales[i];
+                    if (scale.type === winner) {
+                        winners.push(scale);
+                        break;
+                    }
+                }
+            });
+            if (winners.length > 1) {
+                this.winners = winners;
+                this.next();
+            } else {
+                this.finish(winners[0]);
+            }
+        },
         getTitle(): string {
             if (this.getSection() === 'scales') {
                 return 'Past het bij jou?';
             } else if (
-                this.getSection() === 'keywords' &&
-                this.nr === this.keywords.length + this.scales.length
+                (this.getSection() === 'keywords' &&
+                    this.nr === this.keywords.length + this.scales.length) ||
+                (this.getSection() === 'summaries' &&
+                    this.nr ===
+                        this.keywords.length +
+                            this.scales.length +
+                            this.summaries.length +
+                            1)
             ) {
                 return 'Vergeleken met de rest?';
             } else if (this.getSection() === 'keywords') {
                 return 'Welke woorden passen?';
-            } else {
+            } else if (this.getSection() === 'summaries') {
                 return 'Kies er ééntje';
+            } else {
+                return 'Laatste vraag...';
             }
         },
         getSubtitle(): string {
             if (this.getSection() === 'scales') {
                 return 'Kies of je het eens bent met de stelling.';
             } else if (
-                this.getSection() === 'keywords' &&
-                this.nr === this.keywords.length + this.scales.length
+                (this.getSection() === 'keywords' &&
+                    this.nr === this.keywords.length + this.scales.length) ||
+                (this.getSection() === 'summaries' &&
+                    this.nr ===
+                        this.keywords.length +
+                            this.scales.length +
+                            this.summaries.length +
+                            1)
             ) {
                 return 'Welke van je gekozen antwoorden past het beste bij je?';
             } else if (this.getSection() === 'keywords') {
                 return 'Kies welke woorden het best bij jou persoonlijkheid passen.';
-            } else {
+            } else if (this.getSection() === 'summaries') {
                 return 'Klik op de optie die het beste bij jou past.';
+            } else {
+                return 'Met deze stellingen was je het eens, maar welke past het beste?';
             }
         },
     },

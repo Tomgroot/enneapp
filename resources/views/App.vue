@@ -1,19 +1,52 @@
 <template>
-    <TestPage @finish="(results) => finish(results)" />
+    <TestPage
+        v-if="!results"
+        :question-data-raw="questionDataRaw"
+        @results="(value, win) => finish(value, win)"
+    />
+    <ResultPage v-else :results="results" :winner="winner" />
 </template>
 <style lang="scss" scoped></style>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TestPage from './pages/TestPage.vue';
+import ResultPage from './pages/ResultPage.vue';
+import type { IResults } from './types';
 
 export default defineComponent({
     components: {
+        ResultPage,
         TestPage,
     },
-    props: {},
+    props: {
+        questionDataRaw: {
+            type: String,
+            default: '',
+        },
+    },
+    data() {
+        return {
+            results: undefined as IResults | undefined,
+            winner: undefined as string | undefined,
+        };
+    },
+    created() {
+        try {
+            const results = JSON.parse(localStorage.results);
+            if (results && localStorage.winner) {
+                this.results = results;
+                this.winner = localStorage.winner;
+            }
+        } catch (e) {
+            console.log('Failed parsing the result');
+        }
+    },
     methods: {
-        finish(results: number[]): void {
-            console.log(results);
+        finish(results: IResults, winner: number): void {
+            this.results = results;
+            this.winner = winner.toString();
+            localStorage.results = JSON.stringify(results);
+            localStorage.winner = winner;
         },
     },
 });

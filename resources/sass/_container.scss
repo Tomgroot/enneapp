@@ -24,6 +24,11 @@ html, #app {
     min-height: calc(100vh - 2rem);
 }
 
+.result {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
 .fade-swipe-enter-active {
     animation: fade-swipe-in 0.5s;
 }

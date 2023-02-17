@@ -48,11 +48,11 @@ export default defineComponent({
             if (this.nr < this.summaries.length) {
                 return this.summaries[this.nr] as IOption[];
             } else if (this.nr === this.summaries.length) {
-                this.winnerOptions = this.getOptionsOfWinners();
                 if (this.winnerOptions.length <= 1) {
                     this.$emit('next', this.selected);
+                } else {
+                    return this.winnerOptions;
                 }
-                return this.winnerOptions;
             }
             return [];
         },
@@ -79,12 +79,23 @@ export default defineComponent({
         toggleAnimation() {
             this.animation = !this.animation;
         },
+        isFinish() {
+            return (
+                (this.winnerOptions.length <= 1 &&
+                    !!this.selected[this.summaries.length - 1]) ||
+                (this.winnerOptions.length > 1 &&
+                    !!this.selected[this.summaries.length])
+            );
+        },
         select(selection: number): void {
             this.selected_index[this.nr] = selection;
             if (this.nr < this.summaries.length) {
                 this.selected[this.nr] = (this.summaries[this.nr] as IOption[])[
                     selection
                 ];
+                if (this.nr === this.summaries.length - 1) {
+                    this.winnerOptions = this.getOptionsOfWinners();
+                }
             } else if (this.winnerOptions.length > 1) {
                 this.selected[this.nr] = this.winnerOptions[selection];
             }
@@ -93,7 +104,7 @@ export default defineComponent({
                 this.toggleAnimation();
                 setTimeout(() => {
                     this.toggleAnimation();
-                    this.$emit('next', this.selected);
+                    this.$emit('next', this.selected, this.isFinish());
                 }, 500);
             }, 200);
         },

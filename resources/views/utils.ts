@@ -54,7 +54,7 @@ function calculateOverallWinners(results: Partial<IResults>): number[] {
     for (let i = 1; i <= 9; i++) {
         count[i] = 0;
     }
-    results.summaries?.winners.forEach((value) => {
+    results.scales?.winners.forEach((value) => {
         count[value]++;
     });
     results.keywords?.winners.forEach((value) => {
