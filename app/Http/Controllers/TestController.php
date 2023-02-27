@@ -22,7 +22,7 @@ class TestController extends Controller
     {
 
         $random_scale = $this->shuffleQuestions($this->questions['scale']);
-        $random_keywords = array_chunk($this->shuffleQuestions($this->questions['keywords']),3);
+        $random_keywords = $this->shuffleQuestions($this->questions['keywords']);
 
         $summaries_per_type = $this->sortPerType($this->questions['summaries']);
         $random_summaries = $this->getOptionCombinations($summaries_per_type);

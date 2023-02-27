@@ -84,7 +84,7 @@ export default defineComponent({
             keywords: [] as IOption[][],
             summaries: [] as IOption[][],
             winners: [] as IOption[],
-            nr: 0,
+            nr: 81,
             transition: 'fade-swipe',
         };
     },
@@ -164,13 +164,9 @@ export default defineComponent({
             );
         },
         generateKeywords(questionData: IQuestionData): void {
-            questionData.random.keywords.forEach((types: number[]) => {
-                const optionData: IOption[] = [];
-                types.forEach((type: number) => {
-                    const data = questionData.keywords[type];
-                    optionData.push(data);
-                });
-                this.keywords.push(optionData);
+            this.keywords[0] = [];
+            questionData.random.keywords.forEach((type: number) => {
+                this.keywords[0].push(questionData.keywords[type]);
             });
         },
         generateSummaries(questionData: IQuestionData): void {
@@ -224,7 +220,7 @@ export default defineComponent({
             ) {
                 return 'Vergeleken met de rest?';
             } else if (this.getSection() === 'keywords') {
-                return 'Welke woorden passen?';
+                return 'Verdeel 5 punten';
             } else if (this.getSection() === 'summaries') {
                 return 'Kies er ééntje';
             } else {
@@ -246,7 +242,7 @@ export default defineComponent({
             ) {
                 return 'Welke van je gekozen antwoorden past het beste bij je?';
             } else if (this.getSection() === 'keywords') {
-                return 'Kies welke woorden het best bij jou persoonlijkheid passen.';
+                return 'Verdeel 5 punten over de kernwoorden die respectievelijk het beste bij je passen.';
             } else if (this.getSection() === 'summaries') {
                 return 'Klik op de optie die het beste bij jou past.';
             } else {

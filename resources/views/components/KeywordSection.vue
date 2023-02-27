@@ -1,6 +1,6 @@
 <template>
     <transition :name="transition">
-        <TestOptions
+        <TestPointsDivider
             v-if="current && animation"
             :options="getOptions()"
             @select="(i) => select(i)"
@@ -11,15 +11,15 @@
 <style lang="scss" scoped></style>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TestOptions from './test/TestOptions.vue';
+import TestPointsDivider from './test/TestPointsDivider/TestPointsDivider.vue';
 import type { IOption } from '../types';
 
 export default defineComponent({
-    components: { TestOptions },
+    components: { TestPointsDivider },
     props: {
         keywords: {
             type: Array,
-            default: [] as IOption[][],
+            default: [] as IOption[],
         },
         nr: {
             type: Number,

@@ -5,7 +5,7 @@ export interface IQuestionData {
     summaries_per_type: { [x: number]: ITypeData[] };
     random: {
         summaries: number[][];
-        keywords: number[][];
+        keywords: number[];
         scale: number[];
     };
 }
@@ -31,6 +31,10 @@ export interface IResults {
 export interface IResult {
     per_type: number[];
     winners: number[];
+}
+
+export interface IDividedPoints extends ITypeData {
+    points: number;
 }
 
 export type IOption = ITypeData;
