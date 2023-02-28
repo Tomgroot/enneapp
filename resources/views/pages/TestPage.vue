@@ -88,7 +88,7 @@ export default defineComponent({
             keywords: [] as IOption[][],
             summaries: [] as IOption[][],
             winners: [] as IOption[],
-            nr: 81,
+            nr: 0,
             transition: 'fade-swipe',
         };
     },
@@ -187,16 +187,28 @@ export default defineComponent({
         generateScales(questionData: IQuestionData): void {
             questionData.random.scale.forEach((i) => {
                 this.scales.push(questionData.scale[i]);
+                if (questionData.scale[i].type == 2) {
+                    this.selected.scales.push(questionData.scale[i]);
+                }
             });
         },
         generateWinners(typeWinners: number[]): void {
             const winners: IOption[] = [];
-            typeWinners.forEach((winner) => {
+            typeWinners.forEach((winner, index) => {
                 for (const i in this.selected.scales) {
                     const scale = this.selected.scales[i];
                     if (scale.type === winner) {
                         winners.push(scale);
                         break;
+                    }
+                }
+                if (index != winners.length) {
+                    for (const i in this.scales) {
+                        const scale = this.scales[i];
+                        if (scale.type === winner) {
+                            winners.push(scale);
+                            break;
+                        }
                     }
                 }
             });
