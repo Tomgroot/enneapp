@@ -72,41 +72,62 @@ export default defineComponent({
         options: {
             type: Array,
         },
+        selected: {
+            type: Array,
+        },
     },
     data() {
         return {
-            selected: [] as IDividedPoints[],
+            selectedPoints: [] as IDividedPoints[],
             nrPointsToDivide: 5,
         };
     },
     methods: {
         point(i: number, points: number, option: IOption) {
             if (
-                this.selected[i] &&
-                this.selected[i].points &&
-                this.selected[i].points == points &&
+                this.selectedPoints[i] &&
+                this.selectedPoints[i].points &&
+                this.selectedPoints[i].points == points &&
                 points == 1
             ) {
-                this.selected[i] = {
+                this.selectedPoints[i] = {
                     ...option,
                     points: 0,
                 };
             } else {
-                this.selected[i] = {
+                this.selectedPoints[i] = {
                     ...option,
                     points: points,
                 };
             }
+            this.$emit('select', this.selectedPoints);
+            if (this.getLeftToDivide() <= 0) {
+                this.$emit('done', this.selectedPoints);
+            }
         },
         getNrSelected(i: number) {
-            if (this.selected[i] && this.selected[i].points) {
-                return this.selected[i].points;
+            if (
+                this.selected &&
+                this.selected[i] &&
+                (this.selected[i] as IDividedPoints).points
+            ) {
+                return (this.selected[i] as IDividedPoints).points;
+            }
+            if (this.selectedPoints[i] && this.selectedPoints[i].points) {
+                return this.selectedPoints[i].points;
             }
         },
         getLeftToDivide() {
             let nrPointsDivided = 0;
-            for (const i in this.selected) {
-                nrPointsDivided += this.selected[i].points;
+            if (this.selectedPoints.length) {
+                for (const i in this.selectedPoints) {
+                    nrPointsDivided += this.selectedPoints[i].points;
+                }
+            } else {
+                for (const i in this.selected) {
+                    nrPointsDivided += (this.selected[i] as IDividedPoints)
+                        .points;
+                }
             }
             return this.nrPointsToDivide - nrPointsDivided;
         },

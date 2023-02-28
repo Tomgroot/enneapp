@@ -1,4 +1,10 @@
-import type { IResult, IResults, ISelected, ITypeData } from './types';
+import type {
+    IDividedPoints,
+    IResult,
+    IResults,
+    ISelected,
+    ITypeData,
+} from './types';
 
 export function calculateResults(selected: ISelected): IResults {
     const results = {
@@ -11,7 +17,7 @@ export function calculateResults(selected: ISelected): IResults {
     results.scales.per_type = accumulatePerType(selected.scales);
     results.scales.winners = calculateWinners(results.scales.per_type);
 
-    results.keywords.per_type = accumulatePerType(selected.keywords);
+    results.keywords.per_type = accumulatePointsPerType(selected.keywords);
     results.keywords.winners = calculateWinners(results.keywords.per_type);
 
     results.summaries.per_type = accumulatePerType(selected.summaries);
@@ -20,6 +26,23 @@ export function calculateResults(selected: ISelected): IResults {
     results.winners = calculateOverallWinners(results);
 
     return results;
+}
+
+export function accumulatePointsPerType(
+    pointData: IDividedPoints[][]
+): number[] {
+    const per_type = [] as number[];
+    for (let i = 1; i <= 9; i++) {
+        per_type[i] = 0;
+    }
+    pointData.forEach((points) => {
+        points.forEach((point) => {
+            if (point.content != '' && point.points && point.points > 0) {
+                per_type[point.type] += point.points;
+            }
+        });
+    });
+    return per_type;
 }
 
 export function accumulatePerType(typeData: ITypeData[]): number[] {

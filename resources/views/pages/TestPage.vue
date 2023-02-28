@@ -19,10 +19,8 @@
                 :summaries="summaries"
                 :current="getSection() === 'summaries'"
                 :transition="transition"
-                :nr="nr - this.scales.length - this.keywords.length - 1"
-                @next="
-                    (selection, finish) => selectSummaries(selection, finish)
-                "
+                :nr="nr - this.scales.length - this.keywords.length"
+                @next="(selection, f) => selectSummaries(selection, f)"
             />
             <WinnerSection
                 :winners="winners"
@@ -51,7 +49,13 @@
 import { defineComponent } from 'vue';
 import TestHeader from '../components/test/TestHeader.vue';
 import ProgressBar from '../components/test/TestProgressBar.vue';
-import type { IOption, IQuestionData, ISelected, IScale } from '../types';
+import type {
+    IOption,
+    IQuestionData,
+    ISelected,
+    IScale,
+    IDividedPoints,
+} from '../types';
 import ScaleSection from '../components/ScaleSection.vue';
 import KeywordSection from '../components/KeywordSection.vue';
 import SummarySection from '../components/SummarySection.vue';
@@ -77,7 +81,7 @@ export default defineComponent({
         return {
             selected: {
                 scales: [] as IScale[],
-                keywords: [] as IOption[],
+                keywords: [] as IDividedPoints[][],
                 summaries: [] as IOption[],
             } as ISelected,
             scales: [] as IScale[],
@@ -94,9 +98,10 @@ export default defineComponent({
             this.transition = 'fade-swipe';
             this.next();
         },
-        selectKeywords(selected: IOption[]): void {
+        selectKeywords(selected: IDividedPoints[][]): void {
             this.selected.keywords = selected;
             this.transition = 'fade-swipe';
+            console.log(this.selected.keywords, 'JO');
             this.next();
         },
         selectSummaries(selected: IOption[], finish = false): void {
@@ -114,10 +119,7 @@ export default defineComponent({
         getSection(): string {
             if (this.nr < this.scales.length) {
                 return 'scales';
-            } else if (
-                this.nr <
-                this.scales.length + this.keywords.length + 1
-            ) {
+            } else if (this.nr < this.scales.length + this.keywords.length) {
                 return 'keywords';
             } else if (this.winners.length > 0) {
                 return 'winners';
@@ -206,6 +208,7 @@ export default defineComponent({
             }
         },
         getTitle(): string {
+            console.log(this.getSection());
             if (this.getSection() === 'scales') {
                 return 'Past het bij jou?';
             } else if (

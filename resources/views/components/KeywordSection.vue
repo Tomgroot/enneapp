@@ -4,6 +4,7 @@
             v-if="current && animation"
             :options="getOptions()"
             @select="(i) => select(i)"
+            @done="done()"
             :selected="getSelected()"
         />
     </transition>
@@ -12,7 +13,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TestPointsDivider from './test/TestPointsDivider/TestPointsDivider.vue';
-import type { IOption } from '../types';
+import type { IDividedPoints, IOption } from '../types';
 
 export default defineComponent({
     components: { TestPointsDivider },
@@ -36,34 +37,26 @@ export default defineComponent({
     },
     data() {
         return {
-            selected_index: [] as number[],
-            selected: [] as IOption[],
+            selected: [] as IDividedPoints[][],
             animation: true,
         };
     },
     methods: {
         getOptions(): IOption[] {
-            if (this.nr < this.keywords.length) {
-                return this.keywords[this.nr] as IOption[];
-            }
-            return this.selected.slice(0, 3);
+            return this.keywords[this.nr] as IOption[];
         },
-        getSelected(): number | undefined {
-            return this.selected_index[this.nr];
+        getSelected(): IDividedPoints[] | undefined {
+            return this.selected[this.nr];
         },
         toggleAnimation() {
             this.animation = !this.animation;
         },
-        select(selection: number): void {
-            this.selected_index[this.nr] = selection;
+        select(selection: IDividedPoints[]): void {
             if (this.nr < this.keywords.length) {
-                this.selected[this.nr] = (this.keywords[this.nr] as IOption[])[
-                    selection
-                ];
-            } else if (this.nr === this.keywords.length) {
-                // When we do the extra screen with already chosen keywords
-                this.selected[this.nr] = this.selected[selection] as IOption;
+                this.selected[this.nr] = selection;
             }
+        },
+        done(): void {
             setTimeout(() => {
                 this.toggleAnimation();
                 setTimeout(() => {
