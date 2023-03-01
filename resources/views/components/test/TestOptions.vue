@@ -12,13 +12,14 @@
     </div>
 </template>
 <style lang="scss" scoped>
+@import './resources/sass/card';
 .q-options {
     display: flex;
     flex-direction: column;
     width: 100%;
 
     &__btn {
-        @extend .q-card;
+        @extend %q-card;
         cursor: pointer;
         transition: all 200ms ease;
         -webkit-tap-highlight-color: transparent;

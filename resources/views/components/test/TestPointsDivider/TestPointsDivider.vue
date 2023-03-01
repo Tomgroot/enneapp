@@ -15,13 +15,14 @@
     </div>
 </template>
 <style lang="scss" scoped>
+@import './resources/sass/card';
 .q-points-divider {
     display: flex;
     flex-direction: column;
     width: 100%;
 
     &__card {
-        @extend .q-card;
+        @extend %q-card;
         transition: all 200ms ease;
         -webkit-tap-highlight-color: transparent;
         position: relative;

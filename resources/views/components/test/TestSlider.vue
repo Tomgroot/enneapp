@@ -7,13 +7,14 @@
     </div>
 </template>
 <style lang="scss" scoped>
+@import './resources/sass/card';
 .q-slider {
     display: flex;
     flex-direction: column;
     width: 100%;
 
     &__content {
-        @extend .q-card;
+        @extend %q-card;
     }
 }
 </style>

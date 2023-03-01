@@ -15,8 +15,9 @@
     </div>
 </template>
 <style lang="scss" scoped>
+@import './resources/sass/card';
 .q-result-type {
-    @extend .q-card;
+    @extend %q-card;
     margin-top: 2rem;
     text-align: center;
     cursor: pointer;
