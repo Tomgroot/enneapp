@@ -23,7 +23,7 @@ export function calculateResults(selected: ISelected): IResults {
     );
     results.keywords.winners = calculateWinners(results.keywords.per_type);
 
-    results.summaries.per_type = accumulatePerType(selected.summaries);
+    results.summaries.per_type = accumulatePointsPerType(selected.summaries);
     results.summaries.winners = calculateWinners(results.summaries.per_type);
 
     results.winners = calculateOverallWinners(results);

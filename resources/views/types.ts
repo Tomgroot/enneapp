@@ -17,7 +17,7 @@ export interface ITypeData {
 
 export interface ISelected {
     keywords: IDividedPoints[][];
-    summaries: IOption[];
+    summaries: IDividedPoints[];
     scales: ISelectedPoints[];
 }
 

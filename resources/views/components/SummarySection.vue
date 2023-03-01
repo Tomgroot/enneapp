@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TestSlider from './test/TestSlider.vue';
-import type {IOption, ISelectedPoints} from '../types';
+import type { IOption, ISelectedPoints } from '../types';
 
 export default defineComponent({
     components: { TestSlider },
@@ -36,8 +36,7 @@ export default defineComponent({
     },
     data() {
         return {
-            selected_index: [] as number[],
-            selected: [] as IOption[],
+            selected: [] as ISelectedPoints[],
             animation: true,
             winnerOptions: [] as IOption[],
         };
@@ -47,13 +46,19 @@ export default defineComponent({
             return this.summaries[this.nr] as IOption;
         },
         getSelected(): number | undefined {
-            return this.selected_index[this.nr];
+            if (this.selected[this.nr] && this.selected[this.nr].points) {
+                return this.selected[this.nr].points;
+            }
+            return undefined;
         },
         toggleAnimation() {
             this.animation = !this.animation;
         },
-        select(selection: ISelectedPoints): void {
-            this.selected[this.nr] = selection
+        select(selection: number): void {
+            this.selected[this.nr] = {
+                ...(this.summaries[this.nr] as IOption),
+                points: selection,
+            };
 
             setTimeout(() => {
                 this.toggleAnimation();

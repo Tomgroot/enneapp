@@ -83,13 +83,13 @@ export default defineComponent({
             selected: {
                 scales: [] as ISelectedPoints[],
                 keywords: [] as IDividedPoints[][],
-                summaries: [] as IOption[],
+                summaries: [] as IDividedPoints[],
             } as ISelected,
             scales: [] as IScale[],
             keywords: [] as IOption[][],
             summaries: [] as IOption[],
             winners: [] as IOption[],
-            nr: 82,
+            nr: 0,
             transition: 'fade-swipe',
         };
     },
@@ -102,17 +102,12 @@ export default defineComponent({
         selectKeywords(selected: IDividedPoints[][]): void {
             this.selected.keywords = selected;
             this.transition = 'fade-swipe';
-            console.log(this.selected.keywords, 'JO');
             this.next();
         },
-        selectSummaries(selected: IOption[], finish = false): void {
+        selectSummaries(selected: IDividedPoints[]): void {
             this.selected.summaries = selected;
             this.transition = 'fade-swipe';
-            if (finish) {
-                this.finish();
-            } else {
-                this.next();
-            }
+            this.next();
         },
         selectWinner(winner: IOption): void {
             this.finish(winner);
@@ -130,6 +125,15 @@ export default defineComponent({
         },
         next() {
             this.nr++;
+            if (
+                this.nr >=
+                    this.scales.length +
+                        this.keywords.length +
+                        this.summaries.length &&
+                (!this.winners || this.winners.length == 0)
+            ) {
+                this.finish();
+            }
         },
         finish(winner: IOption | undefined = undefined) {
             const results = calculateResults(this.selected);
@@ -210,7 +214,6 @@ export default defineComponent({
             }
         },
         getTitle(): string {
-            console.log(this.getSection());
             if (this.getSection() === 'scales') {
                 return 'Past het bij jou?';
             } else if (
@@ -227,7 +230,7 @@ export default defineComponent({
             } else if (this.getSection() === 'keywords') {
                 return 'Verdeel 5 punten';
             } else if (this.getSection() === 'summaries') {
-                return 'Kies er ééntje';
+                return 'Hoeveel past het bij jou?';
             } else {
                 return 'Laatste vraag...';
             }
@@ -249,7 +252,7 @@ export default defineComponent({
             } else if (this.getSection() === 'keywords') {
                 return 'Verdeel 5 punten over de kernwoorden die respectievelijk het beste bij je passen.';
             } else if (this.getSection() === 'summaries') {
-                return 'Klik op de optie die het beste bij jou past.';
+                return 'Op een schaal van 100%, hoe goed past het statement bij jou? Sleep de groene slider naar links of naar rechts.';
             } else {
                 return 'Met deze stellingen was je het eens, maar welke past het beste?';
             }

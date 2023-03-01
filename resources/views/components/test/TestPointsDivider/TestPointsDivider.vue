@@ -26,6 +26,7 @@
         transition: all 200ms ease;
         -webkit-tap-highlight-color: transparent;
         position: relative;
+        margin-bottom: 2.5rem;
 
         &.selected {
             background-color: rgba(236, 137, 69, 1);
@@ -36,7 +37,7 @@
         &__points {
             position: absolute;
             display: flex;
-            transform: translateY(50%);
+            transform: translateY(60%);
             bottom: 0;
         }
 
@@ -44,7 +45,7 @@
             height: 2rem;
             cursor: pointer;
             width: 2rem;
-            box-shadow: 0px 3px 3px rgb(236 137 69 / 20%);
+            box-shadow: 0 3px 3px rgb(236 137 69 / 20%);
             border-radius: 50%;
             border: 3px solid #2f9a6e;
             background-color: white;

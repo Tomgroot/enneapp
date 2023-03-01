@@ -37,9 +37,9 @@
     </div>
 </template>
 <style lang="scss" scoped>
+@import './resources/sass/slider';
 .q-progress-bar {
     display: flex;
-    margin-top: 3rem;
     position: fixed;
     align-items: center;
     bottom: 1rem;
@@ -57,7 +57,7 @@
         height: 1rem;
         padding: 0.5rem;
         cursor: pointer;
-        box-shadow: 0px 3px 3px rgba(236, 137, 69, 0.2);
+        box-shadow: 0 3px 3px rgba(236, 137, 69, 0.2);
         transition: all ease 200ms;
         -webkit-tap-highlight-color: transparent;
 
@@ -80,18 +80,14 @@
     }
 
     &__bar {
-        background-color: #f9e5cd;
-        border-radius: 0.125rem;
+        @extend %q-slider;
         flex: 1;
         height: 0.25rem;
         margin: 0 1rem;
 
         &__progress {
-            border-radius: 0.125rem;
-            background-color: #2f9a6e;
-            height: 100%;
+            @extend  %q-slider__progress;
             transition: all ease 200ms;
-            width: 0%;
         }
     }
 }
