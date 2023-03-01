@@ -15,11 +15,11 @@ return [
         ],
         [
             'type' => 1,
-            'content' => 'Ik doe meer dan anderen van me verwachten.',
+            'content' => 'Ik weet wat er verwacht wordt en meestal heb ik het al gedaan voordat anderen erom vragen.',
         ],
         [
             'type' => 1,
-            'content' => 'Ik besef dat mijn lat hoog ligt (ik vind het belangrijk de dingen god te doen) en daaraan moet ik wel voldoen.',
+            'content' => 'Ik besef dat mijn lat hoog ligt (ik vind het belangrijk de dingen goed te doen) en daaraan moet ik wel voldoen.',
         ],
         [
             'type' => 1,
@@ -27,7 +27,7 @@ return [
         ],
         [
             'type' => 1,
-            'content' => 'Ik heb een soort innerlijk lijstje van wat mag en niet mag.',
+            'content' => 'Ik heb een soort innerlijk lijstje van wat goed en niet goed is.',
         ],
         [
             'type' => 1,
@@ -60,7 +60,7 @@ return [
         ],
         [
             'type' => 2,
-            'content' => 'Ik heb de neiging te veel voor anderen te doen.',
+            'content' => 'Ik heb de neiging teveel voor anderen te doen.',
         ],
         [
             'type' => 2,
@@ -80,7 +80,7 @@ return [
         ],
         [
             'type' => 3,
-            'content' => 'Ik hecht waarde aan succesvol zijn.',
+            'content' => 'Ik werk eraan om succesvol te zijn.',
         ],
         [
             'type' => 3,
@@ -88,7 +88,7 @@ return [
         ],
         [
             'type' => 3,
-            'content' => 'Ik ga ervoor om mijn doel te bereiken. Wat we doen moet wel een doel hebben.',
+            'content' => 'Wat ik doe moet wel een resultaat opleveren. Alles, nou ja heel veel, moet ervoor wijken om dat ook te bereiken',
         ],
         [
             'type' => 3,
@@ -96,7 +96,7 @@ return [
         ],
         [
             'type' => 3,
-            'content' => 'Ik vind het leuk wanneer mensen me bewonderen.',
+            'content' => 'Ik vind het leuk wanneer mensen mijn successen opmerken.',
         ],
         [
             'type' => 3,
@@ -104,7 +104,8 @@ return [
         ],
         [
             'type' => 3,
-            'content' => 'Ik ben gevoelig voor complimenten.',
+            'content' => 'Ik wil graag complimenten, maar ik bepaal zelf de waarde ervan.
+.',
         ],
         [
             'type' => 3,
@@ -156,7 +157,7 @@ return [
         ],
         [
             'type' => 5,
-            'content' => 'Ik vind het belangrijk de dingen te begrijpen.',
+            'content' => 'Ik analyseer op basis van de feiten, met gevoel kan ik niet zoveel.',
         ],
         [
             'type' => 5,
@@ -164,15 +165,15 @@ return [
         ],
         [
             'type' => 5,
-            'content' => 'Ik vind het moeilijk snel te reageren wanneer ik iets niet begrijp.',
+            'content' => 'Ik vind het moeilijk snel te reageren en mijn standpunt direct te uiten.',
         ],
         [
             'type' => 5,
-            'content' => 'Ik kan makkelijk mijn gevoel van tijd verliezen als ik geconcentreerd bezig ben. Ik kan ergens helemaal induiken als ik erdoor geobsedeerd ben.',
+            'content' => 'Ik kan ergens helemaal induiken als ik erdoor geobsedeerd ben.',
         ],
         [
             'type' => 5,
-            'content' => 'Ik vind het vervelend wanneer anderen zich met mijn privé-zakenbemoeien.',
+            'content' => 'Ik vind het vervelend wanneer anderen zich met mijn privézaken bemoeien.',
         ],
         [
             'type' => 5,
@@ -204,7 +205,7 @@ return [
         ],
         [
             'type' => 6,
-            'content' => 'Ik heb oog voor verborgen agenda\'s. Ik voel aan of \'een zaakje\' te vertrouwen is of niet. Systemen die niet kloppen.',
+            'content' => 'Ik heb oog voor verborgen agenda\'s. Ik voel aan of \'een zaakje\' te vertrouwen is of niet.',
         ],
         [
             'type' => 6,
@@ -216,7 +217,7 @@ return [
         ],
         [
             'type' => 6,
-            'content' => 'Ik weet vaak wel een uitweg (al ben ik een vat vol tegenstrijdigheden). Ik ben een goede \'scenarioplanner\'.',
+            'content' => 'Ik ben geneigd opgelegde regeltjes, kleine letters en grenzen te onderzoeken op deugdelijkheid.',
         ],
         [
             'type' => 6,
@@ -224,7 +225,7 @@ return [
         ],
         [
             'type' => 7,
-            'content' => 'Ik zet graag mijn roze bril op en loop het liefst met een grote boog om pijn en verdriet heen.',
+            'content' => 'Ik zet graag mijn roze bril op en loop het liefst met een grote boog om pijn of verdriet heen.',
         ],
         [
             'type' => 7,
@@ -245,7 +246,7 @@ return [
 
         [
             'type' => 7,
-            'content' => 'Ik kijk naar de zonnige kant van het leven, ik ben eengeboren optimist.',
+            'content' => 'Ik kijk naar de zonnige kant van het leven, ik ben een geboren optimist.',
         ],
         [
             'type' => 7,
@@ -257,11 +258,11 @@ return [
         ],
         [
             'type' => 7,
-            'content' => 'Ik kan me een leven zonder opties niet voorstellen.',
+            'content' => 'Ik kan me een leven zonder leuke opties niet voorstellen.',
         ],
         [
             'type' => 8,
-            'content' => 'Ik vind het belangrijksterk te zijn en mijn zwakte en kwetsbaarheid te verbergen.',
+            'content' => 'Ik vind het belangrijk sterk te zijn en mijn zwakte en kwetsbaarheid te verbergen.',
         ],
         [
             'type' => 8,
@@ -297,11 +298,11 @@ return [
         ],
         [
             'type' => 9,
-            'content' => 'Ik vind harmonie belangrijk.',
+            'content' => 'Met mij krijg je geen ruzie, maar als mensen zich dominant of arrogant gedragen heb ik wel de neiging hen voor schut te zetten',
         ],
         [
             'type' => 9,
-            'content' => 'Ik vermijd conflicten en ruzie.',
+            'content' => 'Ik vermijd conflicten en ruzie en doe mijn best om altijd de vrede te bewaren.',
         ],
         [
             'type' => 9,
@@ -313,7 +314,7 @@ return [
         ],
         [
             'type' => 9,
-            'content' => 'Ik word niet zo makkelijk boos, de meeste mensen maken zich te druk over dingen.',
+            'content' => 'Ik word niet zo makkelijk boos. Och, ik maak me niet zo druk over dingen.',
         ],
         [
             'type' => 9,
@@ -336,39 +337,39 @@ return [
     'keywords' => [
         [
             'type' => 1,
-            'content' => "control freak, verbetering, ((ver)oordelen), discipline, orde, normen",
+            'content' => "foutloos, orde, normen, controle, verbetering, discipline",
         ],
         [
             'type' => 2,
-            'content' => "aardig, angst voor afwijzing, praatpaal, verbinding, dienen en zorgen, geven helpen",
+            'content' => "aardig, praatpaal, dienend, zorgen, geven, helpen",
         ],
         [
             'type' => 3,
-            'content' => "motiveren, succes, (nonchalant), compliment, imago, zelfverzekerd, resultaatgericht",
+            'content' => "motiveren, succes, imago, zelfverzekerd, resultaatgericht",
         ],
         [
             'type' => 4,
-            'content' => "voelen, sensitief, bijzonder, uniek, excentriek, melancholie, (theatraal), depressie, verbinding, authenticiteit",
+            'content' => "sensitief, bijzonder, uniek, verbinding, authenticiteit",
         ],
         [
             'type' => 5,
-            'content' => "weten, onbeweeglijk, afstand, graag eenzelvig op mezelf, sober",
+            'content' => "weten, analyseren, onbeweeglijk, graag op mezelf, emotionele afstand",
         ],
         [
             'type' => 6,
-            'content' => "loyaal, (tegenstrijdig), (erbij horen), tobben, warm, (onvoorspelbaar), twijfelaar, scenario planner",
+            'content' => "loyaal, tobben, \‘voor\’denken, veiligheid, waarom, uitzoeken",
         ],
         [
             'type' => 7,
-            'content' => "genieten, mateloos, lichtvoetig, avontuurlijk, rebels, goede sfeer, gezellig",
+            'content' => "genieten, mateloos, lichtvoetig, avontuurlijk, rebels, gezellig",
         ],
         [
             'type' => 8,
-            'content' => "rechtvaardig, macht, extremen, uitgesproken, opvliegen",
+            'content' => "rechtvaardig, macht, extremen, uitgesproken, sterk",
         ],
         [
             'type' => 9,
-            'content' => "harmonie, zichzelf vergeten, geen ruzie, boeddha, middenweg, tolerant",
+            'content' => "harmonie, ik ben onbelangrijk, geen ruzie, middenweg, tolerant",
         ],
     ],
     'summaries' => [
@@ -474,7 +475,7 @@ return [
         ],
         [
             'type' => 9,
-            'content' => 'Ik vind het fijn wanneer er een goede sfeer is en het kalm en rustig is. Ik strijk problemen makkelijk glad zodat iedereen het weer naar zijn zin heeft. Als anderen zich ergens druk om maken, dan stel ik ze gerust. Och, alles komt immers goed uiteindelijk.',
+            'content' => 'Ik vind het fijn wanneer er een goede sfeer is en het kalm en rustig is. Ik strijk problemen makkelijk glad zodat iedereen het weer naar zijn zin heeft. Als anderen zich ergens druk om maken, dan stel ik hen gerust. Och, alles komt immers goed uiteindelijk.',
         ],
         [
             'type' => 9,
@@ -482,4 +483,3 @@ return [
         ],
     ],
 ];
-
