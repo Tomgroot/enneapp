@@ -124,8 +124,7 @@ export default defineComponent({
     props: {
         title: {
             type: String,
-            default:
-                'Ik kan zo opgaan in mijn werk of mijn rol dat ik vergeet dat er nog meer is in het leven.',
+            default: '',
         },
         selected: {
             type: Number,

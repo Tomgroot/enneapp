@@ -18,7 +18,7 @@ export interface ITypeData {
 export interface ISelected {
     keywords: IDividedPoints[][];
     summaries: IOption[];
-    scales: IScale[];
+    scales: ISelectedPoints[];
 }
 
 export interface IResults {
@@ -39,3 +39,5 @@ export interface IDividedPoints extends ITypeData {
 
 export type IOption = ITypeData;
 export type IScale = ITypeData;
+
+export type ISelectedPoints = IDividedPoints;

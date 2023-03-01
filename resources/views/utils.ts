@@ -3,6 +3,7 @@ import type {
     IResult,
     IResults,
     ISelected,
+    ISelectedPoints,
     ITypeData,
 } from './types';
 
@@ -14,10 +15,12 @@ export function calculateResults(selected: ISelected): IResults {
         winners: [] as number[],
     };
 
-    results.scales.per_type = accumulatePerType(selected.scales);
+    results.scales.per_type = accumulatePointsPerType(selected.scales);
     results.scales.winners = calculateWinners(results.scales.per_type);
 
-    results.keywords.per_type = accumulatePointsPerType(selected.keywords);
+    results.keywords.per_type = accumulateDividedPointsPerType(
+        selected.keywords
+    );
     results.keywords.winners = calculateWinners(results.keywords.per_type);
 
     results.summaries.per_type = accumulatePerType(selected.summaries);
@@ -29,6 +32,21 @@ export function calculateResults(selected: ISelected): IResults {
 }
 
 export function accumulatePointsPerType(
+    pointData: ISelectedPoints[]
+): number[] {
+    const per_type = [] as number[];
+    for (let i = 1; i <= 9; i++) {
+        per_type[i] = 0;
+    }
+    pointData.forEach((point) => {
+        if (point.content != '' && point.points && point.points > 0) {
+            per_type[point.type] += point.points;
+        }
+    });
+    return per_type;
+}
+
+export function accumulateDividedPointsPerType(
     pointData: IDividedPoints[][]
 ): number[] {
     const per_type = [] as number[];

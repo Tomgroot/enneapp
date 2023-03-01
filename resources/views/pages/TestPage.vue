@@ -55,6 +55,7 @@ import type {
     ISelected,
     IScale,
     IDividedPoints,
+    ISelectedPoints,
 } from '../types';
 import ScaleSection from '../components/ScaleSection.vue';
 import KeywordSection from '../components/KeywordSection.vue';
@@ -80,7 +81,7 @@ export default defineComponent({
     data() {
         return {
             selected: {
-                scales: [] as IScale[],
+                scales: [] as ISelectedPoints[],
                 keywords: [] as IDividedPoints[][],
                 summaries: [] as IOption[],
             } as ISelected,
@@ -93,7 +94,7 @@ export default defineComponent({
         };
     },
     methods: {
-        selectScale(selected: IScale[]): void {
+        selectScale(selected: ISelectedPoints[]): void {
             this.selected.scales = selected;
             this.transition = 'fade-swipe';
             this.next();
@@ -187,9 +188,6 @@ export default defineComponent({
         generateScales(questionData: IQuestionData): void {
             questionData.random.scale.forEach((i) => {
                 this.scales.push(questionData.scale[i]);
-                if (questionData.scale[i].type == 2) {
-                    this.selected.scales.push(questionData.scale[i]);
-                }
             });
         },
         generateWinners(typeWinners: number[]): void {
