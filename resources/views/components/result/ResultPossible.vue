@@ -16,14 +16,10 @@
 </template>
 <style lang="scss" scoped>
 .q-result-type {
+    @extend .q-card;
     margin-top: 2rem;
     text-align: center;
-    background-color: #fff;
-    border-radius: 1.1rem;
-    padding: 1.5rem;
     cursor: pointer;
-    margin-bottom: 0.75rem;
-    box-shadow: 0px 3px 3px rgb(236 137 69 / 20%);
     transition: all 200ms ease;
     -webkit-tap-highlight-color: transparent;
 

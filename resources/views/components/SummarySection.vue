@@ -1,8 +1,8 @@
 <template>
     <transition :name="transition">
-        <TestOptions
+        <TestSlider
             v-if="current && animation"
-            :options="getOptions()"
+            :option="getOption()"
             @select="(i) => select(i)"
             :selected="getSelected()"
         />
@@ -11,16 +11,15 @@
 <style lang="scss" scoped></style>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TestOptions from './test/TestOptions.vue';
-import type { IOption } from '../types';
-import { accumulatePerType, calculateWinners } from '../utils';
+import TestSlider from './test/TestSlider.vue';
+import type {IOption, ISelectedPoints} from '../types';
 
 export default defineComponent({
-    components: { TestOptions },
+    components: { TestSlider },
     props: {
         summaries: {
             type: Array,
-            default: [] as IOption[][],
+            default: [] as IOption[],
         },
         nr: {
             type: Number,
@@ -44,34 +43,8 @@ export default defineComponent({
         };
     },
     methods: {
-        getOptions(): IOption[] {
-            if (this.nr < this.summaries.length) {
-                return this.summaries[this.nr] as IOption[];
-            } else if (this.nr === this.summaries.length) {
-                if (this.winnerOptions.length <= 1) {
-                    this.$emit('next', this.selected);
-                } else {
-                    return this.winnerOptions;
-                }
-            }
-            return [];
-        },
-        getOptionsOfWinners(): IOption[] {
-            const per_type = accumulatePerType(this.selected);
-            const winners = calculateWinners(per_type);
-            const options: IOption[] = [];
-            winners.forEach((winner) => {
-                if (this.summaries.length > 0) {
-                    for (const i in this.selected) {
-                        const value: IOption = this.selected[i];
-                        if (value.type === winner) {
-                            options.push(value);
-                            break;
-                        }
-                    }
-                }
-            });
-            return options;
+        getOption(): IOption {
+            return this.summaries[this.nr] as IOption;
         },
         getSelected(): number | undefined {
             return this.selected_index[this.nr];
@@ -79,32 +52,14 @@ export default defineComponent({
         toggleAnimation() {
             this.animation = !this.animation;
         },
-        isFinish() {
-            return (
-                (this.winnerOptions.length <= 1 &&
-                    !!this.selected[this.summaries.length - 1]) ||
-                (this.winnerOptions.length > 1 &&
-                    !!this.selected[this.summaries.length])
-            );
-        },
-        select(selection: number): void {
-            this.selected_index[this.nr] = selection;
-            if (this.nr < this.summaries.length) {
-                this.selected[this.nr] = (this.summaries[this.nr] as IOption[])[
-                    selection
-                ];
-                if (this.nr === this.summaries.length - 1) {
-                    this.winnerOptions = this.getOptionsOfWinners();
-                }
-            } else if (this.winnerOptions.length > 1) {
-                this.selected[this.nr] = this.winnerOptions[selection];
-            }
+        select(selection: ISelectedPoints): void {
+            this.selected[this.nr] = selection
 
             setTimeout(() => {
                 this.toggleAnimation();
                 setTimeout(() => {
                     this.toggleAnimation();
-                    this.$emit('next', this.selected, this.isFinish());
+                    this.$emit('next', this.selected);
                 }, 500);
             }, 200);
         },

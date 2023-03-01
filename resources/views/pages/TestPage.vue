@@ -87,9 +87,9 @@ export default defineComponent({
             } as ISelected,
             scales: [] as IScale[],
             keywords: [] as IOption[][],
-            summaries: [] as IOption[][],
+            summaries: [] as IOption[],
             winners: [] as IOption[],
-            nr: 0,
+            nr: 82,
             transition: 'fade-swipe',
         };
     },
@@ -168,21 +168,13 @@ export default defineComponent({
         },
         generateKeywords(questionData: IQuestionData): void {
             this.keywords[0] = [];
-            questionData.random.keywords.forEach((type: number) => {
-                this.keywords[0].push(questionData.keywords[type]);
+            questionData.random.keywords.forEach((index: number) => {
+                this.keywords[0].push(questionData.keywords[index]);
             });
         },
         generateSummaries(questionData: IQuestionData): void {
-            questionData.random.summaries.forEach((types: number[]) => {
-                const optionData: IOption[] = [];
-                types.forEach((type: number) => {
-                    const data = questionData.summaries_per_type[type].pop();
-                    optionData.push({
-                        content: data ? data.content : '',
-                        type: data ? data.type : 0,
-                    });
-                });
-                this.summaries.push(optionData);
+            questionData.random.summaries.forEach((index: number) => {
+                this.summaries.push(questionData.summaries[index]);
             });
         },
         generateScales(questionData: IQuestionData): void {

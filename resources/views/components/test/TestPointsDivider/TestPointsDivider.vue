@@ -21,11 +21,7 @@
     width: 100%;
 
     &__card {
-        background-color: #fff;
-        border-radius: 1.1rem;
-        padding: 1.5rem 1.5rem 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0px 3px 3px rgba(236, 137, 69, 0.2);
+        @extend .q-card;
         transition: all 200ms ease;
         -webkit-tap-highlight-color: transparent;
         position: relative;

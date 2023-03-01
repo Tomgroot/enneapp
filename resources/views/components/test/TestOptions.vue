@@ -18,12 +18,8 @@
     width: 100%;
 
     &__btn {
-        background-color: #fff;
-        border-radius: 1.1rem;
-        padding: 1.5rem;
+        @extend .q-card;
         cursor: pointer;
-        margin-bottom: 0.75rem;
-        box-shadow: 0px 3px 3px rgba(236, 137, 69, 0.2);
         transition: all 200ms ease;
         -webkit-tap-highlight-color: transparent;
 

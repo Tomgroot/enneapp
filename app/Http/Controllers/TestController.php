@@ -23,15 +23,12 @@ class TestController extends Controller
 
         $random_scale = $this->shuffleQuestions($this->questions['scale']);
         $random_keywords = $this->shuffleQuestions($this->questions['keywords']);
-
-        $summaries_per_type = $this->sortPerType($this->questions['summaries']);
-        $random_summaries = $this->getOptionCombinations($summaries_per_type);
+        $random_summaries = $this->shuffleQuestions($this->questions['summaries']);
 
         $raw_question_data = json_encode([
             'scale' => $this->questions['scale'],
             'keywords' => $this->questions['keywords'],
             'summaries' => $this->questions['summaries'],
-            'summaries_per_type' => $summaries_per_type,
             'random' => [
                 'scale' => $random_scale,
                 'keywords' => $random_keywords,
