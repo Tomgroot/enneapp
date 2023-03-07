@@ -62,45 +62,6 @@ export default defineComponent({
     },
     created() {
         console.log(this.results);
-        if (
-            this.results &&
-            this.results.scales &&
-            this.results.scales.per_type
-        ) {
-            this.percentages.scales = this.calculatePercentages(
-                this.results.scales.per_type
-            );
-        } else {
-            this.percentages.scales = [];
-        }
-        if (
-            this.results &&
-            this.results.keywords &&
-            this.results.keywords.per_type
-        ) {
-            this.percentages.keywords = this.calculatePercentages(
-                this.results.keywords.per_type
-            );
-        } else {
-            this.percentages.keywords = [];
-        }
-        if (
-            this.results &&
-            this.results.summaries &&
-            this.results.summaries.per_type
-        ) {
-            this.percentages.summaries = this.calculatePercentages(
-                this.results.summaries.per_type
-            );
-        } else {
-            this.percentages.summaries = [];
-        }
-        for (let i = 1; i <= 9; i++) {
-            this.percentages.total[i] =
-                this.percentages.summaries[i] / 3 +
-                this.percentages.keywords[i] / 3 +
-                this.percentages.scales[i] / 3;
-        }
     },
     methods: {
         getTypeTitle(type: string) {
@@ -140,21 +101,6 @@ export default defineComponent({
                 });
             }
             return types;
-        },
-        calculatePercentages(perType: number[]): number[] {
-            const percentages = [] as number[];
-            let count = 0;
-            perType.forEach((value: number, i: number) => {
-                if (i > 0 && i <= 9) {
-                    count += value;
-                }
-            });
-            perType.forEach((value: number, i: number) => {
-                if (i > 0 && i <= 9) {
-                    percentages[i] = (value / count) * 100;
-                }
-            });
-            return percentages;
         },
         getMostUnlikely(): number[] {
             let lowest = 1000;

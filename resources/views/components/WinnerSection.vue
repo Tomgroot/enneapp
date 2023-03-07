@@ -12,7 +12,6 @@
 import { defineComponent } from 'vue';
 import TestOptions from './test/TestOptions.vue';
 import type { IOption } from '../types';
-import { accumulatePerType, calculateWinners } from '../utils';
 
 export default defineComponent({
     components: { TestOptions },

@@ -13,20 +13,36 @@ export function calculateResults(selected: ISelected): IResults {
         keywords: { per_type: [] as number[] } as IResult,
         summaries: { per_type: [] as number[] } as IResult,
         winners: [] as number[],
+        percentages: {
+            scales: [] as number[],
+            keywords: [] as number[],
+            summaries: [] as number[],
+            total: [] as number[],
+        },
     };
 
     results.scales.per_type = accumulatePointsPerType(selected.scales);
-    results.scales.winners = calculateWinners(results.scales.per_type);
-
     results.keywords.per_type = accumulateDividedPointsPerType(
         selected.keywords
     );
-    results.keywords.winners = calculateWinners(results.keywords.per_type);
-
     results.summaries.per_type = accumulatePointsPerType(selected.summaries);
-    results.summaries.winners = calculateWinners(results.summaries.per_type);
 
-    results.winners = calculateOverallWinners(results);
+    results.percentages.scales = calculatePercentages(results.scales.per_type);
+    results.percentages.keywords = calculatePercentages(
+        results.keywords.per_type
+    );
+    results.percentages.summaries = calculatePercentages(
+        results.summaries.per_type
+    );
+    for (let i = 1; i <= 9; i++) {
+        results.percentages.total[i] =
+            (results.percentages.summaries[i] * 2 +
+                results.percentages.keywords[i] +
+                results.percentages.scales[i] * 2) /
+            5;
+    }
+
+    results.winners = calculateWinners(results.percentages.total);
 
     return results;
 }
@@ -63,19 +79,6 @@ export function accumulateDividedPointsPerType(
     return per_type;
 }
 
-export function accumulatePerType(typeData: ITypeData[]): number[] {
-    const per_type = [] as number[];
-    for (let i = 1; i <= 9; i++) {
-        per_type[i] = 0;
-    }
-    typeData.forEach((value) => {
-        if (value.content != '') {
-            per_type[value.type]++;
-        }
-    });
-    return per_type;
-}
-
 export function calculateWinners(per_type: number[]): number[] {
     let winners = [] as number[];
     let highest = 0;
@@ -90,19 +93,18 @@ export function calculateWinners(per_type: number[]): number[] {
     return winners;
 }
 
-function calculateOverallWinners(results: Partial<IResults>): number[] {
-    const count = [] as number[];
-    for (let i = 1; i <= 9; i++) {
-        count[i] = 0;
-    }
-    results.scales?.winners.forEach((value) => {
-        count[value]++;
+function calculatePercentages(perType: number[]): number[] {
+    const percentages = [] as number[];
+    let count = 0;
+    perType.forEach((value: number, i: number) => {
+        if (i > 0 && i <= 9) {
+            count += value;
+        }
     });
-    results.keywords?.winners.forEach((value) => {
-        count[value]++;
+    perType.forEach((value: number, i: number) => {
+        if (i > 0 && i <= 9) {
+            percentages[i] = (value / count) * 100;
+        }
     });
-    results.summaries?.winners.forEach((value) => {
-        count[value]++;
-    });
-    return calculateWinners(count);
+    return percentages;
 }

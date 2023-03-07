@@ -357,7 +357,7 @@ return [
         ],
         [
             'type' => 6,
-            'content' => "loyaal, tobben, \‘voor\’denken, veiligheid, waarom, uitzoeken",
+            'content' => "loyaal, tobben, 'voor'denken, veiligheid, waarom, uitzoeken",
         ],
         [
             'type' => 7,

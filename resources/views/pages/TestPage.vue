@@ -170,6 +170,46 @@ export default defineComponent({
                 this.nr
             );
         },
+        // FOR TESTING ONLY! DO NOT USE ON PRODUCTION.
+        generateTestSelectedAndFinish(questionData: IQuestionData): void {
+            const keywordsIndex = questionData.random.keywords[0];
+            const keywordsIndexTwo = questionData.random.keywords[1];
+            this.selected.keywords.push([
+                {
+                    ...questionData.keywords[keywordsIndex],
+                    points: 3,
+                },
+                {
+                    ...questionData.keywords[keywordsIndexTwo],
+                    points: 2,
+                },
+            ]);
+
+            for (
+                let i = 0;
+                i < questionData.random.summaries.length && i < 10;
+                i++
+            ) {
+                const index = questionData.random.summaries[i];
+                this.selected.summaries.push({
+                    ...questionData.summaries[index],
+                    points: 77,
+                });
+            }
+
+            for (
+                let i = 0;
+                i < questionData.random.scale.length && i < 10;
+                i++
+            ) {
+                const index = questionData.random.scale[i];
+                this.selected.scales.push({
+                    ...questionData.scale[index],
+                    points: 5,
+                });
+            }
+            this.finish();
+        },
         generateKeywords(questionData: IQuestionData): void {
             this.keywords[0] = [];
             questionData.random.keywords.forEach((index: number) => {
@@ -196,7 +236,7 @@ export default defineComponent({
                         break;
                     }
                 }
-                if (index != winners.length) {
+                if (index < winners.length) {
                     for (const i in this.scales) {
                         const scale = this.scales[i];
                         if (scale.type === winner) {
@@ -263,6 +303,9 @@ export default defineComponent({
         this.generateSummaries(questionData);
         this.generateKeywords(questionData);
         this.generateScales(questionData);
+
+        //TODO!! REMOVE!!!
+        this.generateTestSelectedAndFinish(questionData);
     },
 });
 </script>

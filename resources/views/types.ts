@@ -26,10 +26,17 @@ export interface IResults {
     summaries: IResult;
     scales: IResult;
     winners: number[];
+    percentages: {
+        scales: number[];
+        keywords: number[];
+        summaries: number[];
+        total: number[];
+    };
 }
 
 export interface IResult {
     per_type: number[];
+    /** @deprecated **/
     winners: number[];
 }
 
