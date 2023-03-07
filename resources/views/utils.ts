@@ -19,6 +19,7 @@ export function calculateResults(selected: ISelected): IResults {
             summaries: [] as number[],
             total: [] as number[],
         },
+        ordered: [] as number[],
     };
 
     results.scales.per_type = accumulatePointsPerType(selected.scales);
@@ -43,6 +44,7 @@ export function calculateResults(selected: ISelected): IResults {
     }
 
     results.winners = calculateWinners(results.percentages.total);
+    results.ordered = calculateOrdered(results.percentages.total);
 
     return results;
 }
@@ -107,4 +109,21 @@ function calculatePercentages(perType: number[]): number[] {
         }
     });
     return percentages;
+}
+
+function calculateOrdered(percentages: number[]): number[] {
+    const sortable = [] as number[][];
+    for (let i = 1; i <= 9; i++) {
+        sortable.push([i, percentages[i]]);
+    }
+
+    sortable.sort(function (a, b) {
+        return b[1] - a[1];
+    });
+
+    const objSorted = [] as number[];
+    sortable.forEach(function (item) {
+        objSorted.push(item[0]);
+    });
+    return objSorted;
 }

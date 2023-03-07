@@ -11,12 +11,15 @@
         />
         <ResultPossible
             description="Het kan ook nog dat je één van deze enneagramtypes bent:"
-            v-if="results && results.winners && results.winners.length > 1"
             :types="getPossibleTypes()"
             :get-type-title="getTypeTitle"
             :get-type-description="getTypeDescription"
             :get-type-percentage="getTypePercentage"
             read-more="https://www.identiteitsystemen.nl/enneagram/"
+        />
+        <ResultChart
+            :percentages="results.percentages.total"
+            class="result__chart"
         />
         <ResultPossible
             description="Waar je het minste voor hebt gescoord"
@@ -28,15 +31,23 @@
         />
     </div>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.result {
+    &__chart {
+        margin-top: 2rem;
+    }
+}
+</style>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TestHeader from '../components/test/TestHeader.vue';
 import ResultType from '../components/result/ResultType.vue';
 import ResultPossible from '../components/result/ResultPossible.vue';
+import ResultChart from '../components/result/ResultChart.vue';
 
 export default defineComponent({
     components: {
+        ResultChart,
         ResultType,
         ResultPossible,
         TestHeader,
@@ -52,23 +63,22 @@ export default defineComponent({
     },
     data() {
         return {
-            percentages: {
-                scales: [] as number[],
-                keywords: [] as number[],
-                summaries: [] as number[],
-                total: [] as number[],
+            ordered: {
+                types: [] as number[],
             },
         };
-    },
-    created() {
-        console.log(this.results);
     },
     methods: {
         getTypeTitle(type: string) {
             return `Enneagramtype ${type}`;
         },
         getTypePercentage(type: string) {
-            return `(${Math.round(this.percentages.total[parseInt(type)])}%)`;
+            if (this.results) {
+                return `(${Math.round(
+                    this.results.percentages.total[parseInt(type)]
+                )}%)`;
+            }
+            return '';
         },
         getTypeDescription(type: string) {
             if (type == '1') {
@@ -92,26 +102,16 @@ export default defineComponent({
             }
         },
         getPossibleTypes(): string[] {
-            const types = [] as string[];
-            if (this.results && this.results.winners) {
-                this.results.winners.forEach((winner: string) => {
-                    if (winner != this.winner) {
-                        types.push(winner);
-                    }
-                });
+            if (this.results) {
+                return [this.results.ordered[1], this.results.ordered[2]];
             }
-            return types;
+            return [];
         },
         getMostUnlikely(): number[] {
-            let lowest = 1000;
-            let type = 0;
-            this.percentages.total.forEach((value, i) => {
-                if (value <= lowest) {
-                    type = i;
-                    lowest = value;
-                }
-            });
-            return [type];
+            if (this.results) {
+                return [this.results.ordered[8], this.results.ordered[7]];
+            }
+            return [];
         },
     },
 });

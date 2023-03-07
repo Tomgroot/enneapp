@@ -303,9 +303,6 @@ export default defineComponent({
         this.generateSummaries(questionData);
         this.generateKeywords(questionData);
         this.generateScales(questionData);
-
-        //TODO!! REMOVE!!!
-        this.generateTestSelectedAndFinish(questionData);
     },
 });
 </script>
