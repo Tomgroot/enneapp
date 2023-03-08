@@ -1,8 +1,9 @@
 <template>
-    <transition :name="transition">
+    <transition name="fade-swipe" :css="transition || disabled">
         <TestSlider
             v-if="current && animation"
             :option="getOption()"
+            :disabled="disabled"
             @select="(i) => select(i)"
             :selected="getSelected()"
         />
@@ -30,8 +31,8 @@ export default defineComponent({
             default: false,
         },
         transition: {
-            type: String,
-            default: 'fade-swipe',
+            type: Boolean,
+            default: true,
         },
     },
     data() {
@@ -39,6 +40,7 @@ export default defineComponent({
             selected: [] as ISelectedPoints[],
             animation: true,
             winnerOptions: [] as IOption[],
+            disabled: false,
         };
     },
     methods: {
@@ -46,7 +48,7 @@ export default defineComponent({
             return this.summaries[this.nr] as IOption;
         },
         getSelected(): number | undefined {
-            if (this.selected[this.nr] && this.selected[this.nr].points) {
+            if (this.selected[this.nr] && this.selected[this.nr].points >= 0) {
                 return this.selected[this.nr].points;
             }
             return undefined;
@@ -55,6 +57,7 @@ export default defineComponent({
             this.animation = !this.animation;
         },
         select(selection: number): void {
+            this.disabled = true;
             this.selected[this.nr] = {
                 ...(this.summaries[this.nr] as IOption),
                 points: selection,
@@ -65,6 +68,7 @@ export default defineComponent({
                 setTimeout(() => {
                     this.toggleAnimation();
                     this.$emit('next', this.selected);
+                    this.disabled = false;
                 }, 500);
             }, 200);
         },

@@ -130,10 +130,16 @@ export default defineComponent({
             type: Number,
             required: false,
         },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
     },
     methods: {
         select: function (i: number) {
-            this.$emit('select', i);
+            if (!this.disabled) {
+                this.$emit('select', i);
+            }
         },
         isSelected: function (i: number) {
             return this.selected === i;

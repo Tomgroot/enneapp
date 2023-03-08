@@ -1,7 +1,8 @@
 <template>
-    <transition :name="transition">
+    <transition name="fade-swipe" :css="transition || disabled">
         <TestOptions
             v-if="current && animation"
+            :disabled="disabled"
             :options="winners"
             @select="(i) => select(i)"
         />
@@ -29,14 +30,15 @@ export default defineComponent({
             default: false,
         },
         transition: {
-            type: String,
-            default: 'fade-swipe',
+            type: Boolean,
+            default: false,
         },
     },
     data() {
         return {
             selected: [] as IOption[],
             animation: true,
+            disabled: false,
         };
     },
     methods: {
@@ -44,10 +46,12 @@ export default defineComponent({
             this.animation = !this.animation;
         },
         select(selection: number): void {
+            this.disabled = true;
             setTimeout(() => {
                 this.toggleAnimation();
                 setTimeout(() => {
                     this.$emit('next', this.winners[selection]);
+                    this.disabled = false;
                 }, 500);
             }, 200);
         },

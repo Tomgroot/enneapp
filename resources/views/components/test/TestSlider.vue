@@ -119,6 +119,11 @@ export default defineComponent({
         },
         selected: {
             type: Number,
+            default: 50,
+        },
+        disabled: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {
@@ -135,7 +140,7 @@ export default defineComponent({
             return '';
         },
         getSliderValue(): string {
-            if (this.selected) {
+            if (this.selected >= 0 && !this.dragging) {
                 this.sliderValue = this.selected;
             }
             if (this.sliderValue) {
@@ -144,6 +149,10 @@ export default defineComponent({
             return '0%';
         },
         startDrag(event: MouseEvent | TouchEvent) {
+            if (this.disabled) {
+                return;
+            }
+
             const handleMouseDown = (event: MouseEvent | TouchEvent) => {
                 this.dragging = true;
                 const leftLocation = this.$el.getBoundingClientRect().left;

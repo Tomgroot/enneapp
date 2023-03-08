@@ -73,6 +73,9 @@ export default defineComponent({
         selected: {
             type: Array,
         },
+        disabled: {
+            type: Boolean,
+        },
     },
     data() {
         return {
@@ -98,9 +101,11 @@ export default defineComponent({
                     points: points,
                 };
             }
-            this.$emit('select', this.selectedPoints);
-            if (this.getLeftToDivide() <= 0) {
-                this.$emit('done', this.selectedPoints);
+            if (!this.disabled) {
+                this.$emit('select', this.selectedPoints);
+                if (this.getLeftToDivide() <= 0) {
+                    this.$emit('done', this.selectedPoints);
+                }
             }
         },
         getNrSelected(i: number) {

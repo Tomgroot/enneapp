@@ -20,7 +20,7 @@
                 :current="getSection() === 'summaries'"
                 :transition="transition"
                 :nr="nr - this.statements.length - this.keywords.length"
-                @next="(selection, f) => selectSummaries(selection, f)"
+                @next="(selection) => selectSummaries(selection)"
             />
             <WinnerSection
                 :winners="winners"
@@ -89,24 +89,24 @@ export default defineComponent({
             keywords: [] as IOption[][],
             summaries: [] as IOption[],
             winners: [] as IOption[],
-            nr: 70,
-            transition: 'fade-swipe',
+            nr: 0,
+            transition: true,
         };
     },
     methods: {
         selectStatements(selected: ISelectedPoints[]): void {
             this.selected.statements = selected;
-            this.transition = 'fade-swipe';
+            this.transition = true;
             this.next();
         },
         selectKeywords(selected: IDividedPoints[][]): void {
             this.selected.keywords = selected;
-            this.transition = 'fade-swipe';
+            this.transition = true;
             this.next();
         },
         selectSummaries(selected: IDividedPoints[]): void {
             this.selected.summaries = selected;
-            this.transition = 'fade-swipe';
+            this.transition = true;
             this.next();
         },
         selectWinner(winner: IOption): void {
@@ -150,7 +150,7 @@ export default defineComponent({
             }
         },
         prev() {
-            this.transition = 'gone';
+            this.transition = false;
             if (this.nr > 0) {
                 this.nr--;
             }
@@ -167,10 +167,11 @@ export default defineComponent({
         },
         hasNext(): boolean {
             return (
+                !this.transition &&
                 this.selected.statements.length +
                     this.selected.keywords.length +
                     this.selected.summaries.length >
-                this.nr
+                    this.nr
             );
         },
         // FOR TESTING ONLY! DO NOT USE ON PRODUCTION.

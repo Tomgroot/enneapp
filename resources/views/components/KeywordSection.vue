@@ -1,11 +1,12 @@
 <template>
-    <transition :name="transition">
+    <transition name="fade-swipe" :css="transition || disabled">
         <TestPointsDivider
             v-if="current && animation"
             :options="getOptions()"
             @select="(i) => select(i)"
             @done="done()"
             :selected="getSelected()"
+            :disabled="disabled"
         />
     </transition>
 </template>
@@ -31,14 +32,15 @@ export default defineComponent({
             default: false,
         },
         transition: {
-            type: String,
-            default: 'fade-swipe',
+            type: Boolean,
+            default: true,
         },
     },
     data() {
         return {
             selected: [] as IDividedPoints[][],
             animation: true,
+            disabled: false,
         };
     },
     methods: {
@@ -57,11 +59,13 @@ export default defineComponent({
             }
         },
         done(): void {
+            this.disabled = true;
             setTimeout(() => {
                 this.toggleAnimation();
                 setTimeout(() => {
                     this.toggleAnimation();
                     this.$emit('next', this.selected);
+                    this.disabled = false;
                 }, 500);
             }, 200);
         },

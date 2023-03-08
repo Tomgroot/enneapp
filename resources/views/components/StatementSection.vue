@@ -4,6 +4,7 @@
         :title="getTitle()"
         @select="(i) => select(i)"
         :selected="getSelected()"
+        :disabled="disabled"
     />
 </template>
 <style lang="scss" scoped></style>
@@ -34,6 +35,7 @@ export default defineComponent({
         return {
             selected_index: [] as number[],
             selected: [] as ISelectedPoints[],
+            disabled: false,
         };
     },
     methods: {
@@ -44,6 +46,7 @@ export default defineComponent({
             return this.selected_index[this.nr];
         },
         select(selection: number): void {
+            this.disabled = true;
             this.selected_index[this.nr] = selection;
             if (selection === 1) {
                 this.selected[this.nr] = {
@@ -60,6 +63,7 @@ export default defineComponent({
             }
             setTimeout(() => {
                 this.$emit('next', this.selected);
+                this.disabled = false;
             }, 200);
         },
     },

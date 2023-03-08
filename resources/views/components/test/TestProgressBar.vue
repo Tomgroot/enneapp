@@ -73,10 +73,6 @@
             max-height: 100%;
             fill: #563118;
         }
-
-        &.next {
-            transition-delay: 400ms;
-        }
     }
 
     &__bar {
@@ -86,7 +82,7 @@
         margin: 0 1rem;
 
         &__progress {
-            @extend  %q-slider__progress;
+            @extend %q-slider__progress;
             transition: all ease 200ms;
         }
     }

@@ -32,11 +32,11 @@ export default defineComponent({
     },
     created() {
         try {
-            // const results = JSON.parse(localStorage.results);
-            // if (results && localStorage.winner) {
-            //     this.results = results;
-            //     this.winner = localStorage.winner;
-            // }
+            const results = JSON.parse(localStorage.results);
+            if (results && localStorage.winner) {
+                this.results = results;
+                this.winner = localStorage.winner;
+            }
         } catch (e) {
             console.log('Failed parsing the result');
         }
@@ -45,8 +45,8 @@ export default defineComponent({
         finish(results: IResults, winner: number): void {
             this.results = results;
             this.winner = winner.toString();
-            // localStorage.results = JSON.stringify(results);
-            // localStorage.winner = winner;
+            localStorage.results = JSON.stringify(results);
+            localStorage.winner = winner;
         },
     },
 });
