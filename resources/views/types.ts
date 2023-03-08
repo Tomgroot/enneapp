@@ -1,12 +1,12 @@
 export interface IQuestionData {
     summaries: ITypeData[];
     keywords: ITypeData[];
-    scale: ITypeData[];
+    statements: ITypeData[];
     summaries_per_type: { [x: number]: ITypeData[] };
     random: {
         summaries: number[];
         keywords: number[];
-        scale: number[];
+        statements: number[];
     };
 }
 
@@ -18,16 +18,16 @@ export interface ITypeData {
 export interface ISelected {
     keywords: IDividedPoints[][];
     summaries: IDividedPoints[];
-    scales: ISelectedPoints[];
+    statements: ISelectedPoints[];
 }
 
 export interface IResults {
     keywords: IResult;
     summaries: IResult;
-    scales: IResult;
+    statements: IResult;
     winners: number[];
     percentages: {
-        scales: number[];
+        statements: number[];
         keywords: number[];
         summaries: number[];
         total: number[];

@@ -2,15 +2,15 @@
     <div class="container">
         <TestHeader :title="getTitle()" :subtitle="getSubtitle()" />
         <div class="content">
-            <ScaleSection
-                :scales="scales"
+            <StatementSection
+                :statements="statements"
                 :nr="nr"
-                :current="getSection() === 'scales'"
-                @next="(selection) => selectScale(selection)"
+                :current="getSection() === 'statements'"
+                @next="(selection) => selectStatements(selection)"
             />
             <KeywordSection
                 :keywords="keywords"
-                :nr="nr - this.scales.length"
+                :nr="nr - this.statements.length"
                 :current="getSection() === 'keywords'"
                 :transition="transition"
                 @next="(selection) => selectKeywords(selection)"
@@ -19,7 +19,7 @@
                 :summaries="summaries"
                 :current="getSection() === 'summaries'"
                 :transition="transition"
-                :nr="nr - this.scales.length - this.keywords.length"
+                :nr="nr - this.statements.length - this.keywords.length"
                 @next="(selection, f) => selectSummaries(selection, f)"
             />
             <WinnerSection
@@ -57,7 +57,7 @@ import type {
     IDividedPoints,
     ISelectedPoints,
 } from '../types';
-import ScaleSection from '../components/ScaleSection.vue';
+import StatementSection from '../components/StatementSection.vue';
 import KeywordSection from '../components/KeywordSection.vue';
 import SummarySection from '../components/SummarySection.vue';
 import WinnerSection from '../components/WinnerSection.vue';
@@ -67,7 +67,7 @@ export default defineComponent({
     components: {
         SummarySection,
         KeywordSection,
-        ScaleSection,
+        StatementSection,
         WinnerSection,
         ProgressBar,
         TestHeader,
@@ -81,21 +81,21 @@ export default defineComponent({
     data() {
         return {
             selected: {
-                scales: [] as ISelectedPoints[],
+                statements: [] as ISelectedPoints[],
                 keywords: [] as IDividedPoints[][],
                 summaries: [] as IDividedPoints[],
             } as ISelected,
-            scales: [] as IScale[],
+            statements: [] as IScale[],
             keywords: [] as IOption[][],
             summaries: [] as IOption[],
             winners: [] as IOption[],
-            nr: 0,
+            nr: 70,
             transition: 'fade-swipe',
         };
     },
     methods: {
-        selectScale(selected: ISelectedPoints[]): void {
-            this.selected.scales = selected;
+        selectStatements(selected: ISelectedPoints[]): void {
+            this.selected.statements = selected;
             this.transition = 'fade-swipe';
             this.next();
         },
@@ -113,9 +113,12 @@ export default defineComponent({
             this.finish(winner);
         },
         getSection(): string {
-            if (this.nr < this.scales.length) {
-                return 'scales';
-            } else if (this.nr < this.scales.length + this.keywords.length) {
+            if (this.nr < this.statements.length) {
+                return 'statements';
+            } else if (
+                this.nr <
+                this.statements.length + this.keywords.length
+            ) {
                 return 'keywords';
             } else if (this.winners.length > 0) {
                 return 'winners';
@@ -127,7 +130,7 @@ export default defineComponent({
             this.nr++;
             if (
                 this.nr >=
-                    this.scales.length +
+                    this.statements.length +
                         this.keywords.length +
                         this.summaries.length &&
                 (!this.winners || this.winners.length == 0)
@@ -157,14 +160,14 @@ export default defineComponent({
                 (this.nr /
                     (this.keywords.length +
                         this.summaries.length +
-                        this.scales.length)) *
+                        this.statements.length)) *
                     100,
                 100
             );
         },
         hasNext(): boolean {
             return (
-                this.selected.scales.length +
+                this.selected.statements.length +
                     this.selected.keywords.length +
                     this.selected.summaries.length >
                 this.nr
@@ -199,12 +202,12 @@ export default defineComponent({
 
             for (
                 let i = 0;
-                i < questionData.random.scale.length && i < 10;
+                i < questionData.random.statements.length && i < 10;
                 i++
             ) {
-                const index = questionData.random.scale[i];
-                this.selected.scales.push({
-                    ...questionData.scale[index],
+                const index = questionData.random.statements[i];
+                this.selected.statements.push({
+                    ...questionData.statements[index],
                     points: 5,
                 });
             }
@@ -221,26 +224,26 @@ export default defineComponent({
                 this.summaries.push(questionData.summaries[index]);
             });
         },
-        generateScales(questionData: IQuestionData): void {
-            questionData.random.scale.forEach((i) => {
-                this.scales.push(questionData.scale[i]);
+        generateStatements(questionData: IQuestionData): void {
+            questionData.random.statements.forEach((i) => {
+                this.statements.push(questionData.statements[i]);
             });
         },
         generateWinners(typeWinners: number[]): void {
             const winners: IOption[] = [];
             typeWinners.forEach((winner, index) => {
-                for (const i in this.selected.scales) {
-                    const scale = this.selected.scales[i];
-                    if (scale.type === winner) {
-                        winners.push(scale);
+                for (const i in this.selected.statements) {
+                    const statement = this.selected.statements[i];
+                    if (statement.type === winner) {
+                        winners.push(statement);
                         break;
                     }
                 }
                 if (index < winners.length) {
-                    for (const i in this.scales) {
-                        const scale = this.scales[i];
-                        if (scale.type === winner) {
-                            winners.push(scale);
+                    for (const i in this.statements) {
+                        const statement = this.statements[i];
+                        if (statement.type === winner) {
+                            winners.push(statement);
                             break;
                         }
                     }
@@ -254,15 +257,16 @@ export default defineComponent({
             }
         },
         getTitle(): string {
-            if (this.getSection() === 'scales') {
+            if (this.getSection() === 'statements') {
                 return 'Past het bij jou?';
             } else if (
                 (this.getSection() === 'keywords' &&
-                    this.nr === this.keywords.length + this.scales.length) ||
+                    this.nr ===
+                        this.keywords.length + this.statements.length) ||
                 (this.getSection() === 'summaries' &&
                     this.nr ===
                         this.keywords.length +
-                            this.scales.length +
+                            this.statements.length +
                             this.summaries.length +
                             1)
             ) {
@@ -276,15 +280,16 @@ export default defineComponent({
             }
         },
         getSubtitle(): string {
-            if (this.getSection() === 'scales') {
+            if (this.getSection() === 'statements') {
                 return 'Kies of je het eens bent met de stelling.';
             } else if (
                 (this.getSection() === 'keywords' &&
-                    this.nr === this.keywords.length + this.scales.length) ||
+                    this.nr ===
+                        this.keywords.length + this.statements.length) ||
                 (this.getSection() === 'summaries' &&
                     this.nr ===
                         this.keywords.length +
-                            this.scales.length +
+                            this.statements.length +
                             this.summaries.length +
                             1)
             ) {
@@ -302,7 +307,7 @@ export default defineComponent({
         const questionData: IQuestionData = JSON.parse(this.questionDataRaw);
         this.generateSummaries(questionData);
         this.generateKeywords(questionData);
-        this.generateScales(questionData);
+        this.generateStatements(questionData);
     },
 });
 </script>

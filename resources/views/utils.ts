@@ -4,17 +4,16 @@ import type {
     IResults,
     ISelected,
     ISelectedPoints,
-    ITypeData,
 } from './types';
 
 export function calculateResults(selected: ISelected): IResults {
     const results = {
-        scales: { per_type: [] as number[] } as IResult,
+        statements: { per_type: [] as number[] } as IResult,
         keywords: { per_type: [] as number[] } as IResult,
         summaries: { per_type: [] as number[] } as IResult,
         winners: [] as number[],
         percentages: {
-            scales: [] as number[],
+            statements: [] as number[],
             keywords: [] as number[],
             summaries: [] as number[],
             total: [] as number[],
@@ -22,13 +21,15 @@ export function calculateResults(selected: ISelected): IResults {
         ordered: [] as number[],
     };
 
-    results.scales.per_type = accumulatePointsPerType(selected.scales);
+    results.statements.per_type = accumulatePointsPerType(selected.statements);
     results.keywords.per_type = accumulateDividedPointsPerType(
         selected.keywords
     );
     results.summaries.per_type = accumulatePointsPerType(selected.summaries);
 
-    results.percentages.scales = calculatePercentages(results.scales.per_type);
+    results.percentages.statements = calculatePercentages(
+        results.statements.per_type
+    );
     results.percentages.keywords = calculatePercentages(
         results.keywords.per_type
     );
@@ -39,7 +40,7 @@ export function calculateResults(selected: ISelected): IResults {
         results.percentages.total[i] =
             (results.percentages.summaries[i] * 2 +
                 results.percentages.keywords[i] +
-                results.percentages.scales[i] * 2) /
+                results.percentages.statements[i] * 2) /
             5;
     }
 

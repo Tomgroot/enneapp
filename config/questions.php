@@ -4,7 +4,7 @@
  * The card contents with the questions, keywords and summaries
  */
 return [
-    'scale' => [
+    'statements' => [
         [
             'type' => 1,
             'content' => 'Ik doe alles het liefst zelf, dan weet ik zeker dat het goed gebeurt. Ik heb het ook sneller zelf gedaan.',

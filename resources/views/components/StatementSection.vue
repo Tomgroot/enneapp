@@ -17,7 +17,7 @@ export default defineComponent({
         TestScale,
     },
     props: {
-        scales: {
+        statements: {
             type: Array,
             default: [] as IScale[],
         },
@@ -38,7 +38,7 @@ export default defineComponent({
     },
     methods: {
         getTitle(): string {
-            return (this.scales[this.nr] as IScale).content;
+            return (this.statements[this.nr] as IScale).content;
         },
         getSelected(): number | undefined {
             return this.selected_index[this.nr];
@@ -47,12 +47,12 @@ export default defineComponent({
             this.selected_index[this.nr] = selection;
             if (selection === 1) {
                 this.selected[this.nr] = {
-                    ...(this.scales[this.nr] as IScale),
+                    ...(this.statements[this.nr] as IScale),
                     points: 5,
                 };
             } else if (selection === 2) {
                 this.selected[this.nr] = {
-                    ...(this.scales[this.nr] as IScale),
+                    ...(this.statements[this.nr] as IScale),
                     points: 1,
                 };
             } else {
