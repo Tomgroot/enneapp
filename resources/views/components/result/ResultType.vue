@@ -1,18 +1,18 @@
 <template>
     <div class="q-result-type">
-        <div class="q-result-type__title">
-            {{ title }}
-        </div>
+        <div class="q-result-type__title">Type {{ title }}</div>
         <div class="q-result-type__subtitle">
-            {{ subtitle }}
+            <span class="q-result-type__subtitle__keywords">{{
+                keywords
+            }}</span>
+            - {{ subtitle }}
             <a :href="readMore">Lees meer</a>
+            <img :src="picture" />
         </div>
     </div>
 </template>
 <style lang="scss" scoped>
 .q-result-type {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
     background-color: #fff;
     border-radius: 1.1rem;
     padding: 1.5rem;
@@ -23,17 +23,28 @@
 
     &__title {
         font-weight: 700;
-        font-size: 2.2rem;
+        font-size: 1.75rem;
         text-align: center;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
         line-height: 2.5rem;
     }
 
     &__subtitle {
         text-align: center;
         font-size: 1rem;
+
+        &__keywords {
+            text-decoration: underline;
+        }
+
         & a {
             display: block;
+            color: #2f9a6e;
+            margin-top: 0.25rem;
+            text-decoration: none;
+        }
+        & img {
+            max-width: 100%;
         }
     }
 }
@@ -48,6 +59,14 @@ export default defineComponent({
             default: '',
         },
         subtitle: {
+            type: String,
+            default: '',
+        },
+        keywords: {
+            type: String,
+            default: '',
+        },
+        picture: {
             type: String,
             default: '',
         },

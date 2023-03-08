@@ -28,6 +28,9 @@ export default defineComponent({
         percentages: {
             type: Object,
         },
+        ordered: {
+            type: Array,
+        },
     },
     data() {
         return {
@@ -37,7 +40,23 @@ export default defineComponent({
                     {
                         data: Object.values(this.percentages),
                         label: '',
-                        backgroundColor: '#2f9a6e',
+                        backgroundColor: new Array(9)
+                            .fill('rgba(47, 154, 110, 0.5)')
+                            .fill(
+                                'rgb(47, 154, 110)',
+                                this.ordered[0] - 1,
+                                this.ordered[0]
+                            )
+                            .fill(
+                                'rgb(47, 154, 110)',
+                                this.ordered[1] - 1,
+                                this.ordered[1]
+                            )
+                            .fill(
+                                'rgb(47, 154, 110)',
+                                this.ordered[2] - 1,
+                                this.ordered[2]
+                            ),
                     },
                 ],
             },
@@ -55,6 +74,13 @@ export default defineComponent({
                     x: {
                         grid: {
                             display: false,
+                        },
+                        border: {
+                            color: 'rgba(236, 137, 69, 0.2)',
+                        },
+                        ticks: {
+                            color: '#563118',
+                            showLabelBackdrop: false,
                         },
                     },
                 },

@@ -1,12 +1,11 @@
 <template>
-    <div class="result">
-        <TestHeader
-            title="Resultaat"
-            subtitle="Waarschijnlijk ben je een type..."
-        />
+    <div class="result container">
+        <TestHeader title="Resultaat" subtitle="Waarschijnlijk ben je..." />
         <ResultType
             :title="getTypeTitle(winner)"
             :subtitle="getTypeDescription(winner)"
+            :keywords="getTypeKeywords(winner)"
+            :picture="getTypePicture(winner)"
             read-more="https://www.identiteitsystemen.nl/enneagram/"
         />
         <ResultPossible
@@ -15,18 +14,21 @@
             :get-type-title="getTypeTitle"
             :get-type-description="getTypeDescription"
             :get-type-percentage="getTypePercentage"
+            :get-type-keywords="getTypeKeywords"
             read-more="https://www.identiteitsystemen.nl/enneagram/"
         />
         <ResultChart
-            :percentages="results.percentages.total"
+            :percentages="chartData"
+            :ordered="results.ordered"
             class="result__chart"
         />
         <ResultPossible
-            description="Waar je het minste voor hebt gescoord"
+            description="Waar je het minste voor hebt gescoord:"
             :types="getMostUnlikely()"
             :get-type-title="getTypeTitle"
             :get-type-percentage="getTypePercentage"
             :get-type-description="getTypeDescription"
+            :get-type-keywords="getTypeKeywords"
             read-more="https://www.identiteitsystemen.nl/enneagram/"
         />
     </div>
@@ -66,11 +68,19 @@ export default defineComponent({
             ordered: {
                 types: [] as number[],
             },
+            chartData: [] as number[],
         };
+    },
+    created() {
+        if (this.results) {
+            for (let i = 1; i <= 9; i++) {
+                this.chartData.push(this.results.percentages.total[i]);
+            }
+        }
     },
     methods: {
         getTypeTitle(type: string) {
-            return `Enneagramtype ${type}`;
+            return type;
         },
         getTypePercentage(type: string) {
             if (this.results) {
@@ -80,25 +90,49 @@ export default defineComponent({
             }
             return '';
         },
+        getTypePicture(type: string) {
+            return `assets/Enneagramtype-${type}.jpg`;
+        },
         getTypeDescription(type: string) {
             if (type == '1') {
-                return 'Perfectionisten, hervormers, verbeteraars - Hun beweegreden is autonomie behouden door het juiste te doen en het goed te doen. Ze doen er alles aan om fouten te voorkomen.\n';
+                return 'Hun beweegreden is autonomie behouden door het juiste te doen en het goed te doen. Ze doen er alles aan om fouten te voorkomen.';
             } else if (type == '2') {
-                return 'De helpers, de gevers, verzorgers - Hun beweegreden is liefde ontvangen door te voorzien in de behoeften van anderen die voor hen belangrijk zijn.';
+                return 'Hun beweegreden is liefde ontvangen door te voorzien in de behoeften van anderen die voor hen belangrijk zijn.';
             } else if (type == '3') {
-                return 'De performers, succeszoekers, harde werkers - De beweegreden is aandacht te krijgen door te presteren en succesvol te zijn.';
+                return 'De beweegreden is aandacht te krijgen door te presteren en succesvol te zijn.';
             } else if (type == '4') {
-                return 'De romantici, artiesten, individualisten - Beweegreden is geliefd worden door bijzonder zijn. In een unieke liefde verbonden willen zijn met een ander, omdat ze de verbinding met zichzelf zijn verloren en willen herstellen.';
+                return 'Beweegreden is geliefd worden door bijzonder zijn. In een unieke liefde verbonden willen zijn met een ander, omdat ze de verbinding met zichzelf zijn verloren en willen herstellen.';
             } else if (type == '5') {
-                return 'De analisten, onderzoekers, observeerders - De beweegreden is bescherming tegen inmenging door anderen door zich emotioneel terug te trekken.';
+                return 'De beweegreden is bescherming tegen inmenging door anderen door zich emotioneel terug te trekken.';
             } else if (type == '6') {
-                return 'De loyalisten, sceptici, rebellen - Hun beweegreden is veiligheid creëren door waakzaamheid, zaken in twijfel trekken en op zaken vooruitlopen.';
+                return 'Hun beweegreden is veiligheid creëren door waakzaamheid, zaken in twijfel trekken en op zaken vooruitlopen.';
             } else if (type == '7') {
-                return 'De levensgenieters, optimisten, charmeurs - Beweegreden is het vermijden van angst en pijn door het verbeelden en opzoeken van plezierige mogelijkheden.';
+                return 'Beweegreden is het vermijden van angst en pijn door het verbeelden en opzoeken van plezierige mogelijkheden.';
             } else if (type == '8') {
-                return 'De bazen, leiders, beschermers - Hun beweegreden is respect krijgen door sterk en confronterend te zijn en kwetsbaarheid te verbergen.';
+                return 'Hun beweegreden is respect krijgen door sterk en confronterend te zijn en kwetsbaarheid te verbergen.';
             } else if (type == '9') {
-                return 'De bemiddelaars, vredestichters, vredebewaarders - Beweegreden is acceptatie door zichzelf te vergeten. Door zelf niets nodig te hebben, veroorzaken ze geen reden om afgewezen worden.';
+                return 'Beweegreden is acceptatie door zichzelf te vergeten. Door zelf niets nodig te hebben, veroorzaken ze geen reden om afgewezen worden.';
+            }
+        },
+        getTypeKeywords(type: string) {
+            if (type == '1') {
+                return 'Perfectionisten, hervormers, verbeteraars';
+            } else if (type == '2') {
+                return 'De helpers, de gevers, verzorgers';
+            } else if (type == '3') {
+                return 'De performers, succeszoekers, harde werkers';
+            } else if (type == '4') {
+                return 'De romantici, artiesten, individualisten';
+            } else if (type == '5') {
+                return 'De analisten, onderzoekers, observeerders';
+            } else if (type == '6') {
+                return 'De loyalisten, sceptici, rebellen';
+            } else if (type == '7') {
+                return 'De levensgenieters, optimisten, charmeurs';
+            } else if (type == '8') {
+                return 'De bazen, leiders, beschermers';
+            } else if (type == '9') {
+                return 'De bemiddelaars, vredestichters, vredebewaarders';
             }
         },
         getPossibleTypes(): string[] {

@@ -5,9 +5,19 @@
         </div>
         <div v-for="(type, i) in types" class="q-result-type__type" :key="i">
             <div class="q-result-type__title">
-                {{ getTypeTitle(type) }} {{ getTypePercentage(type) }}
+                Type
+                <span class="q-result-type__title__type">{{
+                    getTypeTitle(type)
+                }}</span>
+                <span class="q-result-type__title__percentage">{{
+                    getTypePercentage(type)
+                }}</span>
             </div>
             <div class="q-result-type__subtitle">
+                <span class="q-result-type__subtitle__keywords">{{
+                    getTypeKeywords(type)
+                }}</span>
+                -
                 {{ getTypeDescription(type) }}
                 <a :href="readMore">Lees meer</a>
             </div>
@@ -25,27 +35,45 @@
     -webkit-tap-highlight-color: transparent;
 
     &__description {
-        margin-bottom: 1rem;
+        margin-bottom: 0.125rem;
         font-weight: bold;
     }
 
     &__type {
-        margin-bottom: 1rem;
+        padding: 0.75rem 0rem;
     }
 
     &__title {
         font-weight: 500;
         font-size: 1.5rem;
-        text-align: center;
-        margin-bottom: 0.5rem;
+        align-items: center;
         line-height: 2.5rem;
+        display: flex;
+        justify-content: center;
+
+        &__percentage {
+            font-size: 0.875rem;
+            margin-left: 0.375rem;
+        }
+
+        &__type {
+            margin-left: 0.375rem;
+        }
     }
 
     &__subtitle {
         text-align: center;
         font-size: 1rem;
+
+        &__keywords {
+            text-decoration: underline;
+        }
+
         & a {
             display: block;
+            color: #2f9a6e;
+            text-decoration: none;
+            margin-top: 0.25rem;
         }
     }
 }
@@ -69,6 +97,9 @@ export default defineComponent({
             type: Function,
         },
         getTypePercentage: {
+            type: Function,
+        },
+        getTypeKeywords: {
             type: Function,
         },
         readMore: {
