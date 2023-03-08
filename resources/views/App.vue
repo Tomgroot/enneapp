@@ -4,7 +4,7 @@
         :question-data-raw="questionDataRaw"
         @results="(value, win) => finish(value, win)"
     />
-    <EmailPage v-else-if="!saved" />
+    <EmailPage v-else-if="!saved" :results="results" @saved="save()" />
     <ResultPage v-else :results="results" :winner="winner" />
 </template>
 <style lang="scss" scoped></style>
@@ -40,6 +40,7 @@ export default defineComponent({
             if (results && localStorage.winner) {
                 this.results = results;
                 this.winner = localStorage.winner;
+                this.saved = true;
             }
         } catch (e) {
             console.log('Failed parsing the result');
@@ -51,6 +52,9 @@ export default defineComponent({
             this.winner = winner.toString();
             localStorage.results = JSON.stringify(results);
             localStorage.winner = winner;
+        },
+        save(): void {
+            this.saved = true;
         },
     },
 });

@@ -2,27 +2,82 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\Result;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ResultController extends Controller
 {
-    private array $questions;
-
-    public function __construct()
+    public function get(Request $request)
     {
+        $results = Result::orderBy('created_at', 'desc')->get();
+        return response()->json($results);
     }
 
-    /**
-     * Show the result
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function show()
+    public function store(Request $request)
     {
-        return view('result', [
-        ]);
-    }
+        $rules = [
+            'result' => 'required|string',
+            'email' => 'required|string|email|max:255'
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            return [
+                "status" => 0,
+                "error" => $validator->errors()
+            ];
+        }
 
+        $data = $request->input();
+        //Test if result JSON is in correct format
+        $resultData = json_decode($data['result'], true);
+        if (!(json_last_error() === JSON_ERROR_NONE)) {
+            return [
+                "status" => 0,
+                "error" => "Result JSON not in correct format (210)",
+            ];
+        }
+        $rules = [
+            'keywords' => 'required|array',
+            'summaries' => 'required|array',
+            'statements' => 'required|array',
+            'winners' => 'required|array',
+            'percentages' => 'required|array',
+        ];
+        $validator = Validator::make($resultData, $rules);
+        if ($validator->fails()) {
+            return [
+                "status" => 0,
+                "error" => "Result JSON not in correct format (211)"
+            ];
+        }
+
+
+        try{
+            $result = new Result;
+            $result->email = $data['email'];
+            $result->result = $data['result'];
+
+            $result->newsletter = (isset($data['newsletter']) && $data['newsletter']);
+            $result->secret = '';
+            $result->uri = '';
+            $result->save();
+
+            $random_uri = bin2hex(random_bytes(20));
+            $result->uri = '/result/' . $result->id . '/' . $random_uri;
+            $result->secret = password_hash($random_uri, PASSWORD_BCRYPT);
+            $result->save();
+
+            return [
+                "status" => 1,
+                "data" => $result
+            ];
+        } catch(Exception $e){
+            return [
+                "status" => 0,
+                "error" => $e->getMessage()
+            ];
+        }
+    }
 }
-
-

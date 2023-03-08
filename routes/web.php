@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\TestController;
-use \App\Http\Controllers\ResultController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\ResultController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +17,5 @@ use \App\Http\Controllers\ResultController;
 
 Route::get('/', [TestController::class, 'show']);
 
-Route::get('/result', [ResultController::class, 'show']);
-Route::post('/result', [ResultController::class, 'calculate']);
+Route::post('result', [ResultController::class, 'store']);
+Route::get('result', [ResultController::class, 'get']);

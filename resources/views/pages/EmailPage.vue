@@ -24,7 +24,7 @@
                     type="checkbox"
                     name="checkbox"
                     value="newsletter"
-                    checked
+                    v-model="newsletter"
                 />Aanmelden voor nieuwsbrief</label
             >
             <input
@@ -116,21 +116,43 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TestHeader from '../components/test/TestHeader.vue';
+import axios from 'axios';
 
 export default defineComponent({
     components: {
         TestHeader,
     },
+    props: {
+        results: {
+            type: Object,
+            required: true,
+        },
+    },
     data() {
         return {
             email: '',
             error: '',
+            newsletter: true,
         };
     },
     methods: {
         submit() {
-            console.log(this.email, this.isValidEmail());
             this.showEmailValidation(false);
+            if (this.isValidEmail()) {
+                axios
+                    .post('result', {
+                        email: this.email,
+                        newsletter: this.newsletter,
+                        result: JSON.stringify(this.results),
+                    })
+                    .then(function (response) {
+                        console.log('DONE!', response);
+                    })
+                    .catch(function (error) {
+                        console.log('ERROR!', error);
+                    });
+                this.$emit('saved');
+            }
         },
         isValidEmail() {
             const validRegex =
