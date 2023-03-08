@@ -12,12 +12,10 @@
     </div>
 </template>
 <style lang="scss" scoped>
+@import './resources/sass/card';
 .q-result-type {
-    background-color: #fff;
-    border-radius: 1.1rem;
-    padding: 1.5rem;
-    cursor: pointer;
-    box-shadow: 0px 3px 3px rgb(236 137 69 / 20%);
+    @extend %q-card;
+    margin-bottom: 0;
     transition: all 200ms ease;
     -webkit-tap-highlight-color: transparent;
 

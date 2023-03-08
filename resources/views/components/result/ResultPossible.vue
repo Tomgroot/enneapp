@@ -30,7 +30,6 @@
     @extend %q-card;
     margin-top: 2rem;
     text-align: center;
-    cursor: pointer;
     transition: all 200ms ease;
     -webkit-tap-highlight-color: transparent;
 
