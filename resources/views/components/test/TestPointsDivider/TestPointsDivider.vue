@@ -16,6 +16,7 @@
 </template>
 <style lang="scss" scoped>
 @import './resources/sass/card';
+@import './resources/sass/variables';
 .q-points-divider {
     display: flex;
     flex-direction: column;
@@ -29,7 +30,7 @@
         margin-bottom: 2.5rem;
 
         &.selected {
-            background-color: rgba(236, 137, 69, 1);
+            background-color: $orange-color;
             box-shadow: none;
             color: white;
         }
@@ -45,15 +46,15 @@
             height: 2rem;
             cursor: pointer;
             width: 2rem;
-            box-shadow: 0 3px 3px rgb(236 137 69 / 20%);
+            box-shadow: 0 3px 3px rgba($orange-color, 0.2);
             border-radius: 50%;
-            border: 3px solid #2f9a6e;
+            border: 3px solid $green-color;
             background-color: white;
             margin: 0 0.25rem;
             transition: all 200ms ease;
 
             &.selected {
-                background-color: #2f9a6e;
+                background-color: $green-color;
             }
         }
     }

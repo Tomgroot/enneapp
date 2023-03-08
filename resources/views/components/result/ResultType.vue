@@ -13,6 +13,7 @@
 </template>
 <style lang="scss" scoped>
 @import './resources/sass/card';
+@import './resources/sass/variables';
 .q-result-type {
     @extend %q-card;
     margin-bottom: 0;
@@ -37,7 +38,7 @@
 
         & a {
             display: block;
-            color: #2f9a6e;
+            color: $green-color;
             margin-top: 0.25rem;
             text-decoration: none;
         }

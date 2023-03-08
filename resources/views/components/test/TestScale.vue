@@ -30,6 +30,7 @@
     </div>
 </template>
 <style lang="scss" scoped>
+@import './resources/sass/variables';
 .q-scale {
     text-align: center;
     margin-top: 2rem;
@@ -60,41 +61,41 @@
 
         &.selected {
             & .q-scale__checkmark {
-                background-color: #ec8945;
-                box-shadow: 0 2px 3px rgba(218, 83, 63, 0.3);
+                background-color: $orange-color;
+                box-shadow: 0 2px 3px rgba($orange-color, 0.3);
             }
             &.agree {
                 & .q-scale__checkmark {
-                    background-color: #2f9a6e;
-                    box-shadow: 0 2px 3px rgba(47, 154, 110, 0.3);
+                    background-color: $green-color;
+                    box-shadow: 0 2px 3px rgba($green-color, 0.3);
                 }
             }
             &.disagree {
                 & .q-scale__checkmark {
-                    background-color: #da533f;
-                    box-shadow: 0 2px 3px rgba(218, 83, 63, 0.3);
+                    background-color: $red-color;
+                    box-shadow: 0 2px 3px rgba($red-color, 0.3);
                 }
             }
         }
 
         &.agree {
             & .q-scale__checkmark {
-                box-shadow: 0 0 0 3px rgba(47, 154, 110, 0.3),
-                    0 3px 6px rgba(47, 154, 110, 0.5);
+                box-shadow: 0 0 0 3px rgba($green-color, 0.3),
+                    0 3px 6px rgba($green-color, 0.5);
 
                 &__title {
-                    color: #2f9a6e;
+                    color: $green-color;
                 }
             }
         }
 
         &.disagree {
             & .q-scale__checkmark {
-                box-shadow: 0 0 0 3px rgba(218, 83, 63, 0.3),
-                    0 3px 6px rgba(218, 83, 63, 0.5);
+                box-shadow: 0 0 0 3px rgba($red-color, 0.3),
+                    0 3px 6px rgba($red-color, 0.5);
 
                 &__title {
-                    color: #da533f;
+                    color: $red-color;
                 }
             }
         }
@@ -108,11 +109,11 @@
         caret-color: transparent;
         transition: all ease 200ms;
         background-color: white;
-        box-shadow: 0 0 0 3px rgba(236, 137, 69, 0.3),
-            0 3px 6px rgba(236, 137, 69, 0.5);
+        box-shadow: 0 0 0 3px rgba($orange-color, 0.3),
+            0 3px 6px rgba($orange-color, 0.5);
 
         &__title {
-            color: #ec8945;
+            color: $orange-color;
         }
     }
 }

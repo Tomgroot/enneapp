@@ -1,7 +1,8 @@
+@import 'variables';
 .q-card, %q-card {
     background-color: #fff;
     border-radius: 1.1rem;
     padding: 1.5rem;
     margin-bottom: 0.75rem;
-    box-shadow: 0px 3px 3px rgba(236, 137, 69, 0.2);
+    box-shadow: 0px 3px 3px rgba($orange-color, 0.2);
 }

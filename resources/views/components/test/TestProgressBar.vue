@@ -38,6 +38,7 @@
 </template>
 <style lang="scss" scoped>
 @import './resources/sass/slider';
+@import './resources/sass/variables';
 .q-progress-bar {
     display: flex;
     position: fixed;
@@ -47,8 +48,8 @@
     left: 1rem;
     max-width: 560px;
     margin: 0 auto;
-    background-color: #fcf5ed;
-    box-shadow: 0 20px 20px 35px #fcf5ed;
+    background-color: $bg-color;
+    box-shadow: 0 20px 20px 35px $bg-color;
 
     &__btn {
         background-color: white;
@@ -57,21 +58,21 @@
         height: 1rem;
         padding: 0.5rem;
         cursor: pointer;
-        box-shadow: 0 3px 3px rgba(236, 137, 69, 0.2);
+        box-shadow: 0 3px 3px rgba($orange-color, 0.2);
         transition: all ease 200ms;
         -webkit-tap-highlight-color: transparent;
 
         &.disabled {
             box-shadow: none;
             cursor: auto;
-            background-color: #f9e5cd;
+            background-color: $darker-bg-color;
             pointer-events: none;
         }
 
         & svg {
             max-width: 100%;
             max-height: 100%;
-            fill: #563118;
+            fill: $text-color;
         }
     }
 

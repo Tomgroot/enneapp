@@ -13,6 +13,7 @@
 </template>
 <style lang="scss" scoped>
 @import './resources/sass/card';
+@import './resources/sass/variables';
 .q-options {
     display: flex;
     flex-direction: column;
@@ -25,7 +26,7 @@
         -webkit-tap-highlight-color: transparent;
 
         &.selected {
-            background-color: rgba(236, 137, 69, 1);
+            background-color: $orange-color;
             box-shadow: none;
             color: white;
         }

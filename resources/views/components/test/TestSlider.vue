@@ -32,6 +32,7 @@
 <style lang="scss" scoped>
 @import './resources/sass/card';
 @import './resources/sass/slider';
+@import './resources/sass/variables';
 .q-slider {
     display: flex;
     flex-direction: column;
@@ -57,7 +58,7 @@
                 position: absolute;
                 right: -0.375rem;
                 bottom: -0.375rem;
-                background-color: #2f9a6e;
+                background-color: $green-color;
                 border-radius: 50%;
                 width: 0.375rem;
                 height: 0.375rem;
@@ -74,7 +75,7 @@
                     position: absolute;
                     bottom: 100%;
                     right: -65%;
-                    background-color: #2f9a6e;
+                    background-color: $green-color;
                     margin-bottom: 0.75rem;
                     color: white;
                     border-radius: 50%;
@@ -101,7 +102,7 @@
                         transform: translateX(-50%);
                         border-left: 0.8rem solid transparent;
                         border-right: 0.8rem solid transparent;
-                        border-top: 0.7rem solid #2f9a6e;
+                        border-top: 0.7rem solid $green-color;
                     }
                 }
             }

@@ -4,6 +4,7 @@
         :question-data-raw="questionDataRaw"
         @results="(value, win) => finish(value, win)"
     />
+    <!--    <EmailPage v-else-if="!saved" />-->
     <ResultPage v-else :results="results" :winner="winner" />
 </template>
 <style lang="scss" scoped></style>
@@ -11,12 +12,14 @@
 import { defineComponent } from 'vue';
 import TestPage from './pages/TestPage.vue';
 import ResultPage from './pages/ResultPage.vue';
+import EmailPage from './pages/EmailPage.vue';
 import type { IResults } from './types';
 
 export default defineComponent({
     components: {
         ResultPage,
         TestPage,
+        EmailPage,
     },
     props: {
         questionDataRaw: {
@@ -28,6 +31,7 @@ export default defineComponent({
         return {
             results: undefined as IResults | undefined,
             winner: undefined as string | undefined,
+            saved: false,
         };
     },
     created() {
