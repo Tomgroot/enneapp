@@ -4,7 +4,7 @@
         :question-data-raw="questionDataRaw"
         @results="(value, win) => finish(value, win)"
     />
-    <!--    <EmailPage v-else-if="!saved" />-->
+    <EmailPage v-else-if="!saved" />
     <ResultPage v-else :results="results" :winner="winner" />
 </template>
 <style lang="scss" scoped></style>
