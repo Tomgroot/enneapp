@@ -16,6 +16,12 @@ jobs:
           command: install
           dev: no
       - name: Run Migration
+        env:
+          DB_HOST=${{ secrets.db_host }}
+          DB_PORT=${{ secrets.db_port }}
+          DB_DATABASE=${{ secrets.db_database }}
+          DB_USERNAME=${{ secrets.db_username }}
+          DB_PASSWORD=${{ secrets.db_password }}
         run: |
           php artisan migrate --force
       - name: Use Node.js 16
