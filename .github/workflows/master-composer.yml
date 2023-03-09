@@ -2,7 +2,7 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
+    paths:
       - 'composer.json'
       - 'composer.lock'
 name: 🔥 Deploy enneapp
@@ -46,5 +46,3 @@ jobs:
           username: ${{ secrets.enneapp_username }}
           password: ${{ secrets.enneapp_password }}
           server-dir: /
-          exclude: |
-            **/vendor/**
