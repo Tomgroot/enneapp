@@ -37,7 +37,7 @@ jobs:
         with:
           cmd: build
       - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           server: web0078.zxcs.nl
           username: ${{ secrets.enneapp_username }}
