@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
 use App\Models\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class ResultController extends Controller
 {
-    public function get(Request $request)
+    public function get($id, $hash)
     {
-        $results = Result::orderBy('created_at', 'desc')->get();
-        return response()->json($results);
+        return response()->json([
+            'data' => $hash.$id
+        ]);
     }
 
     public function store(Request $request)
@@ -68,6 +71,7 @@ class ResultController extends Controller
             $result->uri = '/result/' . $result->id . '/' . $random_uri;
             $result->secret = password_hash($random_uri, PASSWORD_BCRYPT);
             $result->save();
+            $this->send($result->email, $result->uri);
 
             return [
                 "status" => 1,
@@ -79,5 +83,15 @@ class ResultController extends Controller
                 "error" => $e->getMessage()
             ];
         }
+    }
+
+    public function send($to, $uri) {
+        $mailData = [
+            'uri' => config('app.name').$uri
+        ];
+
+        Mail::to($to)->send(new SendMail($mailData));
+
+        dd('Success! Email has been sent successfully.');
     }
 }
