@@ -55,6 +55,7 @@
             position: relative;
 
             &__knob {
+                -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
                 position: absolute;
                 right: -0.375rem;
                 bottom: -0.375rem;
@@ -150,11 +151,10 @@ export default defineComponent({
             return '0%';
         },
         startDrag(event: MouseEvent | TouchEvent) {
-            if (this.disabled) {
-                return;
-            }
-
             const handleMouseDown = (event: MouseEvent | TouchEvent) => {
+                if (this.disabled) {
+                    return;
+                }
                 this.dragging = true;
                 const leftLocation = this.$el.getBoundingClientRect().left;
                 const width = this.$el.getBoundingClientRect().width;
@@ -175,6 +175,9 @@ export default defineComponent({
             document.addEventListener('touchmove', handleMouseDown);
 
             const stopSlider = () => {
+                if (this.disabled) {
+                    return;
+                }
                 this.dragging = false;
                 document.removeEventListener('mousemove', handleMouseDown);
                 document.removeEventListener('touchmove', handleMouseDown);
@@ -183,6 +186,10 @@ export default defineComponent({
 
             document.onmouseup = stopSlider;
             document.onmouseleave = stopSlider;
+
+            document.ontouchcancel = stopSlider;
+            document.ontouchend = stopSlider;
+
             window.onresize = stopSlider;
         },
     },
