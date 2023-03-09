@@ -1,9 +1,8 @@
 on:
   push:
-    branches: [ master ]
-    paths-ignore:
-      - 'composer.json'
-name: 🚀 Deploy website on push
+    branches:
+      - main
+name: 🔥 Composer update
 jobs:
   web-deploy:
     name: 🎉 Deploy
@@ -11,6 +10,11 @@ jobs:
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2.3.2
+      - name: 🔨 Composer install
+        uses: php-actions/composer@v6
+        with:
+          command: install
+          dev: no
       - name: Run Migration
         run: |
           php artisan migrate --force
