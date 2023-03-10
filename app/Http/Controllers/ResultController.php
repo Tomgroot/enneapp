@@ -11,11 +11,22 @@ use Illuminate\Support\Facades\Validator;
 
 class ResultController extends Controller
 {
-    public function get($id, $hash)
+    public function show($id, $hash)
     {
-        return response()->json([
-            'data' => $hash.$id
-        ]);
+
+        $result = Result::where('id', $id)->first();
+        if ($result) {
+            if (password_verify($hash, $result->secret)) {
+                $winner = json_decode($result->result)->winners[0];
+                if (!empty($winner)) {
+                    return view('result', [
+                        'winner' => $winner,
+                        'result' => str_replace("'", "\'", $result->result)
+                    ]);
+                }
+            }
+        }
+        abort(404);
     }
 
     public function store(Request $request)
@@ -68,7 +79,7 @@ class ResultController extends Controller
             $result->save();
 
             $random_uri = bin2hex(random_bytes(20));
-            $result->uri = '/result/' . $result->id . '/' . $random_uri;
+            $result->uri = config('app.url').'/result/' . $result->id . '/' . $random_uri;
             $result->secret = password_hash($random_uri, PASSWORD_BCRYPT);
             $result->save();
             $this->send($result->email, $result->uri);
@@ -85,13 +96,10 @@ class ResultController extends Controller
         }
     }
 
-    public function send($to, $uri) {
+    public function send($to, $uri): void {
         $mailData = [
-            'uri' => config('app.name').$uri
+            'uri' => $uri
         ];
-
         Mail::to($to)->send(new SendMail($mailData));
-
-        dd('Success! Email has been sent successfully.');
     }
 }

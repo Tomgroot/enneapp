@@ -1,6 +1,11 @@
 <template>
     <div class="q-result-type">
-        <div class="q-result-type__title">Type {{ title }}</div>
+        <div class="q-result-type__title">
+            Type {{ title }}
+            <span class="q-result-type__title__percentage">{{
+                percentage
+            }}</span>
+        </div>
         <div class="q-result-type__subtitle">
             <span class="q-result-type__subtitle__keywords">{{
                 keywords
@@ -25,7 +30,14 @@
         font-size: 1.75rem;
         text-align: center;
         margin-bottom: 0.75rem;
-        line-height: 2.5rem;
+        display: flex;
+        flex-direction: column;
+
+        &__percentage {
+            font-weight: normal;
+            font-size: 0.875rem;
+            margin-left: 0.375rem;
+        }
     }
 
     &__subtitle {
@@ -62,6 +74,10 @@ export default defineComponent({
             default: '',
         },
         keywords: {
+            type: String,
+            default: '',
+        },
+        percentage: {
             type: String,
             default: '',
         },

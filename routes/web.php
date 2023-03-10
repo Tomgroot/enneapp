@@ -18,4 +18,7 @@ use App\Http\Controllers\ResultController;
 Route::get('/', [TestController::class, 'show']);
 
 Route::post('result', [ResultController::class, 'store']);
-//Route::get('result/{id}/{hash}', [ResultController::class, 'get']);
+Route::get('result', function () {
+    abort(404);
+});
+Route::get('result/{id}/{hash}', [ResultController::class, 'show']);

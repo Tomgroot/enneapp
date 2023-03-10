@@ -4,6 +4,7 @@
         <ResultType
             :title="getTypeTitle(winner)"
             :subtitle="getTypeDescription(winner)"
+            :percentage="getTypePercentage(winner)"
             :keywords="getTypeKeywords(winner)"
             :picture="getTypePicture(winner)"
             read-more="https://www.identiteitsystemen.nl/enneagram/"
@@ -31,12 +32,35 @@
             :get-type-keywords="getTypeKeywords"
             read-more="https://www.identiteitsystemen.nl/enneagram/"
         />
+        <a class="result__again-btn">Doe de test nog een keer &#8250;</a>
     </div>
 </template>
 <style lang="scss" scoped>
+@import './resources/sass/variables';
 .result {
     &__chart {
         margin-top: 2rem;
+    }
+    &__again-btn {
+        border: none;
+        background-color: $green-color;
+        color: white;
+        padding: 0.75rem;
+        margin-top: 2rem;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        transition: 100ms ease all;
+        align-self: center;
+        cursor: pointer;
+
+        &:hover {
+            box-shadow: 0px 3px 3px rgba($green-color, 0.2);
+        }
+
+        &:active {
+            box-shadow: 0px 0px 2px rgba($green-color, 0.2);
+            transform: translateY(0.125rem);
+        }
     }
 }
 </style>

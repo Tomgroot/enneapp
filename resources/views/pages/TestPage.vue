@@ -146,6 +146,9 @@ export default defineComponent({
                 this.nr = 999;
                 const win =
                     winner && winner.type ? winner.type : results.winners[0];
+                if (results.winners.length > 1) {
+                    results.winners = [win];
+                }
                 this.$emit('results', results, win);
             }
         },
