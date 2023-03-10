@@ -32,7 +32,9 @@
             :get-type-keywords="getTypeKeywords"
             read-more="https://www.identiteitsystemen.nl/enneagram/"
         />
-        <a class="result__again-btn">Doe de test nog een keer &#8250;</a>
+        <a class="result__again-btn" @click="resetResult()"
+            >Doe de test nog een keer &#8250;</a
+        >
     </div>
 </template>
 <style lang="scss" scoped>
@@ -170,6 +172,11 @@ export default defineComponent({
                 return [this.results.ordered[8], this.results.ordered[7]];
             }
             return [];
+        },
+        resetResult() {
+            localStorage.removeItem('winner');
+            localStorage.removeItem('results');
+            window.location.href = '';
         },
     },
 });
