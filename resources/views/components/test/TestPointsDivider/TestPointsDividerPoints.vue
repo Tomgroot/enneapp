@@ -50,7 +50,6 @@ export default defineComponent({
         },
     },
     methods: {
-        select: function (i: number, option: IOption) {},
         getPoints: function () {
             const points = [];
             for (let i = 0; i < this.nrSelected + this.leftToDivide; i++) {

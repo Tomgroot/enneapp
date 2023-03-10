@@ -86,6 +86,9 @@ export default defineComponent({
     },
     methods: {
         point(i: number, points: number, option: IOption) {
+            if (this.selected) {
+                this.selectedPoints = this.selected as IDividedPoints[];
+            }
             if (
                 this.selectedPoints[i] &&
                 this.selectedPoints[i].points &&
