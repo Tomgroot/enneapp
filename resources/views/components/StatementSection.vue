@@ -59,7 +59,10 @@ export default defineComponent({
                     points: 1,
                 };
             } else {
-                this.selected[this.nr] = { type: 0, content: '', points: 0 };
+                this.selected[this.nr] = {
+                    ...(this.statements[this.nr] as IScale),
+                    points: 0,
+                };
             }
             setTimeout(() => {
                 this.$emit('next', this.selected);

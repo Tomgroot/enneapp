@@ -33,6 +33,7 @@ class ResultController extends Controller
     {
         $rules = [
             'result' => 'required|string',
+            'selected' => 'required|string',
             'email' => 'required|string|email|max:255'
         ];
         $validator = Validator::make($request->all(),$rules);
@@ -67,11 +68,32 @@ class ResultController extends Controller
             ];
         }
 
+        $resultData = json_decode($data['selected'], true);
+        if (!(json_last_error() === JSON_ERROR_NONE)) {
+            return [
+                "status" => 0,
+                "error" => "Selected JSON not in correct format (210)",
+            ];
+        }
+        $rules = [
+            'keywords' => 'required|array',
+            'summaries' => 'required|array',
+            'statements' => 'required|array',
+        ];
+        $validator = Validator::make($resultData, $rules);
+        if ($validator->fails()) {
+            return [
+                "status" => 0,
+                "error" => "Selected JSON not in correct format (211)"
+            ];
+        }
+
 
         try{
             $result = new Result;
             $result->email = $data['email'];
             $result->result = $data['result'];
+            $result->selected = $data['selected'];
 
             $result->newsletter = (isset($data['newsletter']) && $data['newsletter']);
             $result->secret = '';

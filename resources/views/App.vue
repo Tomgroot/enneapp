@@ -2,9 +2,14 @@
     <TestPage
         v-if="!results"
         :question-data-raw="questionDataRaw"
-        @results="(value, win) => finish(value, win)"
+        @results="(value, win, selected) => finish(value, win, selected)"
     />
-    <EmailPage v-else-if="!saved" :results="results" @saved="save()" />
+    <EmailPage
+        v-else-if="!saved"
+        :results="results"
+        :selected="selected"
+        @saved="save()"
+    />
     <ResultPage v-else :results="results" :winner="winner" />
 </template>
 <style lang="scss" scoped></style>
@@ -13,7 +18,7 @@ import { defineComponent } from 'vue';
 import TestPage from './pages/TestPage.vue';
 import ResultPage from './pages/ResultPage.vue';
 import EmailPage from './pages/EmailPage.vue';
-import type { IResults } from './types';
+import type { IResults, ISelected } from './types';
 
 export default defineComponent({
     components: {
@@ -30,6 +35,7 @@ export default defineComponent({
     data() {
         return {
             results: undefined as IResults | undefined,
+            selected: undefined as ISelected | undefined,
             winner: undefined as string | undefined,
             saved: false,
         };
@@ -47,9 +53,10 @@ export default defineComponent({
         }
     },
     methods: {
-        finish(results: IResults, winner: number): void {
+        finish(results: IResults, winner: number, selected: ISelected): void {
             this.results = results;
             this.winner = winner.toString();
+            this.selected = selected;
             localStorage.results = JSON.stringify(results);
             localStorage.winner = winner;
         },

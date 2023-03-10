@@ -149,7 +149,7 @@ export default defineComponent({
                 if (results.winners.length > 1) {
                     results.winners = [win];
                 }
-                this.$emit('results', results, win);
+                this.$emit('results', results, win, this.selected);
             }
         },
         prev() {

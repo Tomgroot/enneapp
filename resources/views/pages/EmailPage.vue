@@ -127,6 +127,10 @@ export default defineComponent({
             type: Object,
             required: true,
         },
+        selected: {
+            type: Object,
+            required: true,
+        },
     },
     data() {
         return {
@@ -144,6 +148,7 @@ export default defineComponent({
                         email: this.email,
                         newsletter: this.newsletter,
                         result: JSON.stringify(this.results),
+                        selected: JSON.stringify(this.selected),
                     })
                     .then(function (response) {
                         console.log('DONE!', response);
