@@ -8,7 +8,18 @@
             <div class="email-page__form__error" v-if="error">
                 {{ error }}
             </div>
-            <label for="email">E-mailadres</label>
+            <label for="name">Naam</label>
+            <input
+                type="text"
+                id="name"
+                v-model="name"
+                placeholder="Je naam"
+                name="name"
+                class="email-page__form__name"
+            />
+            <label for="email" class="email-page__form__email__label"
+                >E-mailadres</label
+            >
             <input
                 @blur="showEmailValidation()"
                 :class="{ error: !!error }"
@@ -63,7 +74,8 @@
             }
         }
 
-        &__email {
+        &__email,
+        &__name {
             padding: 0.75rem;
             font-size: 0.875rem;
             color: $text-color;
@@ -72,6 +84,10 @@
             outline: none;
             transition: 100ms ease all;
             font-family: inherit;
+
+            &__label {
+                margin-top: 0.5rem;
+            }
 
             &:hover {
                 box-shadow: 0px 3px 3px rgba($green-color, 0.2);
@@ -135,6 +151,7 @@ export default defineComponent({
     data() {
         return {
             email: '',
+            name: '',
             error: '',
             newsletter: true,
         };
@@ -142,10 +159,12 @@ export default defineComponent({
     methods: {
         submit() {
             this.showEmailValidation(false);
-            if (this.isValidEmail()) {
+            this.showNameValidation();
+            if (this.isValidEmail() && this.name !== '') {
                 axios
                     .post('result', {
                         email: this.email,
+                        name: this.name,
                         newsletter: this.newsletter,
                         result: JSON.stringify(this.results),
                         selected: JSON.stringify(this.selected),
@@ -166,6 +185,13 @@ export default defineComponent({
                 return true;
             }
             return false;
+        },
+        showNameValidation() {
+            if (this.name === '') {
+                this.error = 'Vul je naam in';
+            } else {
+                this.error = '';
+            }
         },
         showEmailValidation(ignoreEmpty = true) {
             if ((this.email || !ignoreEmpty) && !this.isValidEmail()) {

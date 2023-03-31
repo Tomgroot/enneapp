@@ -54,8 +54,8 @@
     &__btn {
         background-color: white;
         border-radius: 50%;
-        width: 1rem;
-        height: 1rem;
+        width: 1.3rem;
+        height: 1.3rem;
         padding: 0.5rem;
         cursor: pointer;
         box-shadow: 0 3px 3px rgba($orange-color, 0.2);

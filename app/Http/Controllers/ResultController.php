@@ -34,7 +34,8 @@ class ResultController extends Controller
         $rules = [
             'result' => 'required|string',
             'selected' => 'required|string',
-            'email' => 'required|string|email|max:255'
+            'email' => 'required|string|email|max:255',
+            'name' => 'required|string|max:255'
         ];
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()) {
@@ -92,6 +93,7 @@ class ResultController extends Controller
         try{
             $result = new Result;
             $result->email = $data['email'];
+            $result->name = $data['name'];
             $result->result = $data['result'];
             $result->selected = $data['selected'];
 
