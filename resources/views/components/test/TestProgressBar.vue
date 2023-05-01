@@ -48,6 +48,12 @@
         transition: all ease 200ms;
         -webkit-tap-highlight-color: transparent;
 
+        @media screen and (min-width: 800px) {
+            width: 2rem;
+            height: 2rem;
+            padding: 1rem;
+        }
+
         &.disabled {
             box-shadow: none;
             cursor: auto;
