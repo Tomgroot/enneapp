@@ -1,11 +1,12 @@
 @import 'variables';
 %q-slider {
     background-color: $darker-bg-color;
-    border-radius: 0.125rem;
-    height: 0.25rem;
+    border-radius: 0.25rem;
+    height: 0.188rem;
+    overflow: hidden;
 
     &__progress {
-        border-radius: 0.125rem;
+        border-radius: 0.25rem;
         background-color: $green-color;
         height: 100%;
         width: 0;

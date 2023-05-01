@@ -93,6 +93,18 @@ export default defineComponent({
             transition: true,
         };
     },
+    mounted: function() {
+        history.pushState(null, document.title, location.href);
+        window.addEventListener('popstate', (event) => {
+            if (this.nr > 0) {
+                this.prev();
+                history.pushState(null, document.title, location.href);
+                event.preventDefault();
+            } else {
+                history.back();
+            }
+        });
+    },
     methods: {
         selectStatements(selected: ISelectedPoints[]): void {
             this.selected.statements = selected;
