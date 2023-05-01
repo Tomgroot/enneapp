@@ -19,7 +19,7 @@ return [
         ],
         [
             'type' => 1,
-            'content' => 'Ik besef dat mijn lat hoog ligt en ik moet daaraan wel voldoen. Fouten maken vind ik verschrikkelijk.',
+            'content' => 'Ik besef dat mijn lat hoog ligt en ik moet daaraan wel voldoen.',
         ],
         [
             'type' => 1,
@@ -27,11 +27,11 @@ return [
         ],
         [
             'type' => 1,
-            'content' => 'Ik heb een soort innerlijk lijstje van wat goed en niet goed is.',
+            'content' => 'Ik heb een soort innerlijk lijstje van normen en waarden. Ik weet wat goed en niet goed is.',
         ],
         [
             'type' => 1,
-            'content' => 'Ik heb er last van dat de dingen niet zijn zoals ik vind dat ze moeten zijn.',
+            'content' => 'Ik ben er altijd op gericht om fouten te voorkomen.',
         ],
         [
             'type' => 1,
@@ -51,7 +51,7 @@ return [
         ],
         [
             'type' => 2,
-            'content' => 'Ik ben altijd alert of ik anderen kan helpen of in hun behoefte kan voorzien. Dat is een soort tweede natuur van me.',
+            'content' => 'Mijn leven draait om zorgen voor anderen en in hun onvervulde behoefte voorzien.',
         ],
         [
             'type' => 2,
@@ -63,7 +63,7 @@ return [
         ],
         [
             'type' => 2,
-            'content' => 'Ik kan moeilijk met afwijzing omgaan.',
+            'content' => 'Voor mensen die mij blijven afwijzen heb ik soort uitgroep.',
         ],
         [
             'type' => 2,
@@ -71,11 +71,11 @@ return [
         ],
         [
             'type' => 2,
-            'content' => 'Ik vind het moeilijk om iemand die belangrijk voor me is af te wijzen.',
+            'content' => 'Als ik naar vrienden of familie ga, check ik bij iedereen hoe het gaat. Ze moeten weten dat ik er altijd voor hen ben.',
         ],
         [
             'type' => 2,
-            'content' => 'Ik geef mensen graag advies.',
+            'content' => 'Ik heb een neiging om te pleasen.',
         ],
         [
             'type' => 3,
@@ -83,7 +83,7 @@ return [
         ],
         [
             'type' => 3,
-            'content' => 'Ik ben er goed in de dingen te regelen en organiseren.',
+            'content' => 'Het leven bestaat eigenlijk uit allemaal projecten. Dat komt mooi uit want ik ben er goed in om te regelen en organiseren.',
         ],
         [
             'type' => 3,
@@ -107,11 +107,11 @@ return [
         ],
         [
             'type' => 3,
-            'content' => 'Ik wil graag winnen.',
+            'content' => ' Voor mijn ambitie moet veel, misschien wel alles, wijken.',
         ],
         [
             'type' => 3,
-            'content' => 'Ik weet hoe ik een goede indruk kan maken.',
+            'content' => 'Ik weet hoe ik een goede indruk kan maken. Ik pas me aan als een kameleon. ',
         ],
         [
             'type' => 4,
@@ -119,7 +119,7 @@ return [
         ],
         [
             'type' => 4,
-            'content' => 'Ik voel me anders dan anderen.',
+            'content' => 'Ik voel me anders dan anderen en soms ook onbegrepen',
         ],
         [
             'type' => 4,
@@ -127,7 +127,8 @@ return [
         ],
         [
             'type' => 4,
-            'content' => 'Ik voel me soms onbegrepen.',
+            'content' => 'Ik ben op zoek naar een unieke verbinding met mensen
+.',
         ],
         [
             'type' => 4,
@@ -135,11 +136,11 @@ return [
         ],
         [
             'type' => 4,
-            'content' => 'Ik voel me aangetrokken tot alles wat intens is.',
+            'content' => 'Ik ben een dromer en heb de neiging om aan (onbereikbare) dromen vast te houden.',
         ],
         [
             'type' => 4,
-            'content' => 'Ik verlang naar dingen die ontbreken in mijn leven en probeer voortdurend dat gemis te vullen en (onbereikbare) dromen te bereiken.',
+            'content' => 'Ik verlang naar dingen die ontbreken in mijn leven en probeer voortdurend dat gemis te vullen.',
         ],
         [
             'type' => 4,
@@ -159,15 +160,15 @@ return [
         ],
         [
             'type' => 5,
-            'content' => 'Ik word er wel eens van beschuldigd koel en afstandelijk te zijn.',
+            'content' => 'Ik word er wel eens van beschuldigd koel en afstandelijk te zijn. Ik heb soms ook moeite om contacten te leggen',
         ],
         [
             'type' => 5,
-            'content' => 'Ik vind het lastig snel te reageren en mijn standpunt direct te uiten.',
+            'content' => 'Ik vind het lastig snel te reageren en mijn standpunt direct te uiten. Ik heb even tijd nodig om alles goed te analyseren.',
         ],
         [
             'type' => 5,
-            'content' => 'Ik kan ergens helemaal induiken als ik erdoor geobsedeerd ben.',
+            'content' => 'Ik heb de neiging diepgaand te analyseren en te begrijpen.',
         ],
         [
             'type' => 5,
@@ -187,7 +188,7 @@ return [
         ],
         [
             'type' => 6,
-            'content' => 'Ik ben kritisch en ik ga door tot de onderste steen boven is als ik denk dat iets niet deugt.',
+            'content' => 'Ik zoek en test alle onmogelijkheden op zoek naar mijn waarheid. Ik zie mezelf niet als tegendraads, maar dat wordt soms wel zo ervaren.',
         ],
         [
             'type' => 6,
@@ -211,7 +212,7 @@ return [
         ],
         [
             'type' => 6,
-            'content' => 'Ik ben degene die overziet hoe dingen mis kunnen gaan. Ik heb er oog voor om problemen vroegtijdig te signaleren.',
+            'content' => 'Ik ben degene die overziet hoe dingen mis kunnen gaan en overdenk allerlei noodscenario\'s.',
         ],
         [
             'type' => 6,
@@ -219,7 +220,7 @@ return [
         ],
         [
             'type' => 6,
-            'content' => 'Ik herken snel de hiërarchie. Enerzijds vind ik die duidelijkheid belangrijk, maar anderzijds heb ik de neiging om ertegen te rebelleren.',
+            'content' => 'Ik herken snel de hiërarchie. Enerzijds biedt me dat de zekerheid die ik zoek. Anderzijds heb ik de neiging om ertegen te rebelleren.',
         ],
         [
             'type' => 7,
@@ -231,7 +232,7 @@ return [
         ],
         [
             'type' => 7,
-            'content' => 'Op feestjes ben ik vaak de gangmaker.',
+            'content' => 'Op feestjes ben ik vaak de gezellige gangmaker.',
         ],
         [
             'type' => 7,
@@ -251,7 +252,7 @@ return [
         ],
         [
             'type' => 7,
-            'content' => 'Ik pin me niet graag vast aan een activiteit, want wie weet komt er nog wat leukers op mijn pad',
+            'content' => 'Wanneer er een leukere activiteit op mijn pad komt, wring ik me in allerlei bochten om een reeds gemaakte afspraak te omzeilen',
         ],
         [
             'type' => 7,
@@ -259,11 +260,11 @@ return [
         ],
         [
             'type' => 8,
-            'content' => 'Ik vind het belangrijk sterk te zijn en mijn zwakte en kwetsbaarheid te verbergen.',
+            'content' => 'Ik vind het belangrijk sterk te zijn, anders kan ik mezelf en anderen niet beschermen.',
         ],
         [
             'type' => 8,
-            'content' => 'Ik ben graag eigen baas en houd ervan dat de dingen gaan zoals ik dat wil.',
+            'content' => 'Ik ben graag eigen baas. Zo gebeurt er tenminste wat.',
         ],
         [
             'type' => 8,
@@ -271,7 +272,7 @@ return [
         ],
         [
             'type' => 8,
-            'content' => 'Ik eis eerlijkheid.',
+            'content' => 'Ik ben een strateeg en weet op welk moment ik wat moet inbrengen om mijn doel te bereiken.',
         ],
         [
             'type' => 8,
@@ -283,15 +284,15 @@ return [
         ],
         [
             'type' => 8,
-            'content' => 'Ik zeg wat ik op mijn lever heb, ik ben recht voor zijn raap. Een fikse ruzie lucht op.',
+            'content' => 'Ik zeg duidelijk wat ik op mijn lever heb en het maakt me dan niet uit of ik anderen kwets.',
         ],
         [
             'type' => 8,
-            'content' => 'Ik maak mijn eigen regels. Ik bepaal.',
+            'content' => 'Ik bepaal. Ik heb mijn eigen regels.',
         ],
         [
             'type' => 8,
-            'content' => 'Ik voel waar iemands zwakke plekken zitten en ook wie de macht heeft.',
+            'content' => 'Wanneer ik ergens binnenkom scan ik wie (informeel) de macht heeft en ik schik me ernaar als ik niet de sterkste ben.',
         ],
         [
             'type' => 9,
@@ -303,15 +304,15 @@ return [
         ],
         [
             'type' => 9,
-            'content' => 'Ik geef makkelijker iemand zijn zin dan dat ik een scène schop. Nou ja, ik vind de meeste dingen misschien ook niet zo belangrijk.',
+            'content' => 'Ik geef meestal anderen hun zin. Ik vind de meeste dingen misschien ook niet zo belangrijk.',
         ],
         [
             'type' => 9,
-            'content' => 'Ik heb moeite mijn eigen grenzen te stellen. Liever beweeg ik mee om gedoe te voorkomen.',
+            'content' => 'Ik heb moeite mijn eigen grenzen te stellen. Liever beweeg ik wat mee.',
         ],
         [
             'type' => 9,
-            'content' => 'Ik raak zelden in de stress en word ook bijna nooit boos. Ik maak me gewoon niet druk over dingen.',
+            'content' => 'Ik raak zelden in de stress en word ook bijna nooit boos. Ik maak me gewoon niet zo druk over dingen.',
         ],
         [
             'type' => 9,
@@ -323,11 +324,11 @@ return [
         ],
         [
             'type' => 9,
-            'content' => 'Ik verlang weinig van anderen. Ik zorg ervoor dat de sfeer goed blijft.',
+            'content' => 'Ik verlang weinig van anderen. Zo zorg ik ervoor dat de sfeer goed blijft.',
         ],
         [
             'type' => 9,
-            'content' => 'Ik kan iedereen begrijpen en vele gezichtspunten innemen. Meestal neem ik zelf geen hard standpunt in.',
+            'content' => 'Ik kan iedereen begrijpen en vele gezichtspunten innemen. Meestal neem ik zelf geen duidelijk standpunt in.',
         ],
     ],
     'keywords' => [
@@ -407,7 +408,7 @@ return [
         ],
         [
             'type' => 4,
-            'content' => 'Ik ben een oprecht, gevoelig en emotioneel intens mens. Leven doe ik zoals ik dat wil en ik uit me op een manier die mijn persoonlijkheid tot leven brengt. Het is belangrijk voor mij dat ik een betekenis en doel vind in mijn leven.',
+            'content' => 'Ik ben een gevoelig en emotioneel intens mens. Leven doe ik op een manier die mijn persoonlijkheid tot uiting brengt. Het is belangrijk voor mij dat ik een betekenis vind in mijn leven.',
         ],
         [
             'type' => 4,
@@ -439,7 +440,7 @@ return [
         ],
         [
             'type' => 6,
-            'content' => 'Ik kan goed anticiperen op onvoorziene omstandigheden. Op vakantie gaat dat bijvoorbeeld over weersomstandigheden, gezondheid, begaanbare routes, eten, drinken of overnachtingsmogelijkheden. Op mijn werk overzie ik snel waar dingen fout kunnen gaan.'
+            'content' => 'Ik heb een soort oerinstinct van \'overlever\', letterlijk en figuurlijk. Dat maakt dat ik me voorbereid op onvoorziene omstandigheden. Ik stel mezelf ook wel eens op de proef door situaties aan te gaan die anderen niet zouden durven.'
         ],
         [
             'type' => 7,
@@ -467,7 +468,7 @@ return [
         ],
         [
             'type' => 9,
-            'content' => 'Ik heb de neiging belangrijke taken uit te stellen. Als er morgen nog een dag is, waarom zou je het vandaag dan doen. Vlak voor een deadline heb ik genoeg energie om alles toch op tijd klaar te hebben.',
+            'content' => 'Ik heb de neiging belangrijke taken uit te stellen. Als er morgen nog een dag is, waarom zou je het vandaag dan doen. Vlak voor een deadline heb ik genoeg energie om alles toch op tijd klaar hebben.',
         ],
         [
             'type' => 9,
